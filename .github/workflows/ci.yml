@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  core-tests:
+    name: BrewCore tests
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run unit tests
+        working-directory: BrewCore
+        run: |
+          mkdir -p "$RUNNER_TEMP/exports"
+          EXPORT_DIR="$RUNNER_TEMP/exports" swift test
+      - name: Validate exported Word document
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --quiet python-docx
+          "$RUNNER_TEMP/venv/bin/python" - <<'PY'
+          import os, docx
+          d = docx.Document(os.path.join(os.environ["RUNNER_TEMP"], "exports", "sample.docx"))
+          text = "\n".join(p.text for p in d.paragraphs)
+          assert "Juicy Hazy IPA" in text, text
+          assert len(d.tables) >= 4, len(d.tables)
+          print("docx OK:", len(d.paragraphs), "paragraphs,", len(d.tables), "tables")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sample-export
+          path: ${{ runner.temp }}/exports
+
+  app-build:
+    name: iOS app build
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build for iOS Simulator
+        run: |
+          xcodebuild -project BeerRecipe.xcodeproj -scheme BeerRecipe \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO build | tee build.log | grep -E "error:|warning:|BUILD" || true
+          grep -q "BUILD SUCCEEDED" build.log

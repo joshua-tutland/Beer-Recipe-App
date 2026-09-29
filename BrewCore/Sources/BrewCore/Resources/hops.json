@@ -1,0 +1,582 @@
+[
+ {
+  "id": "admiral",
+  "name": "Admiral",
+  "origin": "UK",
+  "alphaAcid": 14.5,
+  "betaAcid": 5.0,
+  "purpose": "bittering",
+  "aroma": "Resinous, herbal, orange",
+  "substitutes": "Target, Northdown"
+ },
+ {
+  "id": "amarillo",
+  "name": "Amarillo",
+  "origin": "US",
+  "alphaAcid": 9.0,
+  "betaAcid": 6.5,
+  "purpose": "aroma",
+  "aroma": "Orange, grapefruit, floral",
+  "substitutes": "Cascade, Centennial"
+ },
+ {
+  "id": "apollo",
+  "name": "Apollo",
+  "origin": "US",
+  "alphaAcid": 17.0,
+  "betaAcid": 6.5,
+  "purpose": "bittering",
+  "aroma": "Resin, grapefruit",
+  "substitutes": "Summit, Columbus"
+ },
+ {
+  "id": "azacca",
+  "name": "Azacca",
+  "origin": "US",
+  "alphaAcid": 15.0,
+  "betaAcid": 5.0,
+  "purpose": "dualPurpose",
+  "aroma": "Mango, tropical, citrus",
+  "substitutes": "Citra, Mosaic"
+ },
+ {
+  "id": "bramling-cross",
+  "name": "Bramling Cross",
+  "origin": "UK",
+  "alphaAcid": 6.5,
+  "betaAcid": 3.0,
+  "purpose": "aroma",
+  "aroma": "Blackcurrant, spice",
+  "substitutes": "Northern Brewer"
+ },
+ {
+  "id": "cascade",
+  "name": "Cascade",
+  "origin": "US",
+  "alphaAcid": 6.0,
+  "betaAcid": 6.0,
+  "purpose": "aroma",
+  "aroma": "Grapefruit, floral",
+  "substitutes": "Centennial, Amarillo"
+ },
+ {
+  "id": "centennial",
+  "name": "Centennial",
+  "origin": "US",
+  "alphaAcid": 10.0,
+  "betaAcid": 4.0,
+  "purpose": "dualPurpose",
+  "aroma": "Lemon, floral, pine",
+  "substitutes": "Cascade, Chinook"
+ },
+ {
+  "id": "challenger",
+  "name": "Challenger",
+  "origin": "UK",
+  "alphaAcid": 7.5,
+  "betaAcid": 4.0,
+  "purpose": "dualPurpose",
+  "aroma": "Cedar, green tea, spice",
+  "substitutes": "Northern Brewer, Perle"
+ },
+ {
+  "id": "chinook",
+  "name": "Chinook",
+  "origin": "US",
+  "alphaAcid": 13.0,
+  "betaAcid": 3.5,
+  "purpose": "dualPurpose",
+  "aroma": "Pine, grapefruit, spice",
+  "substitutes": "Columbus, Nugget"
+ },
+ {
+  "id": "citra",
+  "name": "Citra",
+  "origin": "US",
+  "alphaAcid": 12.0,
+  "betaAcid": 4.0,
+  "purpose": "dualPurpose",
+  "aroma": "Passionfruit, lime, mango",
+  "substitutes": "Mosaic, Galaxy"
+ },
+ {
+  "id": "cluster",
+  "name": "Cluster",
+  "origin": "US",
+  "alphaAcid": 7.0,
+  "betaAcid": 5.0,
+  "purpose": "dualPurpose",
+  "aroma": "Blackcurrant, floral",
+  "substitutes": "Galena"
+ },
+ {
+  "id": "columbus-ctz",
+  "name": "Columbus (CTZ)",
+  "origin": "US",
+  "alphaAcid": 15.0,
+  "betaAcid": 4.5,
+  "purpose": "bittering",
+  "aroma": "Pungent, dank, black pepper",
+  "substitutes": "Chinook, Apollo"
+ },
+ {
+  "id": "crystal",
+  "name": "Crystal",
+  "origin": "US",
+  "alphaAcid": 4.5,
+  "betaAcid": 5.5,
+  "purpose": "aroma",
+  "aroma": "Floral, spicy, woody",
+  "substitutes": "Hallertauer Mittelfrüh, Liberty"
+ },
+ {
+  "id": "east-kent-goldings",
+  "name": "East Kent Goldings",
+  "origin": "UK",
+  "alphaAcid": 5.5,
+  "betaAcid": 2.5,
+  "purpose": "aroma",
+  "aroma": "Honey, lavender, earthy",
+  "substitutes": "Fuggle, Styrian Golding"
+ },
+ {
+  "id": "ekuanot",
+  "name": "Ekuanot",
+  "origin": "US",
+  "alphaAcid": 14.5,
+  "betaAcid": 4.5,
+  "purpose": "dualPurpose",
+  "aroma": "Melon, lime, papaya, green pepper",
+  "substitutes": "Citra, Equinox"
+ },
+ {
+  "id": "el-dorado",
+  "name": "El Dorado",
+  "origin": "US",
+  "alphaAcid": 15.0,
+  "betaAcid": 7.5,
+  "purpose": "dualPurpose",
+  "aroma": "Pear, watermelon, stone fruit",
+  "substitutes": "Citra, Mosaic"
+ },
+ {
+  "id": "fuggle",
+  "name": "Fuggle",
+  "origin": "UK",
+  "alphaAcid": 4.5,
+  "betaAcid": 2.5,
+  "purpose": "aroma",
+  "aroma": "Earthy, woody, mint",
+  "substitutes": "East Kent Goldings, Willamette"
+ },
+ {
+  "id": "galaxy",
+  "name": "Galaxy",
+  "origin": "AU",
+  "alphaAcid": 14.0,
+  "betaAcid": 6.0,
+  "purpose": "dualPurpose",
+  "aroma": "Passionfruit, peach, citrus",
+  "substitutes": "Citra, Vic Secret"
+ },
+ {
+  "id": "galena",
+  "name": "Galena",
+  "origin": "US",
+  "alphaAcid": 13.0,
+  "betaAcid": 8.0,
+  "purpose": "bittering",
+  "aroma": "Blackcurrant, citrus",
+  "substitutes": "Nugget, Cluster"
+ },
+ {
+  "id": "hallertau-blanc",
+  "name": "Hallertau Blanc",
+  "origin": "DE",
+  "alphaAcid": 10.0,
+  "betaAcid": 5.0,
+  "purpose": "aroma",
+  "aroma": "White wine, gooseberry, grape",
+  "substitutes": "Nelson Sauvin"
+ },
+ {
+  "id": "hallertauer-hersbrucker",
+  "name": "Hallertauer Hersbrucker",
+  "origin": "DE",
+  "alphaAcid": 3.5,
+  "betaAcid": 5.0,
+  "purpose": "aroma",
+  "aroma": "Floral, hay, spice",
+  "substitutes": "Hallertauer Mittelfrüh, Liberty"
+ },
+ {
+  "id": "hallertauer-mittelfr-h",
+  "name": "Hallertauer Mittelfrüh",
+  "origin": "DE",
+  "alphaAcid": 4.0,
+  "betaAcid": 4.0,
+  "purpose": "aroma",
+  "aroma": "Floral, spice, herbal",
+  "substitutes": "Liberty, Crystal"
+ },
+ {
+  "id": "hallertauer-tradition",
+  "name": "Hallertauer Tradition",
+  "origin": "DE",
+  "alphaAcid": 6.0,
+  "betaAcid": 4.5,
+  "purpose": "aroma",
+  "aroma": "Floral, grassy",
+  "substitutes": "Hallertauer Mittelfrüh"
+ },
+ {
+  "id": "herkules",
+  "name": "Herkules",
+  "origin": "DE",
+  "alphaAcid": 15.0,
+  "betaAcid": 4.5,
+  "purpose": "bittering",
+  "aroma": "Pepper, pine, melon",
+  "substitutes": "Magnum, Columbus"
+ },
+ {
+  "id": "huell-melon",
+  "name": "Huell Melon",
+  "origin": "DE",
+  "alphaAcid": 7.0,
+  "betaAcid": 7.5,
+  "purpose": "aroma",
+  "aroma": "Honeydew, strawberry",
+  "substitutes": "Mandarina Bavaria"
+ },
+ {
+  "id": "idaho-7",
+  "name": "Idaho 7",
+  "origin": "US",
+  "alphaAcid": 13.0,
+  "betaAcid": 4.5,
+  "purpose": "dualPurpose",
+  "aroma": "Apricot, pine, black tea",
+  "substitutes": "Citra, Galaxy"
+ },
+ {
+  "id": "liberty",
+  "name": "Liberty",
+  "origin": "US",
+  "alphaAcid": 4.5,
+  "betaAcid": 3.5,
+  "purpose": "aroma",
+  "aroma": "Spicy, floral",
+  "substitutes": "Hallertauer Mittelfrüh, Crystal"
+ },
+ {
+  "id": "loral",
+  "name": "Loral",
+  "origin": "US",
+  "alphaAcid": 11.5,
+  "betaAcid": 5.0,
+  "purpose": "dualPurpose",
+  "aroma": "Floral, citrus, dark fruit",
+  "substitutes": "Hallertauer Tradition"
+ },
+ {
+  "id": "magnum",
+  "name": "Magnum",
+  "origin": "DE",
+  "alphaAcid": 13.0,
+  "betaAcid": 6.0,
+  "purpose": "bittering",
+  "aroma": "Clean bitterness",
+  "substitutes": "Horizon, Herkules"
+ },
+ {
+  "id": "mandarina-bavaria",
+  "name": "Mandarina Bavaria",
+  "origin": "DE",
+  "alphaAcid": 8.5,
+  "betaAcid": 6.0,
+  "purpose": "aroma",
+  "aroma": "Tangerine, citrus",
+  "substitutes": "Cascade, Huell Melon"
+ },
+ {
+  "id": "mosaic",
+  "name": "Mosaic",
+  "origin": "US",
+  "alphaAcid": 12.25,
+  "betaAcid": 3.75,
+  "purpose": "dualPurpose",
+  "aroma": "Blueberry, tropical, pine",
+  "substitutes": "Citra, Galaxy"
+ },
+ {
+  "id": "motueka",
+  "name": "Motueka",
+  "origin": "NZ",
+  "alphaAcid": 7.0,
+  "betaAcid": 5.5,
+  "purpose": "dualPurpose",
+  "aroma": "Lime, lemon, tropical",
+  "substitutes": "Saaz, Nelson Sauvin"
+ },
+ {
+  "id": "mount-hood",
+  "name": "Mount Hood",
+  "origin": "US",
+  "alphaAcid": 5.0,
+  "betaAcid": 6.0,
+  "purpose": "aroma",
+  "aroma": "Mild, herbal, spicy",
+  "substitutes": "Hallertauer Mittelfrüh, Liberty"
+ },
+ {
+  "id": "nectaron",
+  "name": "Nectaron",
+  "origin": "NZ",
+  "alphaAcid": 11.0,
+  "betaAcid": 5.0,
+  "purpose": "dualPurpose",
+  "aroma": "Passionfruit, pineapple, peach",
+  "substitutes": "Citra, Galaxy"
+ },
+ {
+  "id": "nelson-sauvin",
+  "name": "Nelson Sauvin",
+  "origin": "NZ",
+  "alphaAcid": 12.0,
+  "betaAcid": 7.0,
+  "purpose": "dualPurpose",
+  "aroma": "White wine grape, gooseberry",
+  "substitutes": "Hallertau Blanc, Motueka"
+ },
+ {
+  "id": "northdown",
+  "name": "Northdown",
+  "origin": "UK",
+  "alphaAcid": 8.0,
+  "betaAcid": 5.0,
+  "purpose": "dualPurpose",
+  "aroma": "Cedar, pine, spice",
+  "substitutes": "Challenger, Northern Brewer"
+ },
+ {
+  "id": "northern-brewer",
+  "name": "Northern Brewer",
+  "origin": "DE",
+  "alphaAcid": 8.5,
+  "betaAcid": 4.0,
+  "purpose": "dualPurpose",
+  "aroma": "Mint, pine, woody",
+  "substitutes": "Perle, Chinook"
+ },
+ {
+  "id": "nugget",
+  "name": "Nugget",
+  "origin": "US",
+  "alphaAcid": 13.0,
+  "betaAcid": 4.5,
+  "purpose": "bittering",
+  "aroma": "Herbal, spicy",
+  "substitutes": "Magnum, Columbus"
+ },
+ {
+  "id": "perle",
+  "name": "Perle",
+  "origin": "DE",
+  "alphaAcid": 8.0,
+  "betaAcid": 4.0,
+  "purpose": "dualPurpose",
+  "aroma": "Mint, spicy, floral",
+  "substitutes": "Northern Brewer"
+ },
+ {
+  "id": "polaris",
+  "name": "Polaris",
+  "origin": "DE",
+  "alphaAcid": 20.0,
+  "betaAcid": 5.0,
+  "purpose": "bittering",
+  "aroma": "Mint, glacier candy",
+  "substitutes": "Herkules, Magnum"
+ },
+ {
+  "id": "riwaka",
+  "name": "Riwaka",
+  "origin": "NZ",
+  "alphaAcid": 5.5,
+  "betaAcid": 4.5,
+  "purpose": "aroma",
+  "aroma": "Grapefruit, passionfruit",
+  "substitutes": "Motueka, Citra"
+ },
+ {
+  "id": "saaz",
+  "name": "Saaz",
+  "origin": "CZ",
+  "alphaAcid": 3.5,
+  "betaAcid": 4.0,
+  "purpose": "aroma",
+  "aroma": "Earthy, spicy, herbal",
+  "substitutes": "Sterling, Motueka"
+ },
+ {
+  "id": "sabro",
+  "name": "Sabro",
+  "origin": "US",
+  "alphaAcid": 14.0,
+  "betaAcid": 6.0,
+  "purpose": "dualPurpose",
+  "aroma": "Coconut, tangerine, cedar",
+  "substitutes": "Citra, Mosaic"
+ },
+ {
+  "id": "saphir",
+  "name": "Saphir",
+  "origin": "DE",
+  "alphaAcid": 3.5,
+  "betaAcid": 5.0,
+  "purpose": "aroma",
+  "aroma": "Tangerine, floral",
+  "substitutes": "Hallertauer Mittelfrüh"
+ },
+ {
+  "id": "simcoe",
+  "name": "Simcoe",
+  "origin": "US",
+  "alphaAcid": 13.0,
+  "betaAcid": 4.5,
+  "purpose": "dualPurpose",
+  "aroma": "Pine, passionfruit, earthy",
+  "substitutes": "Summit, Mosaic"
+ },
+ {
+  "id": "sorachi-ace",
+  "name": "Sorachi Ace",
+  "origin": "JP",
+  "alphaAcid": 12.0,
+  "betaAcid": 7.0,
+  "purpose": "dualPurpose",
+  "aroma": "Lemon, dill, coconut",
+  "substitutes": "Sabro"
+ },
+ {
+  "id": "spalter",
+  "name": "Spalter",
+  "origin": "DE",
+  "alphaAcid": 4.0,
+  "betaAcid": 4.0,
+  "purpose": "aroma",
+  "aroma": "Spicy, delicate",
+  "substitutes": "Saaz, Tettnanger"
+ },
+ {
+  "id": "sterling",
+  "name": "Sterling",
+  "origin": "US",
+  "alphaAcid": 7.0,
+  "betaAcid": 5.0,
+  "purpose": "aroma",
+  "aroma": "Herbal, spicy, citrus",
+  "substitutes": "Saaz, Mount Hood"
+ },
+ {
+  "id": "strata",
+  "name": "Strata",
+  "origin": "US",
+  "alphaAcid": 11.0,
+  "betaAcid": 5.0,
+  "purpose": "dualPurpose",
+  "aroma": "Passionfruit, strawberry, dank",
+  "substitutes": "Mosaic, Citra"
+ },
+ {
+  "id": "styrian-golding-celeia",
+  "name": "Styrian Golding (Celeia)",
+  "origin": "SI",
+  "alphaAcid": 4.5,
+  "betaAcid": 3.0,
+  "purpose": "aroma",
+  "aroma": "Earthy, lemon, floral",
+  "substitutes": "Fuggle, East Kent Goldings"
+ },
+ {
+  "id": "summit",
+  "name": "Summit",
+  "origin": "US",
+  "alphaAcid": 17.0,
+  "betaAcid": 5.0,
+  "purpose": "bittering",
+  "aroma": "Orange, tangerine, onion",
+  "substitutes": "Apollo, Columbus"
+ },
+ {
+  "id": "talus",
+  "name": "Talus",
+  "origin": "US",
+  "alphaAcid": 8.75,
+  "betaAcid": 6.0,
+  "purpose": "aroma",
+  "aroma": "Pink grapefruit, sage, pine",
+  "substitutes": "Citra"
+ },
+ {
+  "id": "target",
+  "name": "Target",
+  "origin": "UK",
+  "alphaAcid": 11.0,
+  "betaAcid": 5.0,
+  "purpose": "bittering",
+  "aroma": "Sage, spicy, citrus",
+  "substitutes": "Admiral, Northdown"
+ },
+ {
+  "id": "tettnanger",
+  "name": "Tettnanger",
+  "origin": "DE",
+  "alphaAcid": 4.5,
+  "betaAcid": 4.0,
+  "purpose": "aroma",
+  "aroma": "Floral, herbal, spice",
+  "substitutes": "Saaz, Spalter"
+ },
+ {
+  "id": "vic-secret",
+  "name": "Vic Secret",
+  "origin": "AU",
+  "alphaAcid": 17.0,
+  "betaAcid": 6.5,
+  "purpose": "dualPurpose",
+  "aroma": "Pineapple, pine, passionfruit",
+  "substitutes": "Galaxy"
+ },
+ {
+  "id": "wai-iti",
+  "name": "Wai-iti",
+  "origin": "NZ",
+  "alphaAcid": 3.0,
+  "betaAcid": 4.5,
+  "purpose": "aroma",
+  "aroma": "Peach, apricot, lime",
+  "substitutes": "Motueka"
+ },
+ {
+  "id": "warrior",
+  "name": "Warrior",
+  "origin": "US",
+  "alphaAcid": 16.0,
+  "betaAcid": 5.0,
+  "purpose": "bittering",
+  "aroma": "Clean, mild resin",
+  "substitutes": "Magnum, Columbus"
+ },
+ {
+  "id": "willamette",
+  "name": "Willamette",
+  "origin": "US",
+  "alphaAcid": 5.0,
+  "betaAcid": 4.0,
+  "purpose": "aroma",
+  "aroma": "Earthy, floral, spice",
+  "substitutes": "Fuggle, Styrian Golding"
+ }
+]

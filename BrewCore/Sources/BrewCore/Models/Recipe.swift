@@ -1,0 +1,261 @@
+import Foundation
+
+public enum RecipeType: String, Codable, CaseIterable, Sendable {
+    case allGrain, partialMash, extract
+
+    public var displayName: String {
+        switch self {
+        case .allGrain: return "All Grain"
+        case .partialMash: return "Partial Mash"
+        case .extract: return "Extract"
+        }
+    }
+}
+
+public struct FermentableAddition: Codable, Hashable, Identifiable, Sendable {
+    public var id: UUID
+    public var fermentable: Fermentable
+    public var amountKg: Double
+
+    public init(id: UUID = UUID(), fermentable: Fermentable, amountKg: Double) {
+        self.id = id
+        self.fermentable = fermentable
+        self.amountKg = amountKg
+    }
+}
+
+public struct HopAddition: Codable, Hashable, Identifiable, Sendable {
+    public var id: UUID
+    public var hop: Hop
+    public var amountGrams: Double
+    /// Alpha acid of the actual lot being used (defaults to the hop's typical value).
+    public var alphaAcid: Double
+    public var use: HopUse
+    /// Minutes for boil / first wort / whirlpool / mash, days for dry hop.
+    public var time: Double
+    public var form: HopForm
+    /// Whirlpool / hop stand temperature.
+    public var whirlpoolTempC: Double
+
+    public init(id: UUID = UUID(),
+                hop: Hop,
+                amountGrams: Double,
+                alphaAcid: Double? = nil,
+                use: HopUse = .boil,
+                time: Double = 60,
+                form: HopForm = .pellet,
+                whirlpoolTempC: Double = 80) {
+        self.id = id
+        self.hop = hop
+        self.amountGrams = amountGrams
+        self.alphaAcid = alphaAcid ?? hop.alphaAcid
+        self.use = use
+        self.time = time
+        self.form = form
+        self.whirlpoolTempC = whirlpoolTempC
+    }
+}
+
+public struct YeastAddition: Codable, Hashable, Identifiable, Sendable {
+    public var id: UUID
+    public var yeast: Yeast
+    /// Expected apparent attenuation, percent (defaults to the strain's average).
+    public var attenuation: Double
+    /// Number of packs / vials / grams-equivalent packs pitched.
+    public var packs: Double
+
+    public init(id: UUID = UUID(), yeast: Yeast, attenuation: Double? = nil, packs: Double = 1) {
+        self.id = id
+        self.yeast = yeast
+        self.attenuation = attenuation ?? yeast.averageAttenuation
+        self.packs = packs
+    }
+}
+
+public struct MiscAddition: Codable, Hashable, Identifiable, Sendable {
+    public var id: UUID
+    public var misc: Misc
+    public var amount: Double
+    public var unit: String
+    public var use: MiscUse
+    public var timeMinutes: Double
+
+    public init(id: UUID = UUID(), misc: Misc, amount: Double, unit: String? = nil, use: MiscUse? = nil, timeMinutes: Double = 0) {
+        self.id = id
+        self.misc = misc
+        self.amount = amount
+        self.unit = unit ?? misc.defaultUnit
+        self.use = use ?? misc.defaultUse
+        self.timeMinutes = timeMinutes
+    }
+}
+
+public enum MashStepType: String, Codable, CaseIterable, Sendable {
+    case infusion, temperature, decoction
+
+    public var displayName: String { rawValue.capitalized }
+}
+
+public struct MashStep: Codable, Hashable, Identifiable, Sendable {
+    public var id: UUID
+    public var name: String
+    public var type: MashStepType
+    public var tempC: Double
+    public var minutes: Double
+
+    public init(id: UUID = UUID(), name: String, type: MashStepType = .infusion, tempC: Double, minutes: Double) {
+        self.id = id
+        self.name = name
+        self.type = type
+        self.tempC = tempC
+        self.minutes = minutes
+    }
+}
+
+/// Brewhouse / process settings used by the calculator.
+public struct Equipment: Codable, Hashable, Sendable {
+    /// Volume into the fermenter, liters.
+    public var batchSizeL: Double
+    public var boilTimeMinutes: Double
+    /// Brewhouse efficiency, percent (applies to mashed ingredients).
+    public var efficiency: Double
+    public var boilOffLPerHour: Double
+    /// Kettle trub + chiller loss, liters.
+    public var trubLossL: Double
+    public var mashTunDeadspaceL: Double
+    public var grainAbsorptionLPerKg: Double
+    public var mashThicknessLPerKg: Double
+    public var grainTempC: Double
+
+    public init(batchSizeL: Double = 20,
+                boilTimeMinutes: Double = 60,
+                efficiency: Double = 72,
+                boilOffLPerHour: Double = 3.5,
+                trubLossL: Double = 1.5,
+                mashTunDeadspaceL: Double = 0.5,
+                grainAbsorptionLPerKg: Double = 1.0,
+                mashThicknessLPerKg: Double = 3.0,
+                grainTempC: Double = 20) {
+        self.batchSizeL = batchSizeL
+        self.boilTimeMinutes = boilTimeMinutes
+        self.efficiency = efficiency
+        self.boilOffLPerHour = boilOffLPerHour
+        self.trubLossL = trubLossL
+        self.mashTunDeadspaceL = mashTunDeadspaceL
+        self.grainAbsorptionLPerKg = grainAbsorptionLPerKg
+        self.mashThicknessLPerKg = mashThicknessLPerKg
+        self.grainTempC = grainTempC
+    }
+
+    public var postBoilVolumeL: Double { batchSizeL + trubLossL }
+    public var preBoilVolumeL: Double { postBoilVolumeL + boilOffLPerHour * boilTimeMinutes / 60 }
+}
+
+public struct Fermentation: Codable, Hashable, Sendable {
+    public var primaryTempC: Double
+    public var primaryDays: Double
+    public var secondaryDays: Double
+    public var carbonationVolumes: Double
+    /// Highest temperature the beer reached after fermentation (for residual CO2).
+    public var bottlingTempC: Double
+
+    public init(primaryTempC: Double = 19, primaryDays: Double = 14, secondaryDays: Double = 0,
+                carbonationVolumes: Double = 2.4, bottlingTempC: Double = 20) {
+        self.primaryTempC = primaryTempC
+        self.primaryDays = primaryDays
+        self.secondaryDays = secondaryDays
+        self.carbonationVolumes = carbonationVolumes
+        self.bottlingTempC = bottlingTempC
+    }
+}
+
+public enum IBUFormula: String, Codable, CaseIterable, Sendable {
+    case tinseth, rager
+
+    public var displayName: String { rawValue.capitalized }
+}
+
+public struct Recipe: Codable, Hashable, Identifiable, Sendable {
+    public var id: UUID
+    public var name: String
+    public var author: String
+    public var type: RecipeType
+    /// BJCP style code, e.g. "21A".
+    public var styleId: String?
+    public var createdAt: Date
+    public var modifiedAt: Date
+    public var notes: String
+    public var equipment: Equipment
+    public var fermentation: Fermentation
+    public var ibuFormula: IBUFormula
+    public var fermentables: [FermentableAddition]
+    public var hops: [HopAddition]
+    public var yeasts: [YeastAddition]
+    public var miscs: [MiscAddition]
+    public var mashSteps: [MashStep]
+
+    public init(id: UUID = UUID(),
+                name: String = "New Recipe",
+                author: String = "",
+                type: RecipeType = .allGrain,
+                styleId: String? = nil,
+                createdAt: Date = Date(),
+                modifiedAt: Date = Date(),
+                notes: String = "",
+                equipment: Equipment = Equipment(),
+                fermentation: Fermentation = Fermentation(),
+                ibuFormula: IBUFormula = .tinseth,
+                fermentables: [FermentableAddition] = [],
+                hops: [HopAddition] = [],
+                yeasts: [YeastAddition] = [],
+                miscs: [MiscAddition] = [],
+                mashSteps: [MashStep] = [MashStep(name: "Saccharification", tempC: 66, minutes: 60)]) {
+        self.id = id
+        self.name = name
+        self.author = author
+        self.type = type
+        self.styleId = styleId
+        self.createdAt = createdAt
+        self.modifiedAt = modifiedAt
+        self.notes = notes
+        self.equipment = equipment
+        self.fermentation = fermentation
+        self.ibuFormula = ibuFormula
+        self.fermentables = fermentables
+        self.hops = hops
+        self.yeasts = yeasts
+        self.miscs = miscs
+        self.mashSteps = mashSteps
+    }
+
+    public var style: BeerStyle? { styleId.flatMap { StyleCatalog.style(id: $0) } }
+
+    public var stats: RecipeStats { BrewCalculator.calculate(self) }
+
+    /// Hop additions sorted the way a brewer uses them: boil (longest first), whirlpool, dry hop.
+    public var hopsInBrewOrder: [HopAddition] {
+        func rank(_ use: HopUse) -> Int {
+            switch use {
+            case .mash: return 0
+            case .firstWort: return 1
+            case .boil: return 2
+            case .whirlpool: return 3
+            case .dryHop: return 4
+            }
+        }
+        return hops.sorted { a, b in
+            if rank(a.use) != rank(b.use) { return rank(a.use) < rank(b.use) }
+            return a.use == .dryHop ? a.time < b.time : a.time > b.time
+        }
+    }
+
+    /// A copy with fresh identifiers, for "Duplicate recipe".
+    public func duplicated() -> Recipe {
+        var copy = self
+        copy.id = UUID()
+        copy.name = name + " (Copy)"
+        copy.createdAt = Date()
+        copy.modifiedAt = Date()
+        return copy
+    }
+}

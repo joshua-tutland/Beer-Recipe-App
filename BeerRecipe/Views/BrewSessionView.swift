@@ -12,6 +12,10 @@ struct BrewSessionView: View {
     @Environment(RecipeStore.self) private var store
     @Environment(\.dismiss) private var dismiss
     @State private var newReading: Double?
+    @State private var newReadingTempC: Double?
+    @State private var instrument = Instrument.hydrometer
+    @AppStorage(GravitySettings.wcfKey) private var wcf = GravityTools.defaultWortCorrectionFactor
+    @AppStorage(GravitySettings.calibrationKey) private var calibrationC = GravitySettings.defaultCalibrationC
     @State private var newReadingDate = Date()
     @State private var appliedMessage: String?
 
@@ -86,8 +90,12 @@ struct BrewSessionView: View {
 
             ForEach(session.readings.sorted { $0.date < $1.date }) { reading in
                 HStack {
-                    Text(reading.date, format: .dateTime.month().day().hour().minute())
-                        .foregroundStyle(.secondary)
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text(reading.date, format: .dateTime.month().day().hour().minute())
+                        if !reading.note.isEmpty {
+                            Text(reading.note).font(.caption).foregroundStyle(.secondary)
+                        }
+                    }
                     Spacer()
                     Text(UnitSystem.gravity(reading.gravity)).monospacedDigit()
                 }
@@ -98,23 +106,38 @@ struct BrewSessionView: View {
                 session.readings.removeAll { ids.contains($0.id) }
             }
 
-            HStack {
-                DatePicker("Reading", selection: $newReadingDate)
-                    .labelsHidden()
-                Spacer()
-                TextField("1.020", value: $newReading, format: .number.precision(.fractionLength(0...3)))
-                    .keyboardType(.decimalPad)
-                    .multilineTextAlignment(.trailing)
-                    .frame(maxWidth: 80)
-                Button("Add", systemImage: "plus.circle.fill") {
-                    guard let gravity = newReading, gravity > 0.98, gravity < 1.2 else { return }
-                    session.readings.append(GravityReading(date: newReadingDate, gravity: gravity))
+            Picker("Instrument", selection: $instrument) {
+                Text("Hydrometer").tag(Instrument.hydrometer)
+                Text("Refractometer").tag(Instrument.refractometer)
+            }
+            .pickerStyle(.segmented)
+            DatePicker("Taken", selection: $newReadingDate)
+            if instrument == .hydrometer {
+                MeasurementField(label: "Gravity", value: $newReading, unit: "SG", digits: 3, planned: nil)
+                MeasurementField(label: "Sample Temp",
+                                 value: $newReadingTempC.converted(units.temperature(fromC:), units.celsius(fromTemperature:)),
+                                 unit: units.temperatureUnit, digits: 0,
+                                 planned: nil)
+            } else {
+                MeasurementField(label: "Reading", value: $newReading, unit: "°Bx", digits: 1, planned: nil)
+            }
+            Button {
+                if let pending = pendingReading {
+                    session.readings.append(pending)
                     newReading = nil
+                    newReadingTempC = nil
                     newReadingDate = Date()
                 }
-                .labelStyle(.iconOnly)
-                .disabled(newReading == nil)
+            } label: {
+                HStack {
+                    Label("Add Reading", systemImage: "plus.circle.fill")
+                    Spacer()
+                    if let pending = pendingReading {
+                        Text("→ \(UnitSystem.gravity(pending.gravity))").monospacedDigit().foregroundStyle(.secondary)
+                    }
+                }
             }
+            .disabled(pendingReading == nil)
 
             gravityField("Final Gravity", $session.fg, planned: plan.fg)
 
@@ -130,7 +153,7 @@ struct BrewSessionView: View {
         } header: {
             Text("Fermentation")
         } footer: {
-            Text("Add hydrometer or refractometer-corrected readings to track fermentation. Enter the final gravity once readings are stable for 2–3 days.")
+            Text("Hydrometer readings are corrected for sample temperature; refractometer readings are corrected for alcohol using this batch's OG. Correction settings are in Brewing Tools. Enter the final gravity once readings are stable for 2–3 days.")
         }
     }
 
@@ -177,6 +200,33 @@ struct BrewSessionView: View {
     }
 
     // MARK: - Helpers
+
+    enum Instrument: Hashable { case hydrometer, refractometer }
+
+    /// The reading that "Add Reading" would log, converted to a true gravity.
+    private var pendingReading: GravityReading? {
+        guard let value = newReading else { return nil }
+        switch instrument {
+        case .hydrometer:
+            guard value > 0.98, value < 1.2 else { return nil }
+            if let temp = newReadingTempC {
+                let corrected = GravityTools.hydrometerCorrected(reading: value, sampleTempC: temp, calibrationTempC: calibrationC)
+                return GravityReading(date: newReadingDate, gravity: corrected, tempC: temp,
+                                      note: "Hydrometer \(UnitSystem.gravity(value)) at \(units.formatTemperature(celsius: temp))")
+            }
+            return GravityReading(date: newReadingDate, gravity: value, note: "Hydrometer")
+        case .refractometer:
+            guard value > 0, value < 40 else { return nil }
+            // Alcohol skews refractometer readings, so correct against the original gravity.
+            let og = session.og ?? session.plan.og
+            let originalBrix = GravityTools.expectedBrix(sg: og, wortCorrectionFactor: wcf)
+            let gravity = value >= originalBrix
+                ? GravityTools.refractometerSG(brix: value, wortCorrectionFactor: wcf)
+                : GravityTools.refractometerFermentingSG(originalBrix: originalBrix, currentBrix: value, wortCorrectionFactor: wcf)
+            return GravityReading(date: newReadingDate, gravity: gravity,
+                                  note: "Refractometer \(UnitSystem.number(value, digits: 1))°Bx")
+        }
+    }
 
     private func applyEfficiency(_ efficiency: Double) {
         // Rescale grain so the recipe still hits its target gravity at the real efficiency.

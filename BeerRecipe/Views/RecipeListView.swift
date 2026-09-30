@@ -10,6 +10,7 @@ struct RecipeListView: View {
     @State private var showImporter = false
     @State private var showSettings = false
     @State private var showLibrary = false
+    @State private var showTools = false
     @State private var shareItem: ShareItem?
     @State private var alertMessage: String?
 
@@ -71,6 +72,7 @@ struct RecipeListView: View {
             }
             ToolbarItem(placement: .topBarLeading) {
                 Menu {
+                    Button("Brewing Tools", systemImage: "function") { showTools = true }
                     Button("Ingredient Library", systemImage: "leaf") { showLibrary = true }
                     Button("Import BeerXML…", systemImage: "square.and.arrow.down") { showImporter = true }
                     Button("Export All as BeerXML", systemImage: "square.and.arrow.up") { exportAll() }
@@ -86,6 +88,7 @@ struct RecipeListView: View {
             importFiles(result)
         }
         .sheet(isPresented: $showSettings) { SettingsView() }
+        .sheet(isPresented: $showTools) { ToolsView() }
         .sheet(isPresented: $showLibrary) { NavigationStack { IngredientLibraryView() } }
         .sheet(item: $shareItem) { item in ActivityView(items: [item.url]) }
         .alert("Import", isPresented: Binding(get: { alertMessage != nil }, set: { if !$0 { alertMessage = nil } })) {

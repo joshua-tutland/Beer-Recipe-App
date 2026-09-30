@@ -30,6 +30,15 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
   brewhouse and kettle efficiency and boil-off rate next to the recipe's predictions. One tap
   feeds the measured efficiency or boil-off rate back into the recipe (re-balancing grain to keep
   the target OG) or into your default equipment. Brew logs are included in PDF and Word exports.
+- **Brewing tools** (*More › Brewing Tools*):
+  - Hydrometer temperature correction, with a remembered calibration temperature (60°F or 68°F)
+  - Refractometer Brix → gravity for wort, plus calibration of your wort correction factor from
+    a paired hydrometer reading
+  - Refractometer during fermentation: corrects for alcohol from original and current Brix
+    (Sean Terrill's cubic formula)
+  - ABV calculator: standard and high-gravity ABV, apparent and real attenuation, calories
+  - Brew log readings can be entered either way: hydrometer readings are temperature-corrected, and
+    refractometer readings are alcohol-corrected against the batch's OG
 - **Style check** against a subset of 58 BJCP 2021 styles, showing whether OG, FG, ABV, IBU
   and SRM are below, within or above each style's range.
 - **Ingredient database** bundled with the app (66 fermentables, 58 hops, 44 yeasts,
@@ -91,6 +100,8 @@ builds the app for the iOS Simulator.
 | Strike temp | T = (0.41 / R)(T_mash − T_grain) + T_mash, R in L/kg |
 | Priming | Residual CO₂ from beer temperature; dextrose g = 15.195 × gal × (vols − residual) |
 | Calories | ASBC-style formula from OG and FG, per 12 oz |
+| Hydrometer | Reading × ρ(sample temp) / ρ(calibration temp), using the standard water-density polynomial |
+| Refractometer | SG from Brix ÷ WCF (default 1.04); during fermentation, Terrill's cubic in original and current Brix |
 
 ## Open-source data and APIs for brewing ingredients
 

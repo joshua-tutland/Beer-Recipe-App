@@ -88,3 +88,37 @@ extension View {
         }
     }
 }
+
+extension Binding where Value == Double? {
+    /// Presents an optional stored (metric) value in display units.
+    func converted(_ toDisplay: @escaping (Double) -> Double, _ fromDisplay: @escaping (Double) -> Double) -> Binding<Double?> {
+        Binding(get: { wrappedValue.map(toDisplay) }, set: { wrappedValue = $0.map(fromDisplay) })
+    }
+}
+
+/// A numeric field for a measurement that may not have been taken yet.
+/// Shows the planned value as a placeholder so the brewer can compare at a glance.
+struct MeasurementField: View {
+    let label: String
+    @Binding var value: Double?
+    var unit: String = ""
+    var digits: Int = 1
+    var planned: Double?
+
+    var body: some View {
+        HStack {
+            Text(label)
+            Spacer(minLength: 12)
+            TextField(planned.map { "plan \(String(format: "%.\(digits)f", $0))" } ?? "–",
+                      value: $value, format: .number.precision(.fractionLength(0...digits)))
+                .keyboardType(.decimalPad)
+                .multilineTextAlignment(.trailing)
+                .frame(maxWidth: 130)
+            if !unit.isEmpty {
+                Text(unit)
+                    .foregroundStyle(.secondary)
+                    .frame(minWidth: 28, alignment: .leading)
+            }
+        }
+    }
+}

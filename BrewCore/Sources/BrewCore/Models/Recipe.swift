@@ -193,6 +193,8 @@ public struct Recipe: Codable, Hashable, Identifiable, Sendable {
     public var yeasts: [YeastAddition]
     public var miscs: [MiscAddition]
     public var mashSteps: [MashStep]
+    /// Brew day logs, newest first.
+    public var sessions: [BrewSession]
 
     public init(id: UUID = UUID(),
                 name: String = "New Recipe",
@@ -209,7 +211,8 @@ public struct Recipe: Codable, Hashable, Identifiable, Sendable {
                 hops: [HopAddition] = [],
                 yeasts: [YeastAddition] = [],
                 miscs: [MiscAddition] = [],
-                mashSteps: [MashStep] = [MashStep(name: "Saccharification", tempC: 66, minutes: 60)]) {
+                mashSteps: [MashStep] = [MashStep(name: "Saccharification", tempC: 66, minutes: 60)],
+                sessions: [BrewSession] = []) {
         self.id = id
         self.name = name
         self.author = author
@@ -226,6 +229,35 @@ public struct Recipe: Codable, Hashable, Identifiable, Sendable {
         self.yeasts = yeasts
         self.miscs = miscs
         self.mashSteps = mashSteps
+        self.sessions = sessions
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id, name, author, type, styleId, createdAt, modifiedAt, notes, equipment, fermentation
+        case ibuFormula, fermentables, hops, yeasts, miscs, mashSteps, sessions
+    }
+
+    /// Tolerates missing keys so recipes saved by earlier versions of the app still load.
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        let defaults = Recipe()
+        id = try c.decode(UUID.self, forKey: .id)
+        name = try c.decodeIfPresent(String.self, forKey: .name) ?? defaults.name
+        author = try c.decodeIfPresent(String.self, forKey: .author) ?? ""
+        type = try c.decodeIfPresent(RecipeType.self, forKey: .type) ?? .allGrain
+        styleId = try c.decodeIfPresent(String.self, forKey: .styleId)
+        createdAt = try c.decodeIfPresent(Date.self, forKey: .createdAt) ?? Date()
+        modifiedAt = try c.decodeIfPresent(Date.self, forKey: .modifiedAt) ?? createdAt
+        notes = try c.decodeIfPresent(String.self, forKey: .notes) ?? ""
+        equipment = try c.decodeIfPresent(Equipment.self, forKey: .equipment) ?? defaults.equipment
+        fermentation = try c.decodeIfPresent(Fermentation.self, forKey: .fermentation) ?? defaults.fermentation
+        ibuFormula = try c.decodeIfPresent(IBUFormula.self, forKey: .ibuFormula) ?? .tinseth
+        fermentables = try c.decodeIfPresent([FermentableAddition].self, forKey: .fermentables) ?? []
+        hops = try c.decodeIfPresent([HopAddition].self, forKey: .hops) ?? []
+        yeasts = try c.decodeIfPresent([YeastAddition].self, forKey: .yeasts) ?? []
+        miscs = try c.decodeIfPresent([MiscAddition].self, forKey: .miscs) ?? []
+        mashSteps = try c.decodeIfPresent([MashStep].self, forKey: .mashSteps) ?? []
+        sessions = try c.decodeIfPresent([BrewSession].self, forKey: .sessions) ?? []
     }
 
     public var style: BeerStyle? { styleId.flatMap { StyleCatalog.style(id: $0) } }
@@ -256,6 +288,7 @@ public struct Recipe: Codable, Hashable, Identifiable, Sendable {
         copy.name = name + " (Copy)"
         copy.createdAt = Date()
         copy.modifiedAt = Date()
+        copy.sessions = []
         return copy
     }
 }

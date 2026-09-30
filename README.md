@@ -19,6 +19,17 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
   - Brew day water: strike volume and temperature, sparge, total water, pre- and post-boil volume
   - Yeast cells needed and suggested packs; priming sugar (corn or table sugar) for bottling
   - Lactose/maltodextrin are treated as unfermentable, simple sugars as fully fermentable
+- **Recipe scaling.** Resize to any batch size (with ½×, 2× and 3× shortcuts) or a different
+  efficiency, and preview the before and after numbers. Grain is adjusted for the efficiency
+  change so OG stays the same, kettle hops are re-balanced to keep the same IBU, and dry hops
+  scale with volume. Save the result as a new recipe or replace the original.
+- **Brew day log.** Start a brew day from any recipe and record what you measured: mash
+  temperature and pH, pre- and post-boil volume and gravity, OG, and the volume into the
+  fermenter. Log fermentation gravity readings, which are charted over time, then record FG,
+  packaging and a tasting rating and notes. The app shows your real ABV, attenuation,
+  brewhouse and kettle efficiency and boil-off rate next to the recipe's predictions. One tap
+  feeds the measured efficiency or boil-off rate back into the recipe (re-balancing grain to keep
+  the target OG) or into your default equipment. Brew logs are included in PDF and Word exports.
 - **Style check** against a subset of 58 BJCP 2021 styles, showing whether OG, FG, ABV, IBU
   and SRM are below, within or above each style's range.
 - **Ingredient database** bundled with the app (66 fermentables, 58 hops, 44 yeasts,

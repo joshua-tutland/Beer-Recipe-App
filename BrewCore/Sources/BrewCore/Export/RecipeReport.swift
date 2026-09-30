@@ -153,6 +153,29 @@ public struct RecipeReport: Sendable {
         ]
         blocks.append(.fields(fermentation))
 
+        if !recipe.sessions.isEmpty {
+            blocks.append(.heading("Brew Log"))
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .none
+            let rows = recipe.sessions.map { s -> [String] in
+                let r = s.results
+                return [
+                    "\(s.name), \(dateFormatter.string(from: s.brewDate))",
+                    s.og.map(UnitSystem.gravity) ?? "–",
+                    s.currentGravity.map(UnitSystem.gravity) ?? "–",
+                    r.abv.map { "\(n($0, 1))%" } ?? "–",
+                    r.brewhouseEfficiency.map { "\(n($0, 0))%" } ?? "–",
+                    s.rating > 0 ? String(repeating: "★", count: s.rating) : "–"
+                ]
+            }
+            blocks.append(.table(Table(headers: ["Batch", "OG", "FG", "ABV", "Efficiency", "Rating"],
+                                       rows: rows, widths: [3.5, 1.6, 1.6, 1.4, 1.8, 1.8])))
+            for s in recipe.sessions where !s.notes.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                blocks.append(.paragraph("\(s.name): \(s.notes)"))
+            }
+        }
+
         let notes = recipe.notes.trimmingCharacters(in: .whitespacesAndNewlines)
         if !notes.isEmpty {
             blocks.append(.heading("Notes"))

@@ -139,9 +139,17 @@ struct RecipeRow: View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
-                Text("OG \(UnitSystem.gravity(stats.og)) · \(stats.abv, specifier: "%.1f")% · \(stats.ibu, specifier: "%.0f") IBU")
-                    .font(.caption.monospacedDigit())
-                    .foregroundStyle(.secondary)
+                HStack(spacing: 6) {
+                    Text("OG \(UnitSystem.gravity(stats.og)) · \(stats.abv, specifier: "%.1f")% · \(stats.ibu, specifier: "%.0f") IBU")
+                    if !recipe.sessions.isEmpty {
+                        Label("\(recipe.sessions.count)", systemImage: "flame.fill")
+                            .labelStyle(.titleAndIcon)
+                            .foregroundStyle(Color.brewAmber)
+                            .accessibilityLabel("Brewed \(recipe.sessions.count) times")
+                    }
+                }
+                .font(.caption.monospacedDigit())
+                .foregroundStyle(.secondary)
             }
         }
         .padding(.vertical, 2)

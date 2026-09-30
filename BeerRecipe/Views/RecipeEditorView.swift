@@ -5,12 +5,14 @@ enum EditorSheet: Identifiable, Hashable {
     case style
     case addFermentable, addHop, addYeast, addMisc
     case fermentable(UUID), hop(UUID), yeast(UUID), misc(UUID), mashStep(UUID)
+    case scale, brewSession(UUID)
 
     var id: Self { self }
 }
 
 struct RecipeEditorView: View {
     @Binding var recipe: Recipe
+    @Environment(RecipeStore.self) private var store
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @AppStorage("unitSystem") private var units: UnitSystem = .imperial
 
@@ -18,6 +20,7 @@ struct RecipeEditorView: View {
     @State private var shareItem: ShareItem?
     @State private var exportError: String?
     @State private var showAdvancedEquipment = false
+    @State private var notice: String?
 
     var body: some View {
         let stats = recipe.stats
@@ -40,7 +43,13 @@ struct RecipeEditorView: View {
         .navigationTitle(recipe.name.isEmpty ? "Untitled" : recipe.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .primaryAction) {
+            ToolbarItemGroup(placement: .primaryAction) {
+                Menu {
+                    Button("Start Brew Day", systemImage: "flame") { startBrewDay() }
+                    Button("Scale Recipe…", systemImage: "arrow.up.left.and.arrow.down.right") { sheet = .scale }
+                } label: {
+                    Label("Brew", systemImage: "mug")
+                }
                 Menu {
                     Button("PDF Document", systemImage: "doc.richtext") { export(.pdf) }
                     Button("Word Document (.docx)", systemImage: "doc.text") { export(.word) }
@@ -55,6 +64,11 @@ struct RecipeEditorView: View {
         }
         .sheet(item: $shareItem) { item in
             ActivityView(items: [item.url])
+        }
+        .alert("Recipe Scaled", isPresented: Binding(get: { notice != nil }, set: { if !$0 { notice = nil } })) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(notice ?? "")
         }
         .alert("Export Failed", isPresented: Binding(get: { exportError != nil }, set: { if !$0 { exportError = nil } })) {
             Button("OK", role: .cancel) {}
@@ -93,6 +107,7 @@ struct RecipeEditorView: View {
                 mashSection
             }
             fermentationSection
+            brewLogSection
 
             Section("Notes") {
                 TextField("Tasting notes, process reminders…", text: $recipe.notes, axis: .vertical)
@@ -397,7 +412,55 @@ struct RecipeEditorView: View {
             if let binding = element(\.mashSteps, id: id) {
                 MashStepEditor(step: binding, units: units)
             }
+        case .scale:
+            ScaleRecipeView(recipe: recipe, units: units) { scaled, asCopy in
+                if asCopy {
+                    var copy = scaled
+                    copy.id = UUID()
+                    copy.sessions = []
+                    copy.createdAt = Date()
+                    copy.name = RecipeScaler.scaledName(recipe.name, batchSizeL: scaled.equipment.batchSizeL, units: units)
+                    store.add(copy)
+                    // Wait for the sheet to finish dismissing before showing the alert.
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                        notice = "Saved \"\(copy.name)\" to your recipe list."
+                    }
+                } else {
+                    recipe = scaled
+                }
+            }
+        case .brewSession(let id):
+            if let binding = element(\.sessions, id: id) {
+                BrewSessionView(session: binding, recipe: $recipe, units: units)
+            }
         }
+    }
+
+    // MARK: - Brew log
+
+    private var brewLogSection: some View {
+        Section {
+            ForEach(recipe.sessions) { session in
+                Button { sheet = .brewSession(session.id) } label: {
+                    BrewSessionRow(session: session)
+                }
+            }
+            .onDelete { recipe.sessions.remove(atOffsets: $0) }
+
+            Button("Start Brew Day", systemImage: "flame.fill") { startBrewDay() }
+        } header: {
+            Text("Brew Log")
+        } footer: {
+            if recipe.sessions.isEmpty {
+                Text("Log each brew's measured gravities and volumes to see your real efficiency and ABV.")
+            }
+        }
+    }
+
+    private func startBrewDay() {
+        let session = BrewSession(recipe: recipe)
+        recipe.sessions.insert(session, at: 0)
+        sheet = .brewSession(session.id)
     }
 
     /// A binding to one element of one of the recipe's ingredient lists.

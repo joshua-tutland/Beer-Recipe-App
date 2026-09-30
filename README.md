@@ -30,6 +30,15 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
   brewhouse and kettle efficiency and boil-off rate next to the recipe's predictions. One tap
   feeds the measured efficiency or boil-off rate back into the recipe (re-balancing grain to keep
   the target OG) or into your default equipment. Brew logs are included in PDF and Word exports.
+- **Brew day checklist and timers.** Opened from a brew log entry, the app builds a step-by-step
+  plan from the recipe: sanitize, weigh out, mill, heat the strike water (with volume and
+  temperature), each mash step, sparge, collect the pre-boil volume, boil, hop stand, chill,
+  transfer, measure OG, pitch, then dry hop days, FG and packaging. Mash, steep, boil and hop-stand
+  steps have countdown timers, and the boil shows a schedule of hop and ingredient additions,
+  grouped by time and highlighted when due. Timers store their end time, so they keep running when
+  the app is closed, and local notifications announce each addition and the end of every timer.
+  Checked-off steps are saved with the brew session, and the screen can stay awake while you
+  brew.
 - **Brewing tools** (*More › Brewing Tools*):
   - Hydrometer temperature correction, with a remembered calibration temperature (60°F or 68°F)
   - Refractometer Brix → gravity for wort, plus calibration of your wort correction factor from

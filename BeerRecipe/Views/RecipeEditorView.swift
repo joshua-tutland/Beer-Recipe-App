@@ -13,6 +13,7 @@ enum EditorSheet: Identifiable, Hashable {
 struct RecipeEditorView: View {
     @Binding var recipe: Recipe
     @Environment(RecipeStore.self) private var store
+    @Environment(BrewTimers.self) private var timers
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @AppStorage("unitSystem") private var units: UnitSystem = .imperial
 
@@ -445,7 +446,10 @@ struct RecipeEditorView: View {
                     BrewSessionRow(session: session)
                 }
             }
-            .onDelete { recipe.sessions.remove(atOffsets: $0) }
+            .onDelete { offsets in
+                offsets.forEach { timers.resetAll(session: recipe.sessions[$0].id) }
+                recipe.sessions.remove(atOffsets: offsets)
+            }
 
             Button("Start Brew Day", systemImage: "flame.fill") { startBrewDay() }
         } header: {

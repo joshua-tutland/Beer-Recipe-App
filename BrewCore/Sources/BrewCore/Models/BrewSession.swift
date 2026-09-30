@@ -84,6 +84,10 @@ public struct BrewSession: Codable, Hashable, Identifiable, Sendable {
     public var rating: Int
     public var notes: String
 
+    /// Brew-day checklist steps (and boil additions) that have been ticked off.
+    /// Optional so sessions saved before the checklist existed still decode.
+    public var completedStepIDs: [String]?
+
     public init(id: UUID = UUID(), recipe: Recipe, brewDate: Date = Date(), name: String? = nil) {
         self.id = id
         self.brewDate = brewDate
@@ -100,6 +104,17 @@ public struct BrewSession: Codable, Hashable, Identifiable, Sendable {
     }
 
     public var isComplete: Bool { fg != nil }
+
+    public func isStepDone(_ id: String) -> Bool {
+        completedStepIDs?.contains(id) ?? false
+    }
+
+    public mutating func setStep(_ id: String, done: Bool) {
+        var ids = completedStepIDs ?? []
+        ids.removeAll { $0 == id }
+        if done { ids.append(id) }
+        completedStepIDs = ids
+    }
 
     public var results: BrewSessionResults { BrewSessionResults(session: self) }
 }

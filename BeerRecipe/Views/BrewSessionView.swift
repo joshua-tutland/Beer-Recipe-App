@@ -25,6 +25,24 @@ struct BrewSessionView: View {
 
         Form {
             Section {
+                NavigationLink {
+                    BrewDayChecklistView(session: $session, recipe: recipe, units: units)
+                } label: {
+                    let steps = BrewDayPlan.steps(for: recipe, units: units)
+                    let done = steps.filter { session.isStepDone($0.id) }.count
+                    HStack {
+                        Label("Brew Day Checklist & Timers", systemImage: "checklist")
+                            .font(.headline)
+                            .foregroundStyle(Color.brewAmber)
+                        Spacer()
+                        Text("\(done)/\(steps.count)")
+                            .font(.subheadline.monospacedDigit())
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            }
+
+            Section {
                 TextField("Name", text: $session.name)
                 DatePicker("Brew Date", selection: $session.brewDate, displayedComponents: .date)
             }

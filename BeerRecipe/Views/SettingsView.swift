@@ -21,20 +21,12 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    NumberField(label: "Batch Size",
-                                value: $equipment.batchSizeL.converted(units.volume(fromLiters:), units.liters(fromVolume:)),
-                                unit: units.volumeUnit)
-                    NumberField(label: "Boil Time", value: $equipment.boilTimeMinutes, unit: "min", digits: 0)
-                    NumberField(label: "Brewhouse Efficiency", value: $equipment.efficiency, unit: "%", digits: 0)
-                    NumberField(label: "Boil-off Rate",
-                                value: $equipment.boilOffLPerHour.converted(units.volume(fromLiters:), units.liters(fromVolume:)),
-                                unit: "\(units.volumeUnit)/hr")
-                    NumberField(label: "Kettle Trub Loss",
-                                value: $equipment.trubLossL.converted(units.volume(fromLiters:), units.liters(fromVolume:)),
-                                unit: units.volumeUnit)
-                    NumberField(label: "Mash Tun Deadspace",
-                                value: $equipment.mashTunDeadspaceL.converted(units.volume(fromLiters:), units.liters(fromVolume:)),
-                                unit: units.volumeUnit)
+                    NavigationLink {
+                        EquipmentProfilesView()
+                    } label: {
+                        Label("Equipment Profiles", systemImage: "cylinder.split.1x2")
+                    }
+                    EquipmentFields(equipment: $equipment, units: units)
                 } header: {
                     Text("Defaults for New Recipes")
                 } footer: {
@@ -115,6 +107,7 @@ struct SettingsView: View {
                 }
             }
             .onAppear { equipment = store.defaultEquipment }
+            .onChange(of: store.defaultEquipment) { _, updated in equipment = updated }
             .confirmationDialog("Add the sample recipes to your list?", isPresented: $confirmRestore, titleVisibility: .visible) {
                 Button("Add Samples") { store.restoreSamples() }
             }

@@ -9,6 +9,8 @@ final class RecipeStore {
     private(set) var recipes: [Recipe] = []
     private(set) var custom = CustomIngredients()
     private(set) var defaultEquipment = Equipment()
+    /// Saved brewing systems.
+    private(set) var equipmentProfiles: [EquipmentProfile] = []
     /// The brewer's own tap water report, used as the starting water for new water plans.
     private(set) var myWater: WaterProfile?
     /// Ingredients on hand.
@@ -19,6 +21,10 @@ final class RecipeStore {
     @ObservationIgnored private(set) var repository: RecipeRepository
     @ObservationIgnored private var pendingSaves: [UUID: Task<Void, Never>] = [:]
     @ObservationIgnored private let defaults = UserDefaults.standard
+
+    private var profilesURL: URL {
+        repository.supportDirectory.appendingPathComponent("equipment-profiles.json")
+    }
 
     private var inventoryURL: URL {
         repository.supportDirectory.appendingPathComponent("inventory.json")
@@ -75,6 +81,9 @@ final class RecipeStore {
         let loadedInventory = repository.readFile(inventoryURL)
             .flatMap { try? JSONDecoder().decode([InventoryItem].self, from: $0) } ?? []
         if loadedInventory != inventory { inventory = loadedInventory }
+        let loadedProfiles = repository.readFile(profilesURL)
+            .flatMap { try? JSONDecoder().decode([EquipmentProfile].self, from: $0) } ?? []
+        if loadedProfiles != equipmentProfiles { equipmentProfiles = loadedProfiles }
     }
 
     /// Moves the store to another folder (e.g. the iCloud container).
@@ -198,6 +207,28 @@ final class RecipeStore {
             if let recipe = recipe(id: id) { persist(recipe) }
         }
         pendingSaves.removeAll()
+    }
+
+    // MARK: Equipment profiles
+
+    func saveProfile(_ profile: EquipmentProfile) {
+        if let i = equipmentProfiles.firstIndex(where: { $0.id == profile.id }) {
+            equipmentProfiles[i] = profile
+        } else {
+            equipmentProfiles.append(profile)
+        }
+        saveProfiles()
+    }
+
+    func deleteProfiles(ids: [UUID]) {
+        equipmentProfiles.removeAll { ids.contains($0.id) }
+        saveProfiles()
+    }
+
+    private func saveProfiles() {
+        if let data = try? JSONEncoder().encode(equipmentProfiles) {
+            try? repository.writeFile(data, to: profilesURL)
+        }
     }
 
     // MARK: Settings

@@ -114,9 +114,12 @@ public enum BrewDayPlan {
 
         // MARK: Mash / steep
         if mashes && hasMashedGrain {
+            let fullVolume = eq.mashMethod == .fullVolume
             steps.append(BrewStep(id: "mash-strike", phase: .mash,
-                                  title: "Heat \(u.formatVolume(liters: stats.strikeWaterL)) strike water to \(u.formatTemperature(celsius: stats.strikeTempC))",
-                                  detail: "Mash thickness \(n(eq.mashThicknessLPerKg, 1)) L/kg; grain at \(u.formatTemperature(celsius: eq.grainTempC))"))
+                                  title: "Heat \(u.formatVolume(liters: stats.strikeWaterL)) \(fullVolume ? "water (full volume)" : "strike water") to \(u.formatTemperature(celsius: stats.strikeTempC))",
+                                  detail: fullVolume
+                                    ? "All the brewing water goes in the mash; no sparge. Grain at \(u.formatTemperature(celsius: eq.grainTempC))"
+                                    : "Mash thickness \(n(eq.mashThicknessLPerKg, 1)) L/kg; grain at \(u.formatTemperature(celsius: eq.grainTempC))"))
             let mashHops = recipe.hops.filter { $0.use == .mash }
             for (i, step) in recipe.mashSteps.enumerated() {
                 var detail = step.type == .infusion && i == 0 ? "Stir in the grain and check the temperature." : nil
@@ -128,9 +131,14 @@ public enum BrewDayPlan {
                                       title: "\(i == 0 ? "Mash in" : step.name): hold \(u.formatTemperature(celsius: step.tempC)) for \(n(step.minutes, 0)) min",
                                       detail: detail, durationMinutes: step.minutes > 0 ? step.minutes : nil))
             }
-            steps.append(BrewStep(id: "sparge", phase: .sparge,
-                                  title: "Sparge with \(u.formatVolume(liters: stats.spargeWaterL)) at \(u.formatTemperature(celsius: 76))",
-                                  detail: "Vorlauf until the runnings are clear, then lauter slowly."))
+            if fullVolume {
+                steps.append(BrewStep(id: "sparge", phase: .sparge, title: "Lift the bag and let it drain",
+                                      detail: "A gentle squeeze recovers more wort; no sparge water needed."))
+            } else {
+                steps.append(BrewStep(id: "sparge", phase: .sparge,
+                                      title: "Sparge with \(u.formatVolume(liters: stats.spargeWaterL)) at \(u.formatTemperature(celsius: 76))",
+                                      detail: "Vorlauf until the runnings are clear, then lauter slowly."))
+            }
         } else if hasMashedGrain {
             let steep = recipe.mashSteps.first
             let temp = steep?.tempC ?? 70

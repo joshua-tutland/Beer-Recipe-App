@@ -49,6 +49,11 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
   suggests the lactic or phosphoric acid (or baking soda for dark beers) needed to reach pH 5.4.
   The water plan appears on the brew-day checklist and in PDF and Word exports, and scales
   with the recipe.
+- **Equipment profiles** (Settings › Equipment Profiles). Save your brewing systems and load them into
+  any recipe; the recipe keeps its own batch size and boil time. Presets cover a three-vessel setup,
+  brew in a bag, Grainfather G30, BrewZilla 35 L and Anvil Foundry. **Full-volume (BIAB / no-sparge)**
+  mashing puts all the water in the mash, so the strike temperature, water volumes and brew-day
+  checklist match how those systems are brewed.
 - **Hop substitution.** The hop editor suggests substitutes from the database. Swapping a kettle hop
   re-weighs it for the new alpha acid so IBU stays the same; dry hops keep their weight.
 - **Ingredient inventory** (*More › Inventory*). Track malts, hops (with lot alpha acid), yeast and

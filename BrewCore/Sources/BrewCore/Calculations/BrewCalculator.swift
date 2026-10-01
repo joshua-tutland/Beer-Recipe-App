@@ -110,20 +110,27 @@ public enum BrewCalculator {
 
         // Water
         let mashedKg = recipe.fermentables.filter { $0.fermentable.type.isMashed }.reduce(0) { $0 + $1.amountKg }
-        let strikeWater = mashedKg * eq.mashThicknessLPerKg
+        var strikeWater = mashedKg * eq.mashThicknessLPerKg
         let mashTemp = recipe.mashSteps.first?.tempC ?? 66
-        let strikeTemp = BrewMath.strikeTemperature(targetC: mashTemp, grainC: eq.grainTempC,
-                                                    ratioLPerKg: eq.mashThicknessLPerKg)
         let totalWater: Double
         let spargeWater: Double
         if mashedKg > 0 && recipe.type != .extract {
             totalWater = preBoilVolume + mashedKg * eq.grainAbsorptionLPerKg + eq.mashTunDeadspaceL
-            spargeWater = max(0, totalWater - strikeWater)
+            if eq.mashMethod == .fullVolume {
+                // Brew in a bag / no sparge: every drop of water goes into the mash.
+                strikeWater = totalWater
+                spargeWater = 0
+            } else {
+                spargeWater = max(0, totalWater - strikeWater)
+            }
         } else {
             // Extract brewing (optionally steeping grains): top up to the pre-boil volume.
             totalWater = preBoilVolume + mashedKg * eq.grainAbsorptionLPerKg
             spargeWater = 0
         }
+        let strikeTemp = BrewMath.strikeTemperature(
+            targetC: mashTemp, grainC: eq.grainTempC,
+            ratioLPerKg: mashedKg > 0 && strikeWater > 0 ? strikeWater / mashedKg : eq.mashThicknessLPerKg)
 
         // Packaging & yeast
         let dextrose = BrewMath.primingDextroseGrams(volumeL: eq.batchSizeL,

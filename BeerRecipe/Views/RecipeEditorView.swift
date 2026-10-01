@@ -157,7 +157,23 @@ struct RecipeEditorView: View {
             Picker("IBU Formula", selection: $recipe.ibuFormula) {
                 ForEach(IBUFormula.allCases, id: \.self) { Text($0.displayName).tag($0) }
             }
+            if !store.equipmentProfiles.isEmpty {
+                Menu {
+                    ForEach(store.equipmentProfiles) { profile in
+                        Button(profile.name) {
+                            recipe.equipment = recipe.equipment.applyingSystem(from: profile.equipment)
+                        }
+                    }
+                } label: {
+                    Label("Load Equipment Profile", systemImage: "cylinder.split.1x2")
+                }
+            }
             DisclosureGroup("Equipment & Losses", isExpanded: $showAdvancedEquipment) {
+                if recipe.type != .extract {
+                    Picker("Mash Method", selection: $recipe.equipment.mashMethod) {
+                        ForEach(MashMethod.allCases) { Text($0.displayName).tag($0) }
+                    }
+                }
                 NumberField(label: "Boil-off Rate",
                             value: $recipe.equipment.boilOffLPerHour.converted(units.volume(fromLiters:), units.liters(fromVolume:)),
                             unit: "\(units.volumeUnit)/hr")

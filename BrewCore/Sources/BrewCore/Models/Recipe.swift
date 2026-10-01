@@ -113,6 +113,24 @@ public struct MashStep: Codable, Hashable, Identifiable, Sendable {
 }
 
 /// Brewhouse / process settings used by the calculator.
+/// How the mash is lautered.
+public enum MashMethod: String, Codable, CaseIterable, Sendable, Identifiable {
+    /// Mash at a set thickness, then rinse with sparge water (three-vessel, most all-in-ones).
+    case sparge
+    /// All brewing water goes into the mash and there's no sparge (brew in a bag, no-sparge).
+    case fullVolume
+
+    public var id: String { rawValue }
+
+    public var displayName: String {
+        switch self {
+        case .sparge: return "Mash + Sparge"
+        case .fullVolume: return "Full Volume (BIAB / No Sparge)"
+        }
+    }
+}
+
+/// Brewhouse / process settings used by the calculator.
 public struct Equipment: Codable, Hashable, Sendable {
     /// Volume into the fermenter, liters.
     public var batchSizeL: Double
@@ -126,6 +144,7 @@ public struct Equipment: Codable, Hashable, Sendable {
     public var grainAbsorptionLPerKg: Double
     public var mashThicknessLPerKg: Double
     public var grainTempC: Double
+    public var mashMethod: MashMethod
 
     public init(batchSizeL: Double = 20,
                 boilTimeMinutes: Double = 60,
@@ -135,7 +154,8 @@ public struct Equipment: Codable, Hashable, Sendable {
                 mashTunDeadspaceL: Double = 0.5,
                 grainAbsorptionLPerKg: Double = 1.0,
                 mashThicknessLPerKg: Double = 3.0,
-                grainTempC: Double = 20) {
+                grainTempC: Double = 20,
+                mashMethod: MashMethod = .sparge) {
         self.batchSizeL = batchSizeL
         self.boilTimeMinutes = boilTimeMinutes
         self.efficiency = efficiency
@@ -145,10 +165,73 @@ public struct Equipment: Codable, Hashable, Sendable {
         self.grainAbsorptionLPerKg = grainAbsorptionLPerKg
         self.mashThicknessLPerKg = mashThicknessLPerKg
         self.grainTempC = grainTempC
+        self.mashMethod = mashMethod
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case batchSizeL, boilTimeMinutes, efficiency, boilOffLPerHour, trubLossL, mashTunDeadspaceL
+        case grainAbsorptionLPerKg, mashThicknessLPerKg, grainTempC, mashMethod
+    }
+
+    /// Tolerates missing keys so equipment saved by earlier versions still loads.
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        let d = Equipment()
+        batchSizeL = try c.decodeIfPresent(Double.self, forKey: .batchSizeL) ?? d.batchSizeL
+        boilTimeMinutes = try c.decodeIfPresent(Double.self, forKey: .boilTimeMinutes) ?? d.boilTimeMinutes
+        efficiency = try c.decodeIfPresent(Double.self, forKey: .efficiency) ?? d.efficiency
+        boilOffLPerHour = try c.decodeIfPresent(Double.self, forKey: .boilOffLPerHour) ?? d.boilOffLPerHour
+        trubLossL = try c.decodeIfPresent(Double.self, forKey: .trubLossL) ?? d.trubLossL
+        mashTunDeadspaceL = try c.decodeIfPresent(Double.self, forKey: .mashTunDeadspaceL) ?? d.mashTunDeadspaceL
+        grainAbsorptionLPerKg = try c.decodeIfPresent(Double.self, forKey: .grainAbsorptionLPerKg) ?? d.grainAbsorptionLPerKg
+        mashThicknessLPerKg = try c.decodeIfPresent(Double.self, forKey: .mashThicknessLPerKg) ?? d.mashThicknessLPerKg
+        grainTempC = try c.decodeIfPresent(Double.self, forKey: .grainTempC) ?? d.grainTempC
+        mashMethod = try c.decodeIfPresent(MashMethod.self, forKey: .mashMethod) ?? .sparge
     }
 
     public var postBoilVolumeL: Double { batchSizeL + trubLossL }
     public var preBoilVolumeL: Double { postBoilVolumeL + boilOffLPerHour * boilTimeMinutes / 60 }
+}
+
+/// A saved brewing system (e.g. "Garage BIAB kettle") whose settings new recipes start from.
+public struct EquipmentProfile: Codable, Hashable, Identifiable, Sendable {
+    public var id: UUID
+    public var name: String
+    public var equipment: Equipment
+    public var notes: String
+
+    public init(id: UUID = UUID(), name: String, equipment: Equipment, notes: String = "") {
+        self.id = id
+        self.name = name
+        self.equipment = equipment
+        self.notes = notes
+    }
+
+    /// Typical starting points for common systems. Brewers should measure their own losses.
+    public static let presets: [EquipmentProfile] = [
+        EquipmentProfile(name: "Three-Vessel (5 gal)",
+                         equipment: Equipment(batchSizeL: 20, efficiency: 72, boilOffLPerHour: 3.8, trubLossL: 1.5,
+                                              mashTunDeadspaceL: 1.0, grainAbsorptionLPerKg: 1.0, mashThicknessLPerKg: 3.0),
+                         notes: "Cooler or kettle mash tun with batch or fly sparging."),
+        EquipmentProfile(name: "Brew in a Bag (5 gal)",
+                         equipment: Equipment(batchSizeL: 20, efficiency: 68, boilOffLPerHour: 3.8, trubLossL: 1.5,
+                                              mashTunDeadspaceL: 0, grainAbsorptionLPerKg: 0.6,
+                                              mashThicknessLPerKg: 3.0, mashMethod: .fullVolume),
+                         notes: "Full-volume mash in the kettle; squeezing the bag lowers absorption."),
+        EquipmentProfile(name: "Grainfather G30",
+                         equipment: Equipment(batchSizeL: 23, efficiency: 75, boilOffLPerHour: 2.5, trubLossL: 2.0,
+                                              mashTunDeadspaceL: 3.5, grainAbsorptionLPerKg: 0.8, mashThicknessLPerKg: 2.7),
+                         notes: "Malt pipe with sparge; dead space is the water below the pipe."),
+        EquipmentProfile(name: "BrewZilla 35 L",
+                         equipment: Equipment(batchSizeL: 23, efficiency: 70, boilOffLPerHour: 2.5, trubLossL: 2.0,
+                                              mashTunDeadspaceL: 4.0, grainAbsorptionLPerKg: 0.8, mashThicknessLPerKg: 3.0),
+                         notes: "Malt pipe with sparge."),
+        EquipmentProfile(name: "Anvil Foundry 10.5 gal",
+                         equipment: Equipment(batchSizeL: 21, efficiency: 70, boilOffLPerHour: 2.8, trubLossL: 1.8,
+                                              mashTunDeadspaceL: 0, grainAbsorptionLPerKg: 0.8,
+                                              mashThicknessLPerKg: 3.0, mashMethod: .fullVolume),
+                         notes: "Usually brewed full volume (no sparge) with the basket.")
+    ]
 }
 
 public struct Fermentation: Codable, Hashable, Sendable {

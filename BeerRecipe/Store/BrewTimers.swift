@@ -1,3 +1,4 @@
+import ActivityKit
 import Foundation
 import Observation
 import UserNotifications
@@ -13,6 +14,8 @@ final class BrewTimers {
         var timer: StepTimer
         var title: String
         var alerts: [Alert]
+        /// Shown on the Lock Screen timer. Optional so timers saved by older versions still load.
+        var recipeName: String?
     }
 
     struct Alert: Codable, Hashable {
@@ -40,16 +43,18 @@ final class BrewTimers {
     }
 
     /// Starts or resumes a step's timer.
-    func start(_ key: String, step: BrewStep) {
+    func start(_ key: String, step: BrewStep, recipeName: String = "") {
         guard let minutes = step.durationMinutes else { return }
         var entry = entries[key] ?? Entry(
             timer: StepTimer(duration: minutes * 60),
             title: step.title,
-            alerts: step.alerts.map { Alert(id: $0.id, secondsBeforeEnd: $0.minutesRemaining * 60, title: $0.title) })
+            alerts: step.alerts.map { Alert(id: $0.id, secondsBeforeEnd: $0.minutesRemaining * 60, title: $0.title) },
+            recipeName: recipeName)
         entry.timer.start(at: Date())
         entries[key] = entry
         requestAuthorizationIfNeeded()
         schedule(key, entry)
+        updateLiveActivity(key, entry)
         save()
     }
 
@@ -57,6 +62,7 @@ final class BrewTimers {
         guard let entry = entries[key] else { return }
         cancelNotifications(key, entry)
         entries[key]?.timer.pause(at: Date())
+        updateLiveActivity(key, entries[key])
         save()
     }
 
@@ -64,7 +70,40 @@ final class BrewTimers {
         guard let entry = entries[key] else { return }
         cancelNotifications(key, entry)
         entries[key] = nil
+        updateLiveActivity(key, nil)
         save()
+    }
+
+    // MARK: Lock Screen / Dynamic Island
+
+    /// Starts, updates or ends the Live Activity for a timer. The countdown itself is drawn by
+    /// iOS from the end date, so it keeps ticking without the app running.
+    private func updateLiveActivity(_ key: String, _ entry: Entry?) {
+        let existing = Activity<BrewTimerAttributes>.activities.first { $0.attributes.timerKey == key }
+        guard let entry else {
+            if let existing {
+                Task { await existing.end(nil, dismissalPolicy: .immediate) }
+            }
+            return
+        }
+        let now = Date()
+        let end = entry.timer.endDate
+        let start = end.map { $0.addingTimeInterval(-entry.timer.duration) } ?? now
+        let additions: [BrewTimerAttributes.Addition] = end.map { end in
+            entry.alerts
+                .map { BrewTimerAttributes.Addition(title: $0.title, date: end.addingTimeInterval(-$0.secondsBeforeEnd)) }
+                .filter { $0.date > now }
+                .sorted { $0.date < $1.date }
+        } ?? []
+        let state = BrewTimerAttributes.ContentState(stepTitle: entry.title, startDate: start, endDate: end,
+                                                     pausedRemaining: entry.timer.pausedRemaining, additions: additions)
+        let content = ActivityContent(state: state, staleDate: end?.addingTimeInterval(600))
+        if let existing {
+            Task { await existing.update(content) }
+        } else if ActivityAuthorizationInfo().areActivitiesEnabled {
+            let attributes = BrewTimerAttributes(recipeName: entry.recipeName ?? "Brew Day", timerKey: key)
+            _ = try? Activity<BrewTimerAttributes>.request(attributes: attributes, content: content, pushType: nil)
+        }
     }
 
     /// Clears every timer belonging to a session (e.g. when it's deleted).

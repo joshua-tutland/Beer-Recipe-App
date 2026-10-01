@@ -40,7 +40,8 @@ struct BrewDayChecklistView: View {
                     Section {
                         ForEach(phaseSteps) { step in
                             StepRow(step: step, session: $session,
-                                    timerKey: BrewTimers.key(session: session.id, step: step.id))
+                                    timerKey: BrewTimers.key(session: session.id, step: step.id),
+                                    recipeName: recipe.name)
                         }
                     } header: {
                         Label(phase.displayName, systemImage: phase.symbol)
@@ -60,6 +61,7 @@ private struct StepRow: View {
     let step: BrewStep
     @Binding var session: BrewSession
     let timerKey: String
+    let recipeName: String
 
     @Environment(BrewTimers.self) private var timers
 
@@ -89,7 +91,7 @@ private struct StepRow: View {
             }
 
             if let minutes = step.durationMinutes, !isDone {
-                StepTimerView(step: step, minutes: minutes, timerKey: timerKey, session: $session)
+                StepTimerView(step: step, minutes: minutes, timerKey: timerKey, recipeName: recipeName, session: $session)
                     .padding(.leading, 40)
             }
         }
@@ -101,6 +103,7 @@ private struct StepTimerView: View {
     let step: BrewStep
     let minutes: Double
     let timerKey: String
+    let recipeName: String
     @Binding var session: BrewSession
 
     @Environment(BrewTimers.self) private var timers
@@ -130,7 +133,7 @@ private struct StepTimerView: View {
                             .buttonStyle(.bordered)
                     } else {
                         Button(timer.isPaused ? "Resume" : "Start", systemImage: "play.fill") {
-                            timers.start(timerKey, step: step)
+                            timers.start(timerKey, step: step, recipeName: recipeName)
                         }
                         .buttonStyle(.borderedProminent)
                         .tint(.brewAmber)

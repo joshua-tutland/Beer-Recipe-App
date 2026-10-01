@@ -96,6 +96,10 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
 - **Compare brews** side by side (OG, FG, ABV, attenuation, efficiency, volumes, mash pH, score),
   measured against the plan. Each brew also has a BJCP-style 50-point **scoresheet** (aroma,
   appearance, flavor, mouthfeel, overall).
+- **Lock Screen & Dynamic Island timers** (Live Activities). Starting a mash, boil or hop-stand timer
+  puts a live countdown on the Lock Screen and in the Dynamic Island, with the next hop additions and
+  their clock times. iOS draws the countdown itself, so it keeps running while the app is closed.
+  The `BrewTimerWidget` extension target provides these; `Shared/` holds the code both targets use.
 - **Bottle labels** (Brew menu › Bottle Labels…). Beer name, style, ABV (measured when the batch has
   OG and FG, otherwise estimated), IBU, color, brew/bottling dates and a tagline, with a beer-colored
   band. Prints as a PDF on Avery 5163 (10 per sheet) or 5164 (6 per sheet) stock, with optional cut guides.
@@ -156,7 +160,8 @@ BrewCore/                 Swift package with no UI dependencies (unit-tested)
 
 1. Open `BeerRecipe.xcodeproj` in **Xcode 16 or later**.
 2. Select the *BeerRecipe* target, then under **Signing & Capabilities** choose your team and
-   change the bundle identifier (`com.example.BrewRecipes`) to one you own.
+   change the bundle identifier (`com.example.BrewRecipes`) to one you own. Do the same for the
+   *BrewTimerWidget* target, keeping it as your app's ID plus `.BrewTimerWidget`.
 3. Pick an iPhone or iPad simulator (or a device) and press **Run**.
 
 Run the calculation and export tests with:

@@ -5,7 +5,7 @@ enum EditorSheet: Identifiable, Hashable {
     case style
     case addFermentable, addHop, addYeast, addMisc
     case fermentable(UUID), hop(UUID), yeast(UUID), misc(UUID), mashStep(UUID)
-    case scale, brewSession(UUID), water, inventory, versions, compareBrews
+    case scale, brewSession(UUID), water, inventory, versions, compareBrews, labels
 
     var id: Self { self }
 }
@@ -56,6 +56,7 @@ struct RecipeEditorView: View {
                         savingVersion = true
                     }
                     Button("Version History", systemImage: "clock.arrow.circlepath") { sheet = .versions }
+                    Button("Bottle Labels…", systemImage: "tag") { sheet = .labels }
                     if recipe.sessions.count > 1 {
                         Button("Compare Brews", systemImage: "tablecells") { sheet = .compareBrews }
                     }
@@ -476,6 +477,8 @@ struct RecipeEditorView: View {
             }
         case .water:
             WaterChemistryView(recipe: $recipe, units: units)
+        case .labels:
+            LabelDesignerView(recipe: recipe)
         case .versions:
             VersionHistoryView(recipe: $recipe, units: units)
         case .compareBrews:

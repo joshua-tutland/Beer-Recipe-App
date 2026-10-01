@@ -96,6 +96,9 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
 - **Compare brews** side by side (OG, FG, ABV, attenuation, efficiency, volumes, mash pH, score),
   measured against the plan. Each brew also has a BJCP-style 50-point **scoresheet** (aroma,
   appearance, flavor, mouthfeel, overall).
+- **Bottle labels** (Brew menu › Bottle Labels…). Beer name, style, ABV (measured when the batch has
+  OG and FG, otherwise estimated), IBU, color, brew/bottling dates and a tagline, with a beer-colored
+  band. Prints as a PDF on Avery 5163 (10 per sheet) or 5164 (6 per sheet) stock, with optional cut guides.
 - **Siri and Shortcuts.** "Show stats for *recipe* in Brew Recipes", "Log a gravity reading in Brew
   Recipes" (adds it to the brew that's fermenting and tells you the ABV so far), "Calculate ABV in
   Brew Recipes", and "Open *recipe* in Brew Recipes". All four are also available as Shortcuts actions.

@@ -46,3 +46,12 @@ public extension String {
         return q.isEmpty || range(of: q, options: [.caseInsensitive, .diacriticInsensitive]) != nil
     }
 }
+
+/// License texts for bundled third-party data, shown in Settings.
+public enum ThirdPartyNotices {
+    public static let text: String = {
+        guard let url = Bundle.module.url(forResource: "ThirdPartyNotices", withExtension: "txt"),
+              let text = try? String(contentsOf: url, encoding: .utf8) else { return "" }
+        return text
+    }()
+}

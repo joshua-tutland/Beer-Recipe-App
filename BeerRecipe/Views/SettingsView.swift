@@ -62,10 +62,21 @@ struct SettingsView: View {
                     LabeledContent("Recipe Exchange", value: "BeerXML 1.0")
                     Link("BeerXML specification", destination: URL(string: "http://www.beerxml.com")!)
                     Link("BJCP Style Guidelines", destination: URL(string: "https://www.bjcp.org/beer-styles/")!)
+                    NavigationLink("Third-Party Notices") {
+                        ScrollView {
+                            Text(ThirdPartyNotices.text)
+                                .font(.footnote.monospaced())
+                                .textSelection(.enabled)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding()
+                        }
+                        .navigationTitle("Third-Party Notices")
+                        .navigationBarTitleDisplayMode(.inline)
+                    }
                 } header: {
                     Text("About")
                 } footer: {
-                    Text("Recipes are stored on this device in the app's Documents folder and are visible in the Files app. Ingredient values are typical figures — check your supplier's specs.")
+                    Text("Recipes are stored on this device in the app's Documents folder and are visible in the Files app. Ingredient values are typical figures (partly from the open common-beer-data set by Wall Brew Co.) — check your supplier's specs.")
                 }
             }
             .navigationTitle("Settings")

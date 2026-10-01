@@ -66,8 +66,11 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
     refractometer readings are alcohol-corrected against the batch's OG
 - **Style check** against a subset of 58 BJCP 2021 styles, showing whether OG, FG, ABV, IBU
   and SRM are below, within or above each style's range.
-- **Ingredient database** bundled with the app (66 fermentables, 58 hops, 44 yeasts,
-  20 other ingredients such as water salts, finings and spices), plus your own custom ingredients.
+- **Ingredient database** bundled with the app: 107 fermentables, 79 hops, 168 yeasts and 20 other
+  ingredients (water salts, finings, spices), plus your own custom ingredients. Curated entries are
+  extended with the open [common-beer-data](https://github.com/Wall-Brew-Co/common-beer-data) set
+  (MIT; see `THIRD_PARTY_NOTICES.md`). That set has no real yeast attenuation figures, so those
+  yeasts show a typical range for their type, flagged in their notes.
 - **Export & share** through the share sheet: PDF recipe sheet, Word document, or BeerXML.
   You can also save to Files, AirDrop, email or print.
 - **BeerXML import** lets you bring in recipes from BeerSmith, Brewfather, Brewer's Friend,
@@ -140,7 +143,7 @@ recipes can come from anywhere. Useful open sources for extending the data:
 |---|---|---|
 | [BeerXML 1.0](http://www.beerxml.com) | Open recipe and ingredient interchange format | Implemented here for import and export |
 | [BeerJSON](https://github.com/beerjson/beerjson) | Newer JSON successor to BeerXML with schemas | A good next import/export target |
-| [Wall-Brew-Co/common-beer-data](https://github.com/Wall-Brew-Co/common-beer-data) | Open data set of fermentables, hops, yeasts, waters and styles | Can be converted into this app's JSON resources |
+| [Wall-Brew-Co/common-beer-data](https://github.com/Wall-Brew-Co/common-beer-data) | Open data set of fermentables, hops, yeasts and styles | **Merged into the bundled data** with `tools/import_common_beer_data.py` (MIT) |
 | [Brewtarget](https://github.com/Brewtarget/brewtarget) / [Brewken](https://github.com/Brewken/brewken) | Open-source brewing apps with default ingredient databases | GPL licensed; check the license before bundling their data |
 | [BJCP Style Guidelines](https://www.bjcp.org/beer-styles/) | Official style ranges | Source for `styles.json` |
 | [Punk API](https://github.com/sammdec/punkapi) | BrewDog's 325 open "DIY Dog" recipes | MIT licensed data; the hosted API is deprecated, so use the dataset directly |

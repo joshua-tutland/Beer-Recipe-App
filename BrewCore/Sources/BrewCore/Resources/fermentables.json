@@ -619,5 +619,424 @@
   "maxPercent": 10,
   "notes": "Unfermentable: adds body.",
   "fermentability": 0
+ },
+ {
+  "id": "amber-malt",
+  "name": "Amber Malt",
+  "type": "grain",
+  "colorLovibond": 22.0,
+  "potentialPPG": 35.0,
+  "maxPercent": 20,
+  "notes": "Roasted specialty malt used in some English browns, milds and old ales to add color and a biscuit taste. Intense flavor - so limit use. Low diastatic power so must be mashed with well modified malts.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "barley-hulls",
+  "name": "Barley Hulls",
+  "type": "adjunct",
+  "colorLovibond": 0.0,
+  "potentialPPG": 0.0,
+  "maxPercent": 5,
+  "notes": "Neutral hulls used to improve lautering.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "barley-raw",
+  "name": "Barley, Raw",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 28.0,
+  "maxPercent": 15,
+  "notes": "Raw, unmalted barley can be used to add body to your beer. Use in homebrew requires very fine milling combined with a decoction or multi-stage mash. Performs best when used in small quantities with well modified grains.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "barley-torrefied",
+  "name": "Barley, Torrefied",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 36.0,
+  "maxPercent": 40,
+  "notes": "Raw barley that has been popped to open the kernels. Used in place of raw barley for faster conversion and higher yields. High in haze producing protein.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "beet-sugar",
+  "name": "Beet Sugar",
+  "type": "sugar",
+  "colorLovibond": 0.0,
+  "potentialPPG": 46.0,
+  "fermentability": 100,
+  "maxPercent": 7,
+  "notes": "Common, household sugar used to lighten the flavor and body.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "belgian-candi-syrup-180l",
+  "name": "Belgian Candi Syrup - 180L",
+  "type": "sugar",
+  "colorLovibond": 243.0,
+  "potentialPPG": 32.0,
+  "fermentability": 100,
+  "maxPercent": 20,
+  "notes": "Crystalized candi sugar for use in Tripels, Dubbels, and holiday ales.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "belgian-candi-syrup-45l",
+  "name": "Belgian Candi Syrup - 45L",
+  "type": "sugar",
+  "colorLovibond": 60.0,
+  "potentialPPG": 32.0,
+  "fermentability": 100,
+  "maxPercent": 20,
+  "notes": "Crystalized candi sugar for use in Tripels, Dubbels, and holiday ales.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "belgian-candi-syrup-90l",
+  "name": "Belgian Candi Syrup - 90L",
+  "type": "sugar",
+  "colorLovibond": 121.0,
+  "potentialPPG": 32.0,
+  "fermentability": 100,
+  "maxPercent": 20,
+  "notes": "Crystalized candi sugar for use in Tripels, Dubbels, and holiday ales.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "black-barley-stout",
+  "name": "Black Barley (Stout)",
+  "type": "grain",
+  "colorLovibond": 500.0,
+  "potentialPPG": 25.0,
+  "maxPercent": 10,
+  "notes": "Unmalted barley roasted at high temperature to create a dry, coffee like flavor. Imparts a sharp acrid flavor characteristic of dry stouts. Gives dryness to a stout or porter.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "brumalt",
+  "name": "Brumalt",
+  "type": "grain",
+  "colorLovibond": 23.0,
+  "potentialPPG": 33.0,
+  "maxPercent": 10,
+  "notes": "Dark German malt developed to add malt flavor of Alt, Marzen and Oktoberfest beers. Helps create authentic maltiness without having to do a decoction mash.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "caraamber",
+  "name": "Caraamber",
+  "type": "grain",
+  "colorLovibond": 30.0,
+  "potentialPPG": 35.0,
+  "maxPercent": 20,
+  "notes": "Adds body, color and improves head retention.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "caramel-crystal-malt-140l",
+  "name": "Caramel/Crystal Malt - 140L",
+  "type": "grain",
+  "colorLovibond": 140.0,
+  "potentialPPG": 33.0,
+  "maxPercent": 20,
+  "notes": "Adds body, color and improves head retention.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "caramel-crystal-malt-160l",
+  "name": "Caramel/Crystal Malt - 160L",
+  "type": "grain",
+  "colorLovibond": 160.0,
+  "potentialPPG": 33.0,
+  "maxPercent": 20,
+  "notes": "Adds body, color and improves head retention.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "caramel-crystal-malt-30l",
+  "name": "Caramel/Crystal Malt - 30L",
+  "type": "grain",
+  "colorLovibond": 30.0,
+  "potentialPPG": 35.0,
+  "maxPercent": 20,
+  "notes": "Adds body, color and improves head retention.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "caramel-crystal-malt-90l",
+  "name": "Caramel/Crystal Malt - 90L",
+  "type": "grain",
+  "colorLovibond": 90.0,
+  "potentialPPG": 34.0,
+  "maxPercent": 20,
+  "notes": "Adds body, color and improves head retention.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "caramunich-malt",
+  "name": "Caramunich Malt",
+  "type": "grain",
+  "colorLovibond": 56.0,
+  "potentialPPG": 33.0,
+  "maxPercent": 10,
+  "notes": "Caramel, copper colored malt. Used in Belgian ales and German bocks.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "corn-flaked",
+  "name": "Corn (Flaked)",
+  "type": "grain",
+  "colorLovibond": 3.0,
+  "potentialPPG": 30.0,
+  "maxPercent": 100,
+  "notes": "Generally a neutral flavor, used to reduce maltiness of beer.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "corn-syrup",
+  "name": "Corn Syrup",
+  "type": "sugar",
+  "colorLovibond": 0.0,
+  "potentialPPG": 36.0,
+  "fermentability": 100,
+  "maxPercent": 10,
+  "notes": "Syrup derived from corn sugar.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "dark-wheat-malt",
+  "name": "Dark Wheat Malt",
+  "type": "grain",
+  "colorLovibond": 9.0,
+  "potentialPPG": 39.0,
+  "maxPercent": 20,
+  "notes": "Dark malted wheat base for use in dark wheat styles such as Dunkleweizen.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "demerara-sugar",
+  "name": "Demerara Sugar",
+  "type": "sugar",
+  "colorLovibond": 2.0,
+  "potentialPPG": 46.0,
+  "fermentability": 100,
+  "maxPercent": 10,
+  "notes": "A dark, unrefined sugar that contains molasses.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "grits",
+  "name": "Grits",
+  "type": "adjunct",
+  "colorLovibond": 1.0,
+  "potentialPPG": 37.0,
+  "maxPercent": 10,
+  "notes": "Imparts a corn and grain taste.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "invert-sugar",
+  "name": "Invert Sugar",
+  "type": "sugar",
+  "colorLovibond": 0.0,
+  "potentialPPG": 46.0,
+  "fermentability": 100,
+  "maxPercent": 10,
+  "notes": "A sugar used to increase starting gravity.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "light-brown-sugar",
+  "name": "Light Brown Sugar",
+  "type": "sugar",
+  "colorLovibond": 8.0,
+  "potentialPPG": 46.0,
+  "fermentability": 100,
+  "maxPercent": 10,
+  "notes": "Imparts a sweet, rich flavor.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "mild-malt",
+  "name": "Mild Malt",
+  "type": "grain",
+  "colorLovibond": 4.0,
+  "potentialPPG": 37.0,
+  "maxPercent": 100,
+  "notes": "Also called 'English Mild' - a light specialty malt used in Brown Ales.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "oats-malted",
+  "name": "Oats, Malted",
+  "type": "grain",
+  "colorLovibond": 1.0,
+  "potentialPPG": 37.0,
+  "maxPercent": 10,
+  "notes": "Malted oats. Adds body, mouth feel and head retention to the beer. Creates chill haze in lighter beers, so is primarily used in dark ones.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "pale-liquid-extract",
+  "name": "Pale Liquid Extract",
+  "type": "extract",
+  "colorLovibond": 8.0,
+  "potentialPPG": 36.0,
+  "maxPercent": 100,
+  "notes": "For general-purpose use in light and pale beers.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "pale-malt-2-row-belgium",
+  "name": "Pale Malt (2 Row) - Belgium",
+  "type": "grain",
+  "colorLovibond": 3.0,
+  "potentialPPG": 37.0,
+  "maxPercent": 100,
+  "notes": "Base malt for all beer styles.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "pale-malt-6-row-usa",
+  "name": "Pale Malt (6 Row) - USA",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 35.0,
+  "maxPercent": 100,
+  "notes": "Base malt for all beer styles.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "pilsner-2-row-belgium",
+  "name": "Pilsner (2 Row) - Belgium",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 36.0,
+  "maxPercent": 100,
+  "notes": "Belgian base malt for Continental lagers.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "pilsner-2-row-uk",
+  "name": "Pilsner (2 Row) - UK",
+  "type": "grain",
+  "colorLovibond": 1.0,
+  "potentialPPG": 36.0,
+  "maxPercent": 100,
+  "notes": "Pilsner base malt.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "pilsner-liquid-extract",
+  "name": "Pilsner Liquid Extract",
+  "type": "extract",
+  "colorLovibond": 4.0,
+  "potentialPPG": 36.0,
+  "maxPercent": 100,
+  "notes": "For general-purpose use in pale beers.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "rice-extract-syrup",
+  "name": "Rice Extract Syrup",
+  "type": "extract",
+  "colorLovibond": 7.0,
+  "potentialPPG": 32.0,
+  "maxPercent": 15,
+  "notes": "Used like other rice adjuncts in American and Japanese lagers.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "rye-liquid-extract",
+  "name": "Rye Liquid Extract",
+  "type": "extract",
+  "colorLovibond": 7.0,
+  "potentialPPG": 34.0,
+  "maxPercent": 100,
+  "notes": "Mixed rye/barley extract for general-purpose brewing.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "sorghum-syrup",
+  "name": "Sorghum Syrup",
+  "type": "extract",
+  "colorLovibond": 7.0,
+  "potentialPPG": 36.0,
+  "maxPercent": 100,
+  "notes": "A gluten-free extract based on sorghum grain. Can be used as a substitute for Light Malt Extract.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "special-roast",
+  "name": "Special Roast",
+  "type": "grain",
+  "colorLovibond": 50.0,
+  "potentialPPG": 33.0,
+  "maxPercent": 10,
+  "notes": "Use for English ales, nut brown ales and porters. Adds a toasted, biscuit like flavor and aroma.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "toasted-malt",
+  "name": "Toasted Malt",
+  "type": "grain",
+  "colorLovibond": 27.0,
+  "potentialPPG": 33.0,
+  "maxPercent": 10,
+  "notes": "Similar to Biscuit or Victory malt, this malt adds reddish/orange color and improved body without sweetness along with a toasted flavor.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "turbinado",
+  "name": "Turbinado",
+  "type": "sugar",
+  "colorLovibond": 10.0,
+  "potentialPPG": 44.0,
+  "fermentability": 100,
+  "maxPercent": 10,
+  "notes": "A light, raw brown sugar used to increase starting gravity.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "wheat-malt-belgium",
+  "name": "Wheat Malt - Belgium",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 37.0,
+  "maxPercent": 60,
+  "notes": "Malted wheat for use in Wheat beers.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "wheat-roasted",
+  "name": "Wheat, Roasted",
+  "type": "grain",
+  "colorLovibond": 425.0,
+  "potentialPPG": 25.0,
+  "maxPercent": 10,
+  "notes": "Also called Chocolate Wheat Malt. Adds a deep, dark brown color to dunkelweizens and other dark beer styles.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "wheat-torrified",
+  "name": "Wheat, Torrified",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 36.0,
+  "maxPercent": 40,
+  "notes": "Unmodified wheat that has been popped to open the kernels. Protein rest recommended when mashing.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "white-wheat-malt",
+  "name": "White Wheat Malt",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 40.0,
+  "maxPercent": 60,
+  "notes": "White wheat gives a malty flavor not available from raw wheat.",
+  "source": "common-beer-data"
  }
 ]

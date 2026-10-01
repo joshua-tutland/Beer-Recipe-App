@@ -578,5 +578,215 @@
   "purpose": "aroma",
   "aroma": "Earthy, floral, spice",
   "substitutes": "Fuggle, Styrian Golding"
+ },
+ {
+  "id": "ahtanum",
+  "name": "Ahtanum",
+  "alphaAcid": 5.7,
+  "betaAcid": 5.0,
+  "purpose": "aroma",
+  "aroma": "Distinct grapefruit scent and flavor.",
+  "substitutes": "Willamette, Centennial, Cascade",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "bravo",
+  "name": "Bravo",
+  "alphaAcid": 18.0,
+  "betaAcid": 5.0,
+  "purpose": "bittering",
+  "aroma": "Spicy, earthy, and lightly floral aroma.",
+  "substitutes": "Columbus, CTZ, Nugget",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "brewer-s-gold-us",
+  "name": "Brewer's Gold US",
+  "alphaAcid": 10.0,
+  "betaAcid": 4.5,
+  "purpose": "bittering",
+  "aroma": "An incredibly sharp bittering flavor.",
+  "substitutes": "Cascade, Galena",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "bullion",
+  "name": "Bullion",
+  "alphaAcid": 8.0,
+  "betaAcid": 6.0,
+  "purpose": "bittering",
+  "aroma": "Scents of dark fruit and spice.",
+  "substitutes": "Columbus, Chinook, Galena",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "chelan",
+  "name": "Chelan",
+  "alphaAcid": 15.0,
+  "betaAcid": 9.8,
+  "purpose": "bittering",
+  "aroma": "Despite being comparable in style, Chelan enjoys higher yields and a higher alpha percentage than its parent Galena.",
+  "substitutes": "Galena, Nugget",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "delta",
+  "name": "Delta",
+  "alphaAcid": 7.0,
+  "betaAcid": 7.0,
+  "purpose": "aroma",
+  "aroma": "Spicy citrus and summer melon notes.",
+  "substitutes": "Fuggle, Willamette",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "eroica",
+  "name": "Eroica",
+  "alphaAcid": 12.0,
+  "betaAcid": 4.5,
+  "purpose": "bittering",
+  "aroma": "Possesses a sharp fruity essence.",
+  "substitutes": "Galena, Cluster, Brewer's Gold",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "glacier",
+  "name": "Glacier",
+  "alphaAcid": 5.5,
+  "betaAcid": 8.2,
+  "purpose": "aroma",
+  "aroma": "Herby, woody, and citrusy notes.",
+  "substitutes": "Willamette",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "golding-us",
+  "name": "Golding US",
+  "alphaAcid": 6.0,
+  "betaAcid": 3.0,
+  "purpose": "aroma",
+  "aroma": "Direct descendants of East Kent Golding. Delicate fruit and herbal aromas.",
+  "substitutes": "Fuggle, East Kent Golding",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "hallertau-us",
+  "name": "Hallertau US",
+  "alphaAcid": 5.5,
+  "betaAcid": 5.5,
+  "purpose": "aroma",
+  "aroma": "Sometimes sold as Mittelfrüher. Light aroma of spice and floral notes.",
+  "substitutes": "Liberty",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "horizon",
+  "name": "Horizon",
+  "alphaAcid": 10.0,
+  "betaAcid": 5.0,
+  "purpose": "dualPurpose",
+  "aroma": "Floral, citrusy flavors and aromas.",
+  "substitutes": "Magnum",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "millennium",
+  "name": "Millennium",
+  "alphaAcid": 16.5,
+  "betaAcid": 5.3,
+  "purpose": "bittering",
+  "aroma": "Mild herbal notes with elements of resin.",
+  "substitutes": "CTZ, Nugget",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "newport",
+  "name": "Newport",
+  "alphaAcid": 17.0,
+  "betaAcid": 9.0,
+  "purpose": "bittering",
+  "aroma": "Derived from the Magnum genus. Provides clean bitterness.",
+  "substitutes": "Galena, Nugget",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "palisade",
+  "name": "Palisade",
+  "alphaAcid": 9.5,
+  "betaAcid": 8.0,
+  "purpose": "aroma",
+  "aroma": "Flavors of nectar fruits and citrus. Aromas that are floral, herbaceous, and grassy.",
+  "substitutes": "Golding, Chinook",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "santiam",
+  "name": "Santiam",
+  "alphaAcid": 7.0,
+  "betaAcid": 8.0,
+  "purpose": "aroma",
+  "aroma": "Soft, herbal, floral, fruity aromas with hints of pepper and spice.",
+  "substitutes": "Spalt, Hallertau, Liberty",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "strisselspalt",
+  "name": "Strisselspalt",
+  "alphaAcid": 4.5,
+  "betaAcid": 4.5,
+  "purpose": "aroma",
+  "aroma": "Pleasant mixture of herbal, floral, and citrus notes.",
+  "substitutes": "Hallertau, Mt Hood",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "super-galena",
+  "name": "Super Galena",
+  "alphaAcid": 16.0,
+  "betaAcid": 10.0,
+  "purpose": "bittering",
+  "aroma": "A far more potent variety of Galena with great bittering potential and citrus notes.",
+  "substitutes": "Galena, Columbus, CTZ, Eroica",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "tillicum",
+  "name": "Tillicum",
+  "alphaAcid": 15.0,
+  "betaAcid": 11.0,
+  "purpose": "bittering",
+  "aroma": "Elements of citrus and peach.",
+  "substitutes": "Galena, Chelan",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "topaz",
+  "name": "Topaz",
+  "alphaAcid": 15.0,
+  "betaAcid": 7.0,
+  "purpose": "dualPurpose",
+  "aroma": "Stone fruit aroma with citrus notes.",
+  "substitutes": "Galaxy, Citra, Amarillo",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "ultra",
+  "name": "Ultra",
+  "alphaAcid": 3.5,
+  "betaAcid": 4.5,
+  "purpose": "aroma",
+  "aroma": "Mild spice aroma and flavor.",
+  "substitutes": "Hallertau, Saaz",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "vanguard",
+  "name": "Vanguard",
+  "alphaAcid": 6.0,
+  "betaAcid": 7.0,
+  "purpose": "aroma",
+  "aroma": "Floral and spice notes.",
+  "substitutes": "Hallertau, Saaz, Mt Hood",
+  "source": "common-beer-data"
  }
 ]

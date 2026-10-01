@@ -89,6 +89,13 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
   yeasts show a typical range for their type, flagged in their notes.
 - **Export & share** through the share sheet: PDF recipe sheet, Word document, or BeerXML.
   You can also save to Files, AirDrop, email or print.
+- **Recipe versions.** Each brew day saves a snapshot of the recipe, and *Save Version…* adds one
+  with a note. Version History lists what changed between versions (e.g. "Crystal 40L: 0.35 kg →
+  0.45 kg", "IBU 31 → 35") and can restore any of them; the current recipe is saved first, so a
+  restore can be undone.
+- **Compare brews** side by side (OG, FG, ABV, attenuation, efficiency, volumes, mash pH, score),
+  measured against the plan. Each brew also has a BJCP-style 50-point **scoresheet** (aroma,
+  appearance, flavor, mouthfeel, overall).
 - **Siri and Shortcuts.** "Show stats for *recipe* in Brew Recipes", "Log a gravity reading in Brew
   Recipes" (adds it to the brew that's fermenting and tells you the ABV so far), "Calculate ABV in
   Brew Recipes", and "Open *recipe* in Brew Recipes". All four are also available as Shortcuts actions.

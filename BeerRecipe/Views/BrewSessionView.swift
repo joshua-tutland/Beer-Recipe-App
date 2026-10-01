@@ -84,6 +84,17 @@ struct BrewSessionView: View {
                 }
                 TextField("How did it turn out? What would you change?", text: $session.notes, axis: .vertical)
                     .lineLimit(3...10)
+                NavigationLink {
+                    ScoresheetView(session: $session)
+                } label: {
+                    HStack {
+                        Label("Scoresheet", systemImage: "list.clipboard")
+                        Spacer()
+                        if let sheet = session.scoresheet {
+                            Text("\(sheet.total)/50 · \(sheet.rating)").foregroundStyle(.secondary).monospacedDigit()
+                        }
+                    }
+                }
             }
         }
         .navigationTitle(session.name)

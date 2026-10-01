@@ -280,6 +280,8 @@ public struct Recipe: Codable, Hashable, Identifiable, Sendable {
     public var sessions: [BrewSession]
     /// Water chemistry plan (nil until the brewer sets one up).
     public var water: WaterTreatment?
+    /// Saved formulations, newest first.
+    public var versions: [RecipeVersion]
 
     public init(id: UUID = UUID(),
                 name: String = "New Recipe",
@@ -298,7 +300,8 @@ public struct Recipe: Codable, Hashable, Identifiable, Sendable {
                 miscs: [MiscAddition] = [],
                 mashSteps: [MashStep] = [MashStep(name: "Saccharification", tempC: 66, minutes: 60)],
                 sessions: [BrewSession] = [],
-                water: WaterTreatment? = nil) {
+                water: WaterTreatment? = nil,
+                versions: [RecipeVersion] = []) {
         self.id = id
         self.name = name
         self.author = author
@@ -317,11 +320,12 @@ public struct Recipe: Codable, Hashable, Identifiable, Sendable {
         self.mashSteps = mashSteps
         self.sessions = sessions
         self.water = water
+        self.versions = versions
     }
 
     private enum CodingKeys: String, CodingKey {
         case id, name, author, type, styleId, createdAt, modifiedAt, notes, equipment, fermentation
-        case ibuFormula, fermentables, hops, yeasts, miscs, mashSteps, sessions, water
+        case ibuFormula, fermentables, hops, yeasts, miscs, mashSteps, sessions, water, versions
     }
 
     /// Tolerates missing keys so recipes saved by earlier versions of the app still load.
@@ -346,6 +350,7 @@ public struct Recipe: Codable, Hashable, Identifiable, Sendable {
         mashSteps = try c.decodeIfPresent([MashStep].self, forKey: .mashSteps) ?? []
         sessions = try c.decodeIfPresent([BrewSession].self, forKey: .sessions) ?? []
         water = try c.decodeIfPresent(WaterTreatment.self, forKey: .water)
+        versions = try c.decodeIfPresent([RecipeVersion].self, forKey: .versions) ?? []
     }
 
     public var style: BeerStyle? { styleId.flatMap { StyleCatalog.style(id: $0) } }
@@ -377,6 +382,7 @@ public struct Recipe: Codable, Hashable, Identifiable, Sendable {
         copy.createdAt = Date()
         copy.modifiedAt = Date()
         copy.sessions = []
+        copy.versions = []
         return copy
     }
 }

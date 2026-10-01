@@ -91,6 +91,9 @@ public struct BrewSession: Codable, Hashable, Identifiable, Sendable {
     /// Set once this brew's ingredients have been taken out of inventory, so it can't happen twice.
     public var inventoryDeductedAt: Date?
 
+    /// BJCP-style tasting score.
+    public var scoresheet: TastingScoresheet?
+
     public init(id: UUID = UUID(), recipe: Recipe, brewDate: Date = Date(), name: String? = nil) {
         self.id = id
         self.brewDate = brewDate

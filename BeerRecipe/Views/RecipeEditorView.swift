@@ -5,7 +5,7 @@ enum EditorSheet: Identifiable, Hashable {
     case style
     case addFermentable, addHop, addYeast, addMisc
     case fermentable(UUID), hop(UUID), yeast(UUID), misc(UUID), mashStep(UUID)
-    case scale, brewSession(UUID), water, inventory
+    case scale, brewSession(UUID), water, inventory, versions, compareBrews
 
     var id: Self { self }
 }
@@ -22,6 +22,8 @@ struct RecipeEditorView: View {
     @State private var exportError: String?
     @State private var showAdvancedEquipment = false
     @State private var notice: String?
+    @State private var savingVersion = false
+    @State private var versionNote = ""
 
     var body: some View {
         let stats = recipe.stats
@@ -48,6 +50,15 @@ struct RecipeEditorView: View {
                 Menu {
                     Button("Start Brew Day", systemImage: "flame") { startBrewDay() }
                     Button("Scale Recipe…", systemImage: "arrow.up.left.and.arrow.down.right") { sheet = .scale }
+                    Divider()
+                    Button("Save Version…", systemImage: "square.and.arrow.down.on.square") {
+                        versionNote = ""
+                        savingVersion = true
+                    }
+                    Button("Version History", systemImage: "clock.arrow.circlepath") { sheet = .versions }
+                    if recipe.sessions.count > 1 {
+                        Button("Compare Brews", systemImage: "tablecells") { sheet = .compareBrews }
+                    }
                 } label: {
                     Label("Brew", systemImage: "mug")
                 }
@@ -67,7 +78,21 @@ struct RecipeEditorView: View {
         .sheet(item: $shareItem) { item in
             ActivityView(items: [item.url])
         }
-        .alert("Recipe Scaled", isPresented: Binding(get: { notice != nil }, set: { if !$0 { notice = nil } })) {
+        .alert("Save Version", isPresented: $savingVersion) {
+            TextField("What changed? (optional)", text: $versionNote)
+            Button("Save") {
+                let note = versionNote.trimmingCharacters(in: .whitespaces)
+                if !recipe.saveVersion(note: note.isEmpty ? "Saved \(Date().formatted(date: .abbreviated, time: .shortened))" : note) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        notice = "Nothing has changed since the last saved version."
+                    }
+                }
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Saves the current ingredients and process so you can compare or restore them later.")
+        }
+        .alert(notice?.hasPrefix("Saved") == true ? "Recipe Scaled" : "Version History", isPresented: Binding(get: { notice != nil }, set: { if !$0 { notice = nil } })) {
             Button("OK", role: .cancel) {}
         } message: {
             Text(notice ?? "")
@@ -451,6 +476,10 @@ struct RecipeEditorView: View {
             }
         case .water:
             WaterChemistryView(recipe: $recipe, units: units)
+        case .versions:
+            VersionHistoryView(recipe: $recipe, units: units)
+        case .compareBrews:
+            BrewComparisonView(recipe: recipe, units: units)
         case .inventory:
             RecipeInventoryView(recipe: recipe, units: units)
         case .brewSession(let id):
@@ -544,6 +573,9 @@ struct RecipeEditorView: View {
             }
 
             Button("Start Brew Day", systemImage: "flame.fill") { startBrewDay() }
+            if recipe.sessions.count > 1 {
+                Button("Compare Brews", systemImage: "tablecells") { sheet = .compareBrews }
+            }
         } header: {
             Text("Brew Log")
         } footer: {
@@ -555,6 +587,8 @@ struct RecipeEditorView: View {
 
     private func startBrewDay() {
         let session = BrewSession(recipe: recipe)
+        // Keep a record of exactly what was brewed.
+        recipe.saveVersion(note: "Brewed as \(session.name)")
         recipe.sessions.insert(session, at: 0)
         sheet = .brewSession(session.id)
     }

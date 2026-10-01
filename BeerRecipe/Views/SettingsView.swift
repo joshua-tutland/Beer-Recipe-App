@@ -3,6 +3,7 @@ import BrewCore
 
 struct SettingsView: View {
     @Environment(RecipeStore.self) private var store
+    @Environment(CloudSync.self) private var cloud
     @Environment(\.dismiss) private var dismiss
     @AppStorage("unitSystem") private var units: UnitSystem = .imperial
     @State private var equipment = Equipment()
@@ -50,6 +51,29 @@ struct SettingsView: View {
                     Text("Water")
                 } footer: {
                     Text("Used as the starting water when you set up water chemistry for a recipe.")
+                }
+
+                Section {
+                    Toggle("Sync with iCloud", isOn: Binding(get: { cloud.isEnabled }, set: { cloud.setEnabled($0) }))
+                    HStack(spacing: 8) {
+                        switch cloud.status {
+                        case .connecting:
+                            ProgressView()
+                        case .on:
+                            Image(systemName: "checkmark.icloud").foregroundStyle(.green)
+                        case .unavailable:
+                            Image(systemName: "exclamationmark.icloud").foregroundStyle(.orange)
+                        case .off:
+                            Image(systemName: "iphone").foregroundStyle(.secondary)
+                        }
+                        Text(cloud.status.description)
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                    }
+                } header: {
+                    Text("iCloud")
+                } footer: {
+                    Text("Keeps recipes, brew logs, water plans, inventory and custom ingredients the same on your iPhone and iPad. Turning sync on merges this device's recipes into iCloud; if the same recipe was changed on two devices, the most recent edit wins.")
                 }
 
                 Section("Data") {

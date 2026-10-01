@@ -47,7 +47,9 @@ struct RecipeListView: View {
             }
         }
         .overlay {
-            if store.recipes.isEmpty {
+            if store.isLoading {
+                ProgressView("Loading recipes from iCloud…")
+            } else if store.recipes.isEmpty {
                 ContentUnavailableView {
                     Label("No Recipes", systemImage: "book.closed")
                 } description: {

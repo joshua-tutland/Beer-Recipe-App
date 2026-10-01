@@ -4,10 +4,17 @@ import Foundation
 /// so recipes stay on the device, survive app updates, and are included in iCloud/iTunes backups.
 public struct RecipeRepository: Sendable {
     public let directory: URL
+    /// Coordinate file access with `NSFileCoordinator`. Required for iCloud (ubiquitous)
+    /// containers, so the system's sync process never sees a half-written file.
+    public let usesFileCoordination: Bool
 
-    public init(directory: URL) {
+    public init(directory: URL, usesFileCoordination: Bool = false) {
         self.directory = directory
+        self.usesFileCoordination = usesFileCoordination
     }
+
+    /// Folder for files stored alongside the recipes (inventory, custom ingredients).
+    public var supportDirectory: URL { directory.deletingLastPathComponent() }
 
     /// `Documents/Recipes` in the app sandbox.
     public static func documents() -> RecipeRepository {
@@ -36,26 +43,70 @@ public struct RecipeRepository: Sendable {
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
     }
 
+    /// Every readable recipe, newest first. Files iCloud hasn't downloaded yet (`.name.json.icloud`
+    /// placeholders) are skipped.
     public func loadAll() -> [Recipe] {
         let files = (try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil)) ?? []
         return files
             .filter { $0.pathExtension == "json" }
-            .compactMap { try? Self.decoder.decode(Recipe.self, from: Data(contentsOf: $0)) }
+            .compactMap { readFile($0).flatMap { try? Self.decoder.decode(Recipe.self, from: $0) } }
             .sorted { $0.modifiedAt > $1.modifiedAt }
     }
 
     public func save(_ recipe: Recipe) throws {
         try ensureDirectory()
-        let data = try Self.encoder.encode(recipe)
-        try data.write(to: url(for: recipe.id), options: [.atomic])
+        try writeFile(Self.encoder.encode(recipe), to: url(for: recipe.id))
     }
 
     public func delete(id: UUID) throws {
         let file = url(for: id)
-        if FileManager.default.fileExists(atPath: file.path) {
-            try FileManager.default.removeItem(at: file)
-        }
+        guard FileManager.default.fileExists(atPath: file.path) else { return }
+        try coordinate(writing: file, options: .forDeleting) { try FileManager.default.removeItem(at: $0) }
     }
+
+    // MARK: Coordinated file access
+
+    public func readFile(_ url: URL) -> Data? {
+        var data: Data?
+        try? coordinate(reading: url) { data = try? Data(contentsOf: $0) }
+        return data
+    }
+
+    public func writeFile(_ data: Data, to url: URL) throws {
+        try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try coordinate(writing: url, options: .forReplacing) { try data.write(to: $0, options: [.atomic]) }
+    }
+
+    #if canImport(ObjectiveC)
+    private func coordinate(reading url: URL, _ body: (URL) throws -> Void) throws {
+        guard usesFileCoordination else { return try body(url) }
+        var coordinationError: NSError?
+        var bodyError: Error?
+        NSFileCoordinator().coordinate(readingItemAt: url, options: [], error: &coordinationError) { url in
+            do { try body(url) } catch { bodyError = error }
+        }
+        if let error = coordinationError ?? bodyError { throw error }
+    }
+
+    private func coordinate(writing url: URL, options: NSFileCoordinator.WritingOptions,
+                            _ body: (URL) throws -> Void) throws {
+        guard usesFileCoordination else { return try body(url) }
+        var coordinationError: NSError?
+        var bodyError: Error?
+        NSFileCoordinator().coordinate(writingItemAt: url, options: options, error: &coordinationError) { url in
+            do { try body(url) } catch { bodyError = error }
+        }
+        if let error = coordinationError ?? bodyError { throw error }
+    }
+    #else
+    private enum WritingOption { case forDeleting, forReplacing }
+
+    private func coordinate(reading url: URL, _ body: (URL) throws -> Void) throws { try body(url) }
+
+    private func coordinate(writing url: URL, options: WritingOption, _ body: (URL) throws -> Void) throws {
+        try body(url)
+    }
+    #endif
 
     public static func encode(_ recipe: Recipe) throws -> Data { try encoder.encode(recipe) }
     public static func decode(_ data: Data) throws -> Recipe { try decoder.decode(Recipe.self, from: data) }

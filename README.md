@@ -81,6 +81,26 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
 - **Adaptive layout.** iPad gets a split view (recipe list, editor, and a live analysis panel beside the editor).
   iPhone gets a navigation stack with a summary strip and a full analysis page.
 
+## iCloud sync (optional)
+
+Settings › **Sync with iCloud** keeps recipes, brew logs, water plans, inventory and custom
+ingredients the same across your iPhone and iPad. Each recipe is a separate file in the app's
+iCloud Drive container, so iOS syncs them individually. If two devices change the same recipe
+while offline, the most recently edited copy wins. Turning sync on merges the device's existing
+recipes into iCloud; turning it off copies the latest iCloud versions back to the device.
+
+The iCloud capability is **not** enabled in the project by default, because Xcode can't sign apps
+that use iCloud with a free (personal team) Apple account. To use sync you need a paid Apple
+Developer account. Then:
+
+1. In Xcode, select the **BeerRecipe** target › **Signing & Capabilities** › **+ Capability** › **iCloud**.
+2. Tick **iCloud Documents**, then under Containers click **+** and add one, e.g. `iCloud.<your bundle id>`.
+3. Run on a device (or simulator) signed in to iCloud with iCloud Drive turned on, and switch on
+   **Sync with iCloud** in the app's Settings. Do the same on your other device.
+
+Without the capability, or when the device isn't signed in to iCloud, the toggle explains why
+sync isn't available and the app keeps working with local storage.
+
 ## Project layout
 
 ```

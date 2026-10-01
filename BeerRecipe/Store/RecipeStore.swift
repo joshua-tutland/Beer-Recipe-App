@@ -13,30 +13,33 @@ final class RecipeStore {
     private(set) var myWater: WaterProfile?
     /// Ingredients on hand.
     private(set) var inventory: [InventoryItem] = []
+    /// True while waiting for iCloud to hand over the synced folder at launch.
+    private(set) var isLoading = false
 
-    @ObservationIgnored private let repository: RecipeRepository
+    @ObservationIgnored private(set) var repository: RecipeRepository
     @ObservationIgnored private var pendingSaves: [UUID: Task<Void, Never>] = [:]
     @ObservationIgnored private let defaults = UserDefaults.standard
 
     private var inventoryURL: URL {
-        repository.directory.deletingLastPathComponent().appendingPathComponent("inventory.json")
+        repository.supportDirectory.appendingPathComponent("inventory.json")
     }
 
     private var customURL: URL {
-        CustomIngredients.fileURL(in: repository.directory.deletingLastPathComponent())
+        CustomIngredients.fileURL(in: repository.supportDirectory)
     }
 
     private static let seededKey = "didSeedSampleRecipes"
     private static let equipmentKey = "defaultEquipment"
     private static let myWaterKey = "myWaterProfile"
 
-    init(repository: RecipeRepository = .documents()) {
+    /// - Parameter deferLoading: when iCloud sync is on, wait for `switchRepository` instead of
+    ///   reading the local folder, so nothing is edited in the wrong place during launch.
+    init(repository: RecipeRepository = .documents(), deferLoading: Bool = false) {
         self.repository = repository
-        recipes = repository.loadAll()
-        custom = CustomIngredients.load(from: customURL)
-        if let data = try? Data(contentsOf: inventoryURL),
-           let items = try? JSONDecoder().decode([InventoryItem].self, from: data) {
-            inventory = items
+        if deferLoading {
+            isLoading = true
+        } else {
+            reloadFromDisk()
         }
         if let data = defaults.data(forKey: Self.equipmentKey),
            let equipment = try? JSONDecoder().decode(Equipment.self, from: data) {
@@ -46,10 +49,59 @@ final class RecipeStore {
            let water = try? JSONDecoder().decode(WaterProfile.self, from: data) {
             myWater = water
         }
+        if !deferLoading { seedSamplesIfNeeded() }
+    }
+
+    private func seedSamplesIfNeeded() {
         if recipes.isEmpty && !defaults.bool(forKey: Self.seededKey) {
             SampleRecipes.all.reversed().forEach { add($0) }
             defaults.set(true, forKey: Self.seededKey)
         }
+    }
+
+    // MARK: Storage location (local or iCloud)
+
+    /// Reads everything from the current folder. Recipes being edited right now (with a save
+    /// still pending) keep their in-memory version.
+    func reloadFromDisk() {
+        let editing = Set(pendingSaves.keys)
+        let onDisk = repository.loadAll().filter { !editing.contains($0.id) }
+        let loaded = (onDisk + recipes.filter { editing.contains($0.id) }).sorted { $0.modifiedAt > $1.modifiedAt }
+        if loaded != recipes { recipes = loaded }
+
+        let loadedCustom = repository.readFile(customURL)
+            .flatMap { try? JSONDecoder().decode(CustomIngredients.self, from: $0) } ?? CustomIngredients()
+        if loadedCustom != custom { custom = loadedCustom }
+        let loadedInventory = repository.readFile(inventoryURL)
+            .flatMap { try? JSONDecoder().decode([InventoryItem].self, from: $0) } ?? []
+        if loadedInventory != inventory { inventory = loadedInventory }
+    }
+
+    /// Moves the store to another folder (e.g. the iCloud container).
+    /// - Parameter carryOver: copy recipes that are missing or older at the destination, plus the
+    ///   inventory and custom ingredients if the destination has none, so nothing is lost.
+    func switchRepository(to destination: RecipeRepository, carryOver: Bool) {
+        flushPendingSaves()
+        if carryOver && !isLoading {
+            for recipe in RecipeSync.recipesToUpload(local: recipes, remote: destination.loadAll()) {
+                try? destination.save(recipe)
+            }
+            let destinationInventory = destination.supportDirectory.appendingPathComponent("inventory.json")
+            if destination.readFile(destinationInventory) == nil, !inventory.isEmpty,
+               let data = try? JSONEncoder().encode(inventory) {
+                try? destination.writeFile(data, to: destinationInventory)
+            }
+            let destinationCustom = CustomIngredients.fileURL(in: destination.supportDirectory)
+            if destination.readFile(destinationCustom) == nil, custom != CustomIngredients(),
+               let data = try? JSONEncoder().encode(custom) {
+                try? destination.writeFile(data, to: destinationCustom)
+            }
+        }
+        let wasLoading = isLoading
+        repository = destination
+        isLoading = false
+        reloadFromDisk()
+        if wasLoading && !destination.usesFileCoordination { seedSamplesIfNeeded() }
     }
 
     // MARK: Recipes
@@ -205,8 +257,7 @@ final class RecipeStore {
 
     private func saveInventory() {
         do {
-            try FileManager.default.createDirectory(at: inventoryURL.deletingLastPathComponent(), withIntermediateDirectories: true)
-            try JSONEncoder().encode(inventory).write(to: inventoryURL, options: [.atomic])
+            try repository.writeFile(JSONEncoder().encode(inventory), to: inventoryURL)
         } catch {
             print("Failed to save inventory: \(error)")
         }
@@ -238,6 +289,8 @@ final class RecipeStore {
     }
 
     private func saveCustom() {
-        try? custom.save(to: customURL)
+        if let data = try? JSONEncoder().encode(custom) {
+            try? repository.writeFile(data, to: customURL)
+        }
     }
 }

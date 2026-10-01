@@ -49,6 +49,8 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
   suggests the lactic or phosphoric acid (or baking soda for dark beers) needed to reach pH 5.4.
   The water plan appears on the brew-day checklist and in PDF and Word exports, and scales
   with the recipe.
+- **Hop substitution.** The hop editor suggests substitutes from the database. Swapping a kettle hop
+  re-weighs it for the new alpha acid so IBU stays the same; dry hops keep their weight.
 - **Ingredient inventory** (*More › Inventory*). Track malts, hops (with lot alpha acid), yeast and
   other ingredients on hand, with optional best-before dates. Each recipe shows whether
   everything is in stock. It combines repeated ingredients (e.g. three Cascade additions) and
@@ -62,6 +64,9 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
   - Refractometer during fermentation: corrects for alcohol from original and current Brix
     (Sean Terrill's cubic formula)
   - ABV calculator: standard and high-gravity ABV, apparent and real attenuation, calories
+  - Yeast starter calculator: cells needed, liquid yeast viability by age, and up to three starter
+    steps, with or without a stir plate (Braukaiser and Chris White growth models)
+  - Keg carbonation: regulator pressure for a target CO₂ level, and a balanced serving line length
   - Brew log readings can be entered either way: hydrometer readings are temperature-corrected, and
     refractometer readings are alcohol-corrected against the batch's OG
 - **Style check** against a subset of 58 BJCP 2021 styles, showing whether OG, FG, ABV, IBU

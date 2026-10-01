@@ -64,6 +64,9 @@ struct HopAdditionEditor: View {
     @Binding var addition: HopAddition
     let units: UnitSystem
 
+    @Environment(RecipeStore.self) private var store
+    @State private var pickingOther = false
+
     var body: some View {
         Form {
             Section {
@@ -89,12 +92,46 @@ struct HopAdditionEditor: View {
                     ForEach(HopForm.allCases, id: \.self) { Text($0.displayName).tag($0) }
                 }
             }
+            Section {
+                let suggestions = HopSubstitution.suggestions(for: addition.hop, in: store.allHops)
+                ForEach(suggestions) { hop in
+                    Button { swap(to: hop) } label: {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(hop.name).foregroundStyle(.primary)
+                                if let aroma = hop.aroma {
+                                    Text(aroma).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+                                }
+                            }
+                            Spacer()
+                            Text(units.formatSmallWeight(grams: HopSubstitution.substitute(addition, with: hop).amountGrams))
+                                .monospacedDigit()
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+                Button("Choose Another Hop…", systemImage: "arrow.triangle.swap") { pickingOther = true }
+            } header: {
+                Text("Substitute")
+            } footer: {
+                Text(addition.use == .dryHop
+                     ? "Dry hops keep the same weight when swapped."
+                     : "The amount is adjusted for the new hop's alpha acid so bitterness stays the same.")
+            }
             Section("About \(addition.hop.name)") {
                 LabeledContent("Typical Alpha", value: "\(UnitSystem.number(addition.hop.alphaAcid, digits: 1))%")
                 LabeledContent("Purpose", value: addition.hop.purpose.displayName)
                 if let origin = addition.hop.origin { LabeledContent("Origin", value: origin) }
                 if let aroma = addition.hop.aroma { LabeledContent("Aroma", value: aroma) }
                 if let subs = addition.hop.substitutes { LabeledContent("Substitutes", value: subs) }
+            }
+        }
+        .sheet(isPresented: $pickingOther) {
+            NavigationStack {
+                HopPickerView { hop in
+                    swap(to: hop)
+                    pickingOther = false
+                }
             }
         }
         .onChange(of: addition.use) { _, use in
@@ -105,6 +142,10 @@ struct HopAdditionEditor: View {
             }
         }
         .editorChrome(addition.hop.name)
+    }
+
+    private func swap(to hop: Hop) {
+        addition = HopSubstitution.substitute(addition, with: hop)
     }
 }
 

@@ -200,6 +200,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BeerRecipe-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Brew Recipes";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Tilt hydrometers broadcast their readings as Bluetooth beacons, which iOS only shares with apps that have location access. Your location is never stored or sent anywhere.";
@@ -235,6 +236,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BeerRecipe-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Brew Recipes";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Tilt hydrometers broadcast their readings as Bluetooth beacons, which iOS only shares with apps that have location access. Your location is never stored or sent anywhere.";

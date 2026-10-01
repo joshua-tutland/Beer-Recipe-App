@@ -7,6 +7,7 @@ struct ContentView: View {
     @Environment(RecipeStore.self) private var store
     @State private var selection: UUID?
     @State private var columnVisibility = NavigationSplitViewVisibility.automatic
+    @State private var importMessage: String?
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
@@ -26,6 +27,24 @@ struct ContentView: View {
                         .buttonStyle(.borderedProminent)
                 }
             }
+        }
+        // Recipes shared from Files, Mail, Messages or AirDrop ("Open in Brew Recipes").
+        .onOpenURL { url in openSharedFile(url) }
+        .alert("Import", isPresented: Binding(get: { importMessage != nil }, set: { if !$0 { importMessage = nil } })) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(importMessage ?? "")
+        }
+    }
+
+    private func openSharedFile(_ url: URL) {
+        guard url.isFileURL else { return }
+        do {
+            let imported = try store.importRecipeFile(from: url)
+            if let first = imported.first { selection = first.id }
+            if imported.count > 1 { importMessage = "Imported \(imported.count) recipes." }
+        } catch {
+            importMessage = "\(url.lastPathComponent) couldn't be opened: \(error.localizedDescription)"
         }
     }
 }

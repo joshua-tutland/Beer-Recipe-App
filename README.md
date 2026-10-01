@@ -89,6 +89,8 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
   yeasts show a typical range for their type, flagged in their notes.
 - **Export & share** through the share sheet: PDF recipe sheet, Word document, or BeerXML.
   You can also save to Files, AirDrop, email or print.
+- **Open shared recipes.** Tap a BeerXML or BeerJSON file in Files, Mail, Messages or AirDrop and
+  choose *Open in Brew Recipes*; it's imported and opened.
 - **BeerXML and BeerJSON import/export** for exchanging recipes with BeerSmith, Brewfather, Brewer's Friend,
   Brewtarget and others. The format is detected automatically on import. BeerJSON exports are checked
   in CI against the [official schema](https://github.com/beerjson/beerjson); hop stands are written as

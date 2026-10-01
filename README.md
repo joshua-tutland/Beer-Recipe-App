@@ -73,8 +73,10 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
   yeasts show a typical range for their type, flagged in their notes.
 - **Export & share** through the share sheet: PDF recipe sheet, Word document, or BeerXML.
   You can also save to Files, AirDrop, email or print.
-- **BeerXML import** lets you bring in recipes from BeerSmith, Brewfather, Brewer's Friend,
-  Brewtarget and others.
+- **BeerXML and BeerJSON import/export** for exchanging recipes with BeerSmith, Brewfather, Brewer's Friend,
+  Brewtarget and others. The format is detected automatically on import. BeerJSON exports are checked
+  in CI against the [official schema](https://github.com/beerjson/beerjson); hop stands are written as
+  end-of-boil additions with a steep time, and first-wort hops as full-boil additions.
 - **Metric or US units**, switchable at any time. Values are stored in metric internally.
 - **Adaptive layout.** iPad gets a split view (recipe list, editor, and a live analysis panel beside the editor).
   iPhone gets a navigation stack with a summary strip and a full analysis page.
@@ -142,7 +144,7 @@ recipes can come from anywhere. Useful open sources for extending the data:
 | Source | What it offers | Notes |
 |---|---|---|
 | [BeerXML 1.0](http://www.beerxml.com) | Open recipe and ingredient interchange format | Implemented here for import and export |
-| [BeerJSON](https://github.com/beerjson/beerjson) | Newer JSON successor to BeerXML with schemas | A good next import/export target |
+| [BeerJSON](https://github.com/beerjson/beerjson) | Newer JSON successor to BeerXML with schemas | Implemented here for import and export |
 | [Wall-Brew-Co/common-beer-data](https://github.com/Wall-Brew-Co/common-beer-data) | Open data set of fermentables, hops, yeasts and styles | **Merged into the bundled data** with `tools/import_common_beer_data.py` (MIT) |
 | [Brewtarget](https://github.com/Brewtarget/brewtarget) / [Brewken](https://github.com/Brewken/brewken) | Open-source brewing apps with default ingredient databases | GPL licensed; check the license before bundling their data |
 | [BJCP Style Guidelines](https://www.bjcp.org/beer-styles/) | Official style ranges | Source for `styles.json` |

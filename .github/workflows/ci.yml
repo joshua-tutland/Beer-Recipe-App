@@ -28,6 +28,11 @@ jobs:
           assert len(d.tables) >= 4, len(d.tables)
           print("docx OK:", len(d.paragraphs), "paragraphs,", len(d.tables), "tables")
           PY
+      - name: Validate exported BeerJSON against the official schema
+        run: |
+          "$RUNNER_TEMP/venv/bin/pip" install --quiet jsonschema
+          git clone --quiet --depth 1 https://github.com/beerjson/beerjson "$RUNNER_TEMP/beerjson"
+          "$RUNNER_TEMP/venv/bin/python" tools/validate_beerjson.py "$RUNNER_TEMP/beerjson" "$RUNNER_TEMP/exports/sample.beerjson.json"
       - uses: actions/upload-artifact@v4
         with:
           name: sample-export

@@ -76,9 +76,12 @@ struct RecipeListView: View {
                     Button("Inventory", systemImage: "shippingbox") { showInventory = true }
                     Button("Brewing Tools", systemImage: "function") { showTools = true }
                     Button("Ingredient Library", systemImage: "leaf") { showLibrary = true }
-                    Button("Import BeerXML…", systemImage: "square.and.arrow.down") { showImporter = true }
-                    Button("Export All as BeerXML", systemImage: "square.and.arrow.up") { exportAll() }
-                        .disabled(store.recipes.isEmpty)
+                    Button("Import Recipes (BeerXML / BeerJSON)…", systemImage: "square.and.arrow.down") { showImporter = true }
+                    Menu("Export All Recipes", systemImage: "square.and.arrow.up") {
+                        Button("BeerXML") { exportAll(json: false) }
+                        Button("BeerJSON") { exportAll(json: true) }
+                    }
+                    .disabled(store.recipes.isEmpty)
                     Divider()
                     Button("Settings", systemImage: "gear") { showSettings = true }
                 } label: {
@@ -86,7 +89,7 @@ struct RecipeListView: View {
                 }
             }
         }
-        .fileImporter(isPresented: $showImporter, allowedContentTypes: [.xml, .data], allowsMultipleSelection: true) { result in
+        .fileImporter(isPresented: $showImporter, allowedContentTypes: [.xml, .json, .data], allowsMultipleSelection: true) { result in
             importFiles(result)
         }
         .sheet(isPresented: $showSettings) { SettingsView() }
@@ -110,7 +113,7 @@ struct RecipeListView: View {
         do {
             var count = 0
             for url in try result.get() {
-                let recipes = try store.importBeerXML(from: url)
+                let recipes = try store.importRecipeFile(from: url)
                 count += recipes.count
                 if let first = recipes.first { selection = first.id }
             }
@@ -120,9 +123,11 @@ struct RecipeListView: View {
         }
     }
 
-    private func exportAll() {
+    private func exportAll(json: Bool) {
         do {
-            let url = try RecipeExporter.beerXMLFile(for: store.recipes, name: "Brew Recipes")
+            let url = json
+                ? try RecipeExporter.beerJSONFile(for: store.recipes, name: "Brew Recipes")
+                : try RecipeExporter.beerXMLFile(for: store.recipes, name: "Brew Recipes")
             shareItem = ShareItem(url: url)
         } catch {
             alertMessage = error.localizedDescription

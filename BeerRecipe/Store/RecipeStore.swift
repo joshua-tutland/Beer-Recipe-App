@@ -108,11 +108,14 @@ final class RecipeStore {
         SampleRecipes.all.reversed().forEach { add($0) }
     }
 
-    /// Imports every recipe in a BeerXML file and returns them.
-    func importBeerXML(from url: URL) throws -> [Recipe] {
+    /// Imports every recipe in a BeerXML or BeerJSON file and returns them.
+    func importRecipeFile(from url: URL) throws -> [Recipe] {
         let accessing = url.startAccessingSecurityScopedResource()
         defer { if accessing { url.stopAccessingSecurityScopedResource() } }
-        let imported = try BeerXML.importRecipes(from: Data(contentsOf: url))
+        let data = try Data(contentsOf: url)
+        let imported = BeerJSON.looksLikeBeerJSON(data)
+            ? try BeerJSON.importRecipes(from: data)
+            : try BeerXML.importRecipes(from: data)
         imported.reversed().forEach { add($0) }
         return imported
     }

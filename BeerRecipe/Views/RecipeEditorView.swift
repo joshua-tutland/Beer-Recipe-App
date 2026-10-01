@@ -55,6 +55,7 @@ struct RecipeEditorView: View {
                     Button("PDF Document", systemImage: "doc.richtext") { export(.pdf) }
                     Button("Word Document (.docx)", systemImage: "doc.text") { export(.word) }
                     Button("BeerXML", systemImage: "chevron.left.forwardslash.chevron.right") { export(.beerXML) }
+                    Button("BeerJSON", systemImage: "curlybraces") { export(.beerJSON) }
                 } label: {
                     Label("Export", systemImage: "square.and.arrow.up")
                 }

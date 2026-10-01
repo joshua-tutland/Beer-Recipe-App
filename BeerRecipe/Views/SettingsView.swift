@@ -59,7 +59,7 @@ struct SettingsView: View {
                 Section {
                     LabeledContent("Formulas", value: "Tinseth / Rager IBU, Morey SRM")
                     LabeledContent("Styles", value: "BJCP 2021 (subset)")
-                    LabeledContent("Recipe Exchange", value: "BeerXML 1.0")
+                    LabeledContent("Recipe Exchange", value: "BeerXML 1.0 · BeerJSON 1.0")
                     Link("BeerXML specification", destination: URL(string: "http://www.beerxml.com")!)
                     Link("BJCP Style Guidelines", destination: URL(string: "https://www.bjcp.org/beer-styles/")!)
                     NavigationLink("Third-Party Notices") {

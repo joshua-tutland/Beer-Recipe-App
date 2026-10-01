@@ -4,13 +4,14 @@ import BrewCore
 /// Writes recipe exports to Documents/Exports (visible in the Files app) and returns the file URL.
 enum RecipeExporter {
     enum Format {
-        case pdf, word, beerXML
+        case pdf, word, beerXML, beerJSON
 
         var fileExtension: String {
             switch self {
             case .pdf: return "pdf"
             case .word: return "docx"
             case .beerXML: return "xml"
+            case .beerJSON: return "json"
             }
         }
     }
@@ -29,12 +30,18 @@ enum RecipeExporter {
             data = DocxWriter.data(for: recipe, units: units)
         case .beerXML:
             data = Data(BeerXML.export([recipe]).utf8)
+        case .beerJSON:
+            data = BeerJSON.export([recipe])
         }
         return try write(data, name: recipe.name, ext: format.fileExtension)
     }
 
     static func beerXMLFile(for recipes: [Recipe], name: String) throws -> URL {
         try write(Data(BeerXML.export(recipes).utf8), name: name, ext: "xml")
+    }
+
+    static func beerJSONFile(for recipes: [Recipe], name: String) throws -> URL {
+        try write(BeerJSON.export(recipes), name: name, ext: "json")
     }
 
     private static func write(_ data: Data, name: String, ext: String) throws -> URL {

@@ -203,8 +203,8 @@ recipes can come from anywhere. Useful open sources for extending the data:
 | [BeerJSON](https://github.com/beerjson/beerjson) | Newer JSON successor to BeerXML with schemas | Implemented here for import and export |
 | [Wall-Brew-Co/common-beer-data](https://github.com/Wall-Brew-Co/common-beer-data) | Open data set of fermentables, hops, yeasts and styles | **Merged into the bundled data** with `tools/import_common_beer_data.py` (MIT) |
 | [Brewtarget](https://github.com/Brewtarget/brewtarget) / [Brewken](https://github.com/Brewken/brewken) | Open-source brewing apps with default ingredient databases | GPL licensed; check the license before bundling their data |
-| [BJCP Style Guidelines](https://www.bjcp.org/beer-styles/) | Official style ranges | Source for `styles.json` |
-| [Punk API](https://github.com/sammdec/punkapi) | BrewDog's 325 open "DIY Dog" recipes | MIT licensed data; the hosted API is deprecated, so use the dataset directly |
+| [BJCP Style Guidelines](https://www.bjcp.org/beer-styles/) | Official style ranges and descriptions | Only the numeric ranges are used, in `styles.json`. The description text is copyrighted; apps need the BJCP's permission and notice to include it ([BJCP FAQ](https://www.bjcp.org/faq/i-want-to-use-your-style-guidelines-can-i/)), so it isn't bundled |
+| [Punk API](https://github.com/sammdec/punkapi) | BrewDog's 325 open "DIY Dog" recipes | The code is MIT, but the recipe data is BrewDog's and is licensed for **non-commercial use only**, so it isn't bundled. The hosted API was shut down in 2023 |
 | [Microbrew.it API](https://github.com/Microbrewit/microbrew-it) | Fermentables, hops and yeast endpoints | Older open-source project; self-host |
 
 To add or update ingredients, edit the JSON files in `BrewCore/Sources/BrewCore/Resources/`.

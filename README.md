@@ -49,6 +49,12 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
   suggests the lactic or phosphoric acid (or baking soda for dark beers) needed to reach pH 5.4.
   The water plan appears on the brew-day checklist and in PDF and Word exports, and scales
   with the recipe.
+- **Tilt hydrometer** (Brewing Tools › Tilt Hydrometer). Shows live gravity and temperature from any
+  Tilt or Tilt Pro in Bluetooth range, with per-color calibration offsets. While a brew is fermenting,
+  its brew log has a **Log Tilt Reading** button that adds the reading to the fermentation chart.
+  Tilts broadcast iBeacons, which iOS only exposes to apps with location permission, so the app asks
+  for "While Using" location access. Location itself is never stored or sent anywhere. Readings
+  come in while the app is open.
 - **Equipment profiles** (Settings › Equipment Profiles). Save your brewing systems and load them into
   any recipe; the recipe keeps its own batch size and boil time. Presets cover a three-vessel setup,
   brew in a bag, Grainfather G30, BrewZilla 35 L and Anvil Foundry. **Full-volume (BIAB / no-sparge)**

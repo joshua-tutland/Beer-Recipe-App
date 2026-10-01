@@ -70,6 +70,10 @@ struct BrewSessionView: View {
 
             fermentationSection(plan: plan)
 
+            if session.og != nil && session.fg == nil {
+                TiltLogSection(session: $session)
+            }
+
             resultsSection(plan: plan, results: results)
 
             Section("Tasting") {

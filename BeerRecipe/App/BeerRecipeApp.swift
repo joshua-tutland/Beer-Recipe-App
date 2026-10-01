@@ -6,6 +6,7 @@ import BrewCore
 struct BeerRecipeApp: App {
     @State private var store = RecipeStore(deferLoading: UserDefaults.standard.bool(forKey: CloudSync.enabledKey))
     @State private var cloud = CloudSync()
+    @State private var tilts = TiltMonitor()
     @State private var timers = BrewTimers()
     @Environment(\.scenePhase) private var scenePhase
 
@@ -19,6 +20,7 @@ struct BeerRecipeApp: App {
                 .environment(store)
                 .environment(timers)
                 .environment(cloud)
+                .environment(tilts)
                 .tint(.brewAmber)
                 .task { cloud.start(store: store) }
         }

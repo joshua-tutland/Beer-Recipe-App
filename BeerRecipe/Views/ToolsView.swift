@@ -35,6 +35,12 @@ struct ToolsView: View {
                                   "Get the real gravity once alcohol is present, from original and current Brix.")
                     }
                     NavigationLink {
+                        TiltLiveView()
+                    } label: {
+                        toolLabel("Tilt Hydrometer", "antenna.radiowaves.left.and.right",
+                                  "Live gravity and temperature from Tilt hydrometers in Bluetooth range.")
+                    }
+                    NavigationLink {
                         YeastStarterView()
                     } label: {
                         toolLabel("Yeast Starter", "flask",

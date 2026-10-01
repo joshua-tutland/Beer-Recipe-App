@@ -5,7 +5,7 @@ enum EditorSheet: Identifiable, Hashable {
     case style
     case addFermentable, addHop, addYeast, addMisc
     case fermentable(UUID), hop(UUID), yeast(UUID), misc(UUID), mashStep(UUID)
-    case scale, brewSession(UUID), water
+    case scale, brewSession(UUID), water, inventory
 
     var id: Self { self }
 }
@@ -104,6 +104,7 @@ struct RecipeEditorView: View {
             hopsSection(stats: stats)
             yeastSection
             miscSection
+            inventorySection
             if recipe.type != .extract || recipe.fermentables.contains(where: { $0.fermentable.type.isMashed }) {
                 mashSection
             }
@@ -433,10 +434,42 @@ struct RecipeEditorView: View {
             }
         case .water:
             WaterChemistryView(recipe: $recipe, units: units)
+        case .inventory:
+            RecipeInventoryView(recipe: recipe, units: units)
         case .brewSession(let id):
             if let binding = element(\.sessions, id: id) {
                 BrewSessionView(session: binding, recipe: $recipe, units: units)
             }
+        }
+    }
+
+    // MARK: - Inventory
+
+    private var inventorySection: some View {
+        let needs = Inventory.needs(for: recipe, stock: store.inventory)
+        let missing = needs.filter { !$0.isCovered }.count
+        return Section {
+            Button { sheet = .inventory } label: {
+                HStack {
+                    if needs.isEmpty {
+                        Label("Add ingredients to check stock", systemImage: "shippingbox")
+                            .foregroundStyle(.secondary)
+                    } else if missing == 0 {
+                        Label("All ingredients in stock", systemImage: "checkmark.circle.fill")
+                            .foregroundStyle(.green)
+                    } else {
+                        Label("\(missing) ingredient\(missing == 1 ? "" : "s") short", systemImage: "cart")
+                            .foregroundStyle(.orange)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.tertiary)
+                }
+            }
+            .disabled(needs.isEmpty)
+        } header: {
+            Text("On Hand")
         }
     }
 

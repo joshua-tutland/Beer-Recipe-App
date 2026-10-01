@@ -88,6 +88,9 @@ public struct BrewSession: Codable, Hashable, Identifiable, Sendable {
     /// Optional so sessions saved before the checklist existed still decode.
     public var completedStepIDs: [String]?
 
+    /// Set once this brew's ingredients have been taken out of inventory, so it can't happen twice.
+    public var inventoryDeductedAt: Date?
+
     public init(id: UUID = UUID(), recipe: Recipe, brewDate: Date = Date(), name: String? = nil) {
         self.id = id
         self.brewDate = brewDate

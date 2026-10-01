@@ -42,6 +42,8 @@ struct BrewSessionView: View {
                 }
             }
 
+            inventorySection
+
             Section {
                 TextField("Name", text: $session.name)
                 DatePicker("Brew Date", selection: $session.brewDate, displayedComponents: .date)
@@ -96,6 +98,32 @@ struct BrewSessionView: View {
     }
 
     // MARK: - Sections
+
+    @ViewBuilder
+    private var inventorySection: some View {
+        if !store.inventory.isEmpty || session.inventoryDeductedAt != nil {
+            Section {
+                if let date = session.inventoryDeductedAt {
+                    Label("Ingredients deducted \(date.formatted(date: .abbreviated, time: .shortened))",
+                          systemImage: "checkmark.circle.fill")
+                        .foregroundStyle(.green)
+                } else {
+                    let missing = Inventory.needs(for: recipe, stock: store.inventory).filter { !$0.isCovered }
+                    Button("Deduct Ingredients from Inventory", systemImage: "shippingbox") {
+                        store.setInventory(Inventory.deducting(recipe, from: store.inventory))
+                        session.inventoryDeductedAt = Date()
+                    }
+                    if !missing.isEmpty {
+                        Text("\(missing.count) ingredient\(missing.count == 1 ? " isn't" : "s aren't") fully in stock; whatever is on hand will be used.")
+                            .font(.caption)
+                            .foregroundStyle(.orange)
+                    }
+                }
+            } footer: {
+                Text("Uses the recipe's current amounts and takes the oldest stock first.")
+            }
+        }
+    }
 
     @ViewBuilder
     private func fermentationSection(plan: BrewSession.Plan) -> some View {

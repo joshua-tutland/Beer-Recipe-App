@@ -11,10 +11,16 @@ final class RecipeStore {
     private(set) var defaultEquipment = Equipment()
     /// The brewer's own tap water report, used as the starting water for new water plans.
     private(set) var myWater: WaterProfile?
+    /// Ingredients on hand.
+    private(set) var inventory: [InventoryItem] = []
 
     @ObservationIgnored private let repository: RecipeRepository
     @ObservationIgnored private var pendingSaves: [UUID: Task<Void, Never>] = [:]
     @ObservationIgnored private let defaults = UserDefaults.standard
+
+    private var inventoryURL: URL {
+        repository.directory.deletingLastPathComponent().appendingPathComponent("inventory.json")
+    }
 
     private var customURL: URL {
         CustomIngredients.fileURL(in: repository.directory.deletingLastPathComponent())
@@ -28,6 +34,10 @@ final class RecipeStore {
         self.repository = repository
         recipes = repository.loadAll()
         custom = CustomIngredients.load(from: customURL)
+        if let data = try? Data(contentsOf: inventoryURL),
+           let items = try? JSONDecoder().decode([InventoryItem].self, from: data) {
+            inventory = items
+        }
         if let data = defaults.data(forKey: Self.equipmentKey),
            let equipment = try? JSONDecoder().decode(Equipment.self, from: data) {
             defaultEquipment = equipment
@@ -157,6 +167,46 @@ final class RecipeStore {
     /// Starting-water choices: the brewer's own water first, then the bundled profiles.
     var sourceWaterProfiles: [WaterProfile] {
         (myWater.map { [$0] } ?? []) + WaterProfiles.sources
+    }
+
+    // MARK: Inventory
+
+    func addInventory(_ item: InventoryItem) {
+        // Same ingredient, unit and lot details → top up the existing entry.
+        if let i = inventory.firstIndex(where: {
+            $0.kind == item.kind && $0.ingredientId == item.ingredientId && $0.unit == item.unit
+                && $0.alphaAcid == item.alphaAcid && $0.bestBefore == item.bestBefore
+        }) {
+            inventory[i].amount += item.amount
+        } else {
+            inventory.append(item)
+        }
+        saveInventory()
+    }
+
+    func updateInventory(_ item: InventoryItem) {
+        guard let i = inventory.firstIndex(where: { $0.id == item.id }) else { return }
+        inventory[i] = item
+        saveInventory()
+    }
+
+    func deleteInventory(ids: [UUID]) {
+        inventory.removeAll { ids.contains($0.id) }
+        saveInventory()
+    }
+
+    func setInventory(_ items: [InventoryItem]) {
+        inventory = items
+        saveInventory()
+    }
+
+    private func saveInventory() {
+        do {
+            try FileManager.default.createDirectory(at: inventoryURL.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try JSONEncoder().encode(inventory).write(to: inventoryURL, options: [.atomic])
+        } catch {
+            print("Failed to save inventory: \(error)")
+        }
     }
 
     // MARK: Ingredient library (bundled + custom)

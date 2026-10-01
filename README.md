@@ -49,6 +49,12 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
   suggests the lactic or phosphoric acid (or baking soda for dark beers) needed to reach pH 5.4.
   The water plan appears on the brew-day checklist and in PDF and Word exports, and scales
   with the recipe.
+- **Ingredient inventory** (*More › Inventory*). Track malts, hops (with lot alpha acid), yeast and
+  other ingredients on hand, with optional best-before dates. Each recipe shows whether
+  everything is in stock. It combines repeated ingredients (e.g. three Cascade additions) and
+  lists what's short, with a shareable shopping list and a one-tap "mark as bought". From a brew
+  log entry, **Deduct Ingredients from Inventory** removes what the brew used, oldest stock
+  first, and records that it's done so it can't happen twice.
 - **Brewing tools** (*More › Brewing Tools*):
   - Hydrometer temperature correction, with a remembered calibration temperature (60°F or 68°F)
   - Refractometer Brix → gravity for wort, plus calibration of your wort correction factor from

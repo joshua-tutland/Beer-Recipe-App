@@ -5,7 +5,7 @@ enum EditorSheet: Identifiable, Hashable {
     case style
     case addFermentable, addHop, addYeast, addMisc
     case fermentable(UUID), hop(UUID), yeast(UUID), misc(UUID), mashStep(UUID)
-    case scale, brewSession(UUID)
+    case scale, brewSession(UUID), water
 
     var id: Self { self }
 }
@@ -107,6 +107,7 @@ struct RecipeEditorView: View {
             if recipe.type != .extract || recipe.fermentables.contains(where: { $0.fermentable.type.isMashed }) {
                 mashSection
             }
+            waterSection
             fermentationSection
             brewLogSection
 
@@ -430,10 +431,51 @@ struct RecipeEditorView: View {
                     recipe = scaled
                 }
             }
+        case .water:
+            WaterChemistryView(recipe: $recipe, units: units)
         case .brewSession(let id):
             if let binding = element(\.sessions, id: id) {
                 BrewSessionView(session: binding, recipe: $recipe, units: units)
             }
+        }
+    }
+
+    // MARK: - Water
+
+    private var waterSection: some View {
+        Section {
+            if let water = recipe.water, let report = recipe.waterReport {
+                Button { sheet = .water } label: {
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack {
+                            Text(water.target?.name ?? water.source.name).foregroundStyle(.primary)
+                            Spacer()
+                            if let ph = report.mashPH {
+                                Text("pH \(UnitSystem.number(ph.pH, digits: 2))")
+                                    .monospacedDigit()
+                                    .foregroundStyle(ph.pH >= 5.2 && ph.pH < 5.6 ? Color.green : Color.orange)
+                            }
+                        }
+                        let salts = water.salts.map { "\(UnitSystem.number($0.grams, digits: 1)) g \($0.salt.shortName)" }
+                        let acid = water.acidML > 0 ? ["\(UnitSystem.number(water.acidML, digits: 1)) mL \(water.acid.displayName)"] : []
+                        Text((salts + acid).isEmpty ? "No additions" : (salts + acid).joined(separator: " · "))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        if let ratio = report.profile.sulfateToChloride, let balance = report.balance {
+                            Text("SO₄:Cl \(UnitSystem.number(ratio, digits: 2)) · \(balance.displayName)")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+            } else {
+                Button("Set Up Water Chemistry", systemImage: "drop.triangle") {
+                    recipe.water = WaterTreatment(source: store.myWater ?? .distilled)
+                    sheet = .water
+                }
+            }
+        } header: {
+            Text("Water")
         }
     }
 

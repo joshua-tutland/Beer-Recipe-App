@@ -43,6 +43,12 @@ public enum RecipeScaler {
         for i in scaled.miscs.indices {
             scaled.miscs[i].amount *= volumeRatio
         }
+        if var water = scaled.water {
+            // Salts are dosed per liter of brewing water, which grows with the batch.
+            for i in water.salts.indices { water.salts[i].grams *= volumeRatio }
+            water.acidML *= volumeRatio
+            scaled.water = water
+        }
         for i in scaled.yeasts.indices {
             scaled.yeasts[i].packs = max(1, (scaled.yeasts[i].packs * volumeRatio).rounded(.up))
         }

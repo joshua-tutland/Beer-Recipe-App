@@ -140,6 +140,33 @@ public struct RecipeReport: Sendable {
         if recipe.type == .extract { water.removeFirst(2) }
         blocks.append(.fields(water))
 
+        if let treatment = recipe.water, let report = recipe.waterReport {
+            blocks.append(.heading("Water Chemistry"))
+            var plan = [f("Source Water", treatment.source.name)]
+            if treatment.dilutionPercent > 0 {
+                plan.append(f("Dilution", "\(n(treatment.dilutionPercent, 0))% distilled/RO"))
+            }
+            if let target = treatment.target { plan.append(f("Target", target.name)) }
+            for salt in treatment.salts {
+                plan.append(f(salt.salt.shortName, "\(n(salt.grams, 1)) g (in \(units.formatVolume(liters: report.totalWaterL)))"))
+            }
+            if treatment.acidML > 0 {
+                plan.append(f(treatment.acid.displayName, "\(n(treatment.acidML, 1)) mL in the mash"))
+            }
+            if let ph = report.mashPH { plan.append(f("Estimated Mash pH", n(ph.pH, 2))) }
+            if let ratio = report.profile.sulfateToChloride, let balance = report.balance {
+                plan.append(f("Sulfate : Chloride", "\(n(ratio, 2)) (\(balance.displayName))"))
+            }
+            blocks.append(.fields(plan))
+            let ions = Ion.allCases
+            var rows = [["Treated"] + ions.map { n(report.profile[$0], 0) }]
+            if let target = treatment.target {
+                rows.append(["Target"] + ions.map { n(target[$0], 0) })
+            }
+            blocks.append(.table(Table(headers: ["ppm"] + ions.map(\.symbol), rows: rows,
+                                       widths: [2, 1, 1, 1, 1, 1, 1])))
+        }
+
         let ferm = recipe.fermentation
         blocks.append(.heading("Fermentation & Packaging"))
         var fermentation = [

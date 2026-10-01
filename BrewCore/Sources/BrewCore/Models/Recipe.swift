@@ -195,6 +195,8 @@ public struct Recipe: Codable, Hashable, Identifiable, Sendable {
     public var mashSteps: [MashStep]
     /// Brew day logs, newest first.
     public var sessions: [BrewSession]
+    /// Water chemistry plan (nil until the brewer sets one up).
+    public var water: WaterTreatment?
 
     public init(id: UUID = UUID(),
                 name: String = "New Recipe",
@@ -212,7 +214,8 @@ public struct Recipe: Codable, Hashable, Identifiable, Sendable {
                 yeasts: [YeastAddition] = [],
                 miscs: [MiscAddition] = [],
                 mashSteps: [MashStep] = [MashStep(name: "Saccharification", tempC: 66, minutes: 60)],
-                sessions: [BrewSession] = []) {
+                sessions: [BrewSession] = [],
+                water: WaterTreatment? = nil) {
         self.id = id
         self.name = name
         self.author = author
@@ -230,11 +233,12 @@ public struct Recipe: Codable, Hashable, Identifiable, Sendable {
         self.miscs = miscs
         self.mashSteps = mashSteps
         self.sessions = sessions
+        self.water = water
     }
 
     private enum CodingKeys: String, CodingKey {
         case id, name, author, type, styleId, createdAt, modifiedAt, notes, equipment, fermentation
-        case ibuFormula, fermentables, hops, yeasts, miscs, mashSteps, sessions
+        case ibuFormula, fermentables, hops, yeasts, miscs, mashSteps, sessions, water
     }
 
     /// Tolerates missing keys so recipes saved by earlier versions of the app still load.
@@ -258,6 +262,7 @@ public struct Recipe: Codable, Hashable, Identifiable, Sendable {
         miscs = try c.decodeIfPresent([MiscAddition].self, forKey: .miscs) ?? []
         mashSteps = try c.decodeIfPresent([MashStep].self, forKey: .mashSteps) ?? []
         sessions = try c.decodeIfPresent([BrewSession].self, forKey: .sessions) ?? []
+        water = try c.decodeIfPresent(WaterTreatment.self, forKey: .water)
     }
 
     public var style: BeerStyle? { styleId.flatMap { StyleCatalog.style(id: $0) } }

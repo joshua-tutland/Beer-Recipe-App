@@ -9,6 +9,8 @@ final class RecipeStore {
     private(set) var recipes: [Recipe] = []
     private(set) var custom = CustomIngredients()
     private(set) var defaultEquipment = Equipment()
+    /// The brewer's own tap water report, used as the starting water for new water plans.
+    private(set) var myWater: WaterProfile?
 
     @ObservationIgnored private let repository: RecipeRepository
     @ObservationIgnored private var pendingSaves: [UUID: Task<Void, Never>] = [:]
@@ -20,6 +22,7 @@ final class RecipeStore {
 
     private static let seededKey = "didSeedSampleRecipes"
     private static let equipmentKey = "defaultEquipment"
+    private static let myWaterKey = "myWaterProfile"
 
     init(repository: RecipeRepository = .documents()) {
         self.repository = repository
@@ -28,6 +31,10 @@ final class RecipeStore {
         if let data = defaults.data(forKey: Self.equipmentKey),
            let equipment = try? JSONDecoder().decode(Equipment.self, from: data) {
             defaultEquipment = equipment
+        }
+        if let data = defaults.data(forKey: Self.myWaterKey),
+           let water = try? JSONDecoder().decode(WaterProfile.self, from: data) {
+            myWater = water
         }
         if recipes.isEmpty && !defaults.bool(forKey: Self.seededKey) {
             SampleRecipes.all.reversed().forEach { add($0) }
@@ -135,6 +142,21 @@ final class RecipeStore {
         if let data = try? JSONEncoder().encode(equipment) {
             defaults.set(data, forKey: Self.equipmentKey)
         }
+    }
+
+    func saveMyWater(_ profile: WaterProfile) {
+        var water = profile
+        water.id = "my-water"
+        water.name = "My Water"
+        myWater = water
+        if let data = try? JSONEncoder().encode(water) {
+            defaults.set(data, forKey: Self.myWaterKey)
+        }
+    }
+
+    /// Starting-water choices: the brewer's own water first, then the bundled profiles.
+    var sourceWaterProfiles: [WaterProfile] {
+        (myWater.map { [$0] } ?? []) + WaterProfiles.sources
     }
 
     // MARK: Ingredient library (bundled + custom)

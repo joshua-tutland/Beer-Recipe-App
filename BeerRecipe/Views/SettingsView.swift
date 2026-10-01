@@ -40,6 +40,18 @@ struct SettingsView: View {
                     Text("Measure your own system for the most accurate volume and gravity predictions.")
                 }
 
+                Section {
+                    NavigationLink {
+                        MyWaterView()
+                    } label: {
+                        LabeledContent("My Tap Water", value: store.myWater == nil ? "Not set" : "Saved")
+                    }
+                } header: {
+                    Text("Water")
+                } footer: {
+                    Text("Used as the starting water when you set up water chemistry for a recipe.")
+                }
+
                 Section("Data") {
                     Button("Restore Sample Recipes") { confirmRestore = true }
                 }

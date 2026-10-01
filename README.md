@@ -39,6 +39,16 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
   the app is closed, and local notifications announce each addition and the end of every timer.
   Checked-off steps are saved with the brew session, and the screen can stay awake while you
   brew.
+- **Water chemistry.** Start from your tap water report (saved once as "My Water"), distilled/RO, or a
+  historical city profile (Pilsen, Munich, Burton, Dublin and others), with optional RO dilution.
+  Add brewing salts (gypsum, calcium chloride, Epsom, table salt, baking soda, chalk, magnesium
+  chloride) and see the resulting calcium, magnesium, sodium, chloride, sulfate and bicarbonate,
+  the sulfate:chloride balance and residual alkalinity. Pick a style target (Pale & Soft, Pale
+  Hoppy, Hazy, Amber, Dark and others) and **Match Target Automatically** works out the salt
+  amounts. The app estimates mash pH from the grist and water, including acidulated malt, and
+  suggests the lactic or phosphoric acid (or baking soda for dark beers) needed to reach pH 5.4.
+  The water plan appears on the brew-day checklist and in PDF and Word exports, and scales
+  with the recipe.
 - **Brewing tools** (*More › Brewing Tools*):
   - Hydrometer temperature correction, with a remembered calibration temperature (60°F or 68°F)
   - Refractometer Brix → gravity for wort, plus calibration of your wort correction factor from
@@ -109,6 +119,8 @@ builds the app for the iOS Simulator.
 | Strike temp | T = (0.41 / R)(T_mash − T_grain) + T_mash, R in L/kg |
 | Priming | Residual CO₂ from beer temperature; dextrose g = 15.195 × gal × (vols − residual) |
 | Calories | ASBC-style formula from OG and FG, per 12 oz |
+| Water | Salt contributions from molecular weights; residual alkalinity (Kolbach) = HCO₃ − Ca/3.5 − Mg/7 in mEq/L |
+| Mash pH | Linear malt-buffering model after Kai Troester: Σ m·BC·pHᵢ plus water alkalinity minus acid, divided by Σ m·BC. Base, crystal, roast, adjunct and acid malt each have their own distilled-water pH and buffer capacity |
 | Hydrometer | Reading × ρ(sample temp) / ρ(calibration temp), using the standard water-density polynomial |
 | Refractometer | SG from Brix ÷ WCF (default 1.04); during fermentation, Terrill's cubic in original and current Brix |
 

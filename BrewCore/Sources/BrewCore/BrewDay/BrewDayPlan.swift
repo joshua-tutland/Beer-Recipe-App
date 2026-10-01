@@ -92,6 +92,26 @@ public enum BrewDayPlan {
                                   detail: "\(u.formatLargeWeight(kg: stats.mashedGrainKg)) to mash or steep"))
         }
 
+        // MARK: Water treatment
+        if let water = recipe.water, let report = recipe.waterReport, !water.salts.isEmpty || water.acidML > 0 || water.dilutionPercent > 0 {
+            var parts: [String] = []
+            if water.dilutionPercent > 0 {
+                parts.append("Use \(n(water.dilutionPercent, 0))% distilled/RO water")
+            }
+            if !water.salts.isEmpty {
+                let salts = water.salts.map { "\(n($0.grams, 1)) g \($0.salt.shortName)" }.joined(separator: ", ")
+                parts.append("Add \(salts) to \(u.formatVolume(liters: report.totalWaterL)) of brewing water (split mash and sparge water proportionally)")
+            }
+            if water.acidML > 0 {
+                parts.append("Add \(n(water.acidML, 1)) mL \(water.acid.displayName) to the mash")
+            }
+            var detail = parts.joined(separator: ". ") + "."
+            if let ph = report.mashPH {
+                detail += " Estimated mash pH \(n(ph.pH, 2))."
+            }
+            steps.append(BrewStep(id: "prep-water", phase: .prep, title: "Treat the brewing water", detail: detail))
+        }
+
         // MARK: Mash / steep
         if mashes && hasMashedGrain {
             steps.append(BrewStep(id: "mash-strike", phase: .mash,

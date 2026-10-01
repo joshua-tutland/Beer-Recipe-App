@@ -95,10 +95,16 @@ final class WaterChemistryTests: XCTestCase {
     }
 
     func testSolverNeverRemovesIons() {
-        // Starting water already above target: nothing to add.
-        let hard = WaterProfiles.profile(id: "burton")!
+        // Dortmund water is above the soft target on every ion: nothing to add.
+        let hard = WaterProfiles.profile(id: "dortmund")!
         let soft = WaterProfiles.profile(id: "t-light-soft")!
+        for ion in Ion.allCases { XCTAssertGreaterThanOrEqual(hard[ion], soft[ion]) }
         XCTAssertTrue(WaterSolver.salts(from: hard, to: soft, totalWaterL: 30).isEmpty)
+
+        // Burton has slightly less chloride than the target, so only chloride gets topped up.
+        let burton = WaterProfiles.profile(id: "burton")!
+        let topUp = WaterSolver.salts(from: burton, to: soft, totalWaterL: 30)
+        XCTAssertTrue(topUp.allSatisfy { $0.salt == .calciumChloride || $0.salt == .tableSalt })
     }
 
     func testWaterPersistsAndAppearsInExports() throws {

@@ -30,6 +30,13 @@ struct ContentView: View {
         }
         // Recipes shared from Files, Mail, Messages or AirDrop ("Open in Brew Recipes").
         .onOpenURL { url in openSharedFile(url) }
+        // "Open Recipe" from Siri or Shortcuts.
+        .onChange(of: AppRouter.shared.recipeToOpen) { _, id in
+            guard let id else { return }
+            store.reloadFromDisk()
+            selection = id
+            AppRouter.shared.recipeToOpen = nil
+        }
         .alert("Import", isPresented: Binding(get: { importMessage != nil }, set: { if !$0 { importMessage = nil } })) {
             Button("OK", role: .cancel) {}
         } message: {

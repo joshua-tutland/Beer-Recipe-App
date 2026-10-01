@@ -21,6 +21,7 @@ final class RecipeStore {
     @ObservationIgnored private(set) var repository: RecipeRepository
     @ObservationIgnored private var pendingSaves: [UUID: Task<Void, Never>] = [:]
     @ObservationIgnored private let defaults = UserDefaults.standard
+    @ObservationIgnored private var externalChangeObserver: NSObjectProtocol?
 
     private var profilesURL: URL {
         repository.supportDirectory.appendingPathComponent("equipment-profiles.json")
@@ -56,6 +57,11 @@ final class RecipeStore {
             myWater = water
         }
         if !deferLoading { seedSamplesIfNeeded() }
+        // Siri / Shortcuts write recipe files directly; reload when they do.
+        externalChangeObserver = NotificationCenter.default.addObserver(
+            forName: .recipesChangedOutsideStore, object: nil, queue: .main) { [weak self] _ in
+            self?.reloadFromDisk()
+        }
     }
 
     private func seedSamplesIfNeeded() {

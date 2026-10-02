@@ -300,6 +300,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Brew Recipes";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Take a photo of your water quality report so its mineral values can be read on your device. Photos aren't stored or sent anywhere.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Tilt hydrometers broadcast their readings as Bluetooth beacons, which iOS only shares with apps that have location access. Your location is never stored or sent anywhere.";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -337,6 +338,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Brew Recipes";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Take a photo of your water quality report so its mineral values can be read on your device. Photos aren't stored or sent anywhere.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Tilt hydrometers broadcast their readings as Bluetooth beacons, which iOS only shares with apps that have location access. Your location is never stored or sent anywhere.";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

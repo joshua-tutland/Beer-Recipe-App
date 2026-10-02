@@ -6,9 +6,14 @@ struct MyWaterView: View {
     @Environment(RecipeStore.self) private var store
     @Environment(\.dismiss) private var dismiss
     @State private var profile = WaterProfile(name: "My Water")
+    @State private var importing = false
+    @State private var loaded = false
 
     var body: some View {
         Form {
+            Section {
+                Button("Scan or Paste a Water Report", systemImage: "doc.text.viewfinder") { importing = true }
+            }
             Section {
                 ForEach(Ion.allCases) { ion in
                     NumberField(label: "\(ion.displayName) (\(ion.symbol))",
@@ -42,7 +47,15 @@ struct MyWaterView: View {
                 }
             }
         }
+        .sheet(isPresented: $importing) {
+            NavigationStack {
+                WaterReportImportView(base: profile) { profile = $0 }
+            }
+        }
         .onAppear {
+            // Only once, so values just imported from a report aren't replaced by the saved ones.
+            guard !loaded else { return }
+            loaded = true
             if let saved = store.myWater { profile = saved }
         }
     }

@@ -81,7 +81,27 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
   - Brew log readings can be entered either way: hydrometer readings are temperature-corrected, and
     refractometer readings are alcohol-corrected against the batch's OG
 - **Style check** against a subset of 58 BJCP 2021 styles, showing whether OG, FG, ABV, IBU
-  and SRM are below, within or above each style's range.
+  and SRM are below, within or above each style's range. The recipe editor's **Style Check**
+  section explains anything out of range and offers one-tap fixes that aim a little inside the
+  range: scale all fermentables for OG (grist percentages kept), scale the kettle hops for IBU
+  (dry hops kept), add more of the darkest specialty malt (or Crystal 60L / Carafa Special II) for
+  color, or cut back the darkest malt. FG and ABV get advice on yeast and mash temperature. The
+  last fix can be undone.
+- **Gravity correction** (Brewing Tools, and in the brew log once a pre-boil gravity or OG is
+  entered). From the measured gravity and volume it projects the end-of-boil gravity, then says
+  how much water to add if it's too strong, or how much dry malt extract to add, or how much
+  longer to boil, if it's too weak.
+- **Yeast bank** (Brewing Tools › Yeast Bank). Save slurry harvested from a batch (from its brew
+  log or by hand) with its volume, consistency, generation and date. The app estimates viability
+  and viable cells, and the brew log offers matching slurry with the amount to pitch, takes it out
+  of the jar and records the batch as the next generation. Jars past 6 generations are flagged.
+  Estimates assume 90% viability at harvest, falling 0.7% a day.
+- **Water report scanner** (Settings › My Tap Water › Scan or Paste a Water Report). Photograph
+  or screenshot your water utility's report, or paste its text. Apple's on-device text
+  recognition reads it (nothing is uploaded), and the app picks out calcium, magnesium, sodium,
+  chloride, sulfate and bicarbonate. It handles mg/L, ppm, µg/L and mmol/L, alkalinity as CaCO₃,
+  ranges and decimal commas. You check the values before saving. Taking a photo needs camera
+  access; choosing an existing photo doesn't.
 - **Ingredient database** bundled with the app: 107 fermentables, 79 hops, 168 yeasts and 20 other
   ingredients (water salts, finings, spices), plus your own custom ingredients. Curated entries are
   extended with the open [common-beer-data](https://github.com/Wall-Brew-Co/common-beer-data) set

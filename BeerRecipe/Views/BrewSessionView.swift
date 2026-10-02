@@ -61,12 +61,32 @@ struct BrewSessionView: View {
                 volumeField("Pre-Boil Volume", $session.preBoilVolumeL, planned: plan.preBoilVolumeL)
                 gravityField("Pre-Boil Gravity", $session.preBoilGravity, planned: plan.preBoilGravity)
                 volumeField("Post-Boil Volume", $session.postBoilVolumeL, planned: plan.postBoilVolumeL)
+                if session.preBoilGravity != nil {
+                    NavigationLink {
+                        GravityCorrectionView(session: session, stage: .beforeBoil)
+                    } label: {
+                        correctionLabel(GravityCorrection.preBoil(measuredSG: session.preBoilGravity ?? plan.preBoilGravity,
+                                                                  volumeL: session.preBoilVolumeL ?? plan.preBoilVolumeL,
+                                                                  plan: plan))
+                    }
+                }
             }
 
             Section("Into Fermenter") {
                 gravityField("Original Gravity", $session.og, planned: plan.og)
                 volumeField("Volume", $session.fermenterVolumeL, planned: plan.batchSizeL)
+                if let og = session.og {
+                    NavigationLink {
+                        GravityCorrectionView(session: session, stage: .afterBoil)
+                    } label: {
+                        correctionLabel(GravityCorrection.plan(measuredSG: og,
+                                                               volumeL: session.postBoilVolumeL ?? session.fermenterVolumeL ?? plan.postBoilVolumeL,
+                                                               targetSG: plan.og))
+                    }
+                }
             }
+
+            BrewSessionYeastSection(session: $session, recipe: recipe)
 
             fermentationSection(plan: plan)
 
@@ -113,6 +133,19 @@ struct BrewSessionView: View {
     }
 
     // MARK: - Sections
+
+    private func correctionLabel(_ result: GravityCorrection.Result) -> some View {
+        let text: String
+        if result.isOnTarget {
+            text = "On track for the planned OG"
+        } else if result.isHigh {
+            text = String(format: "Heading %.0f pts high: correct it", result.differencePoints)
+        } else {
+            text = String(format: "Heading %.0f pts low: correct it", -result.differencePoints)
+        }
+        return Label(text, systemImage: result.isOnTarget ? "checkmark.circle" : "arrow.up.arrow.down")
+            .foregroundStyle(result.isOnTarget ? Color.green : Color.orange)
+    }
 
     @ViewBuilder
     private var inventorySection: some View {

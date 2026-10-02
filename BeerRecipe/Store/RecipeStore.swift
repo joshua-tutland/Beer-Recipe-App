@@ -15,6 +15,8 @@ final class RecipeStore {
     private(set) var myWater: WaterProfile?
     /// Ingredients on hand.
     private(set) var inventory: [InventoryItem] = []
+    /// Yeast slurry saved for repitching.
+    private(set) var yeastBank: [YeastHarvest] = []
     /// True while waiting for iCloud to hand over the synced folder at launch.
     private(set) var isLoading = false
 
@@ -29,6 +31,10 @@ final class RecipeStore {
 
     private var inventoryURL: URL {
         repository.supportDirectory.appendingPathComponent("inventory.json")
+    }
+
+    private var yeastBankURL: URL {
+        repository.supportDirectory.appendingPathComponent("yeast-bank.json")
     }
 
     private var customURL: URL {
@@ -90,6 +96,9 @@ final class RecipeStore {
         let loadedProfiles = repository.readFile(profilesURL)
             .flatMap { try? JSONDecoder().decode([EquipmentProfile].self, from: $0) } ?? []
         if loadedProfiles != equipmentProfiles { equipmentProfiles = loadedProfiles }
+        let loadedBank = repository.readFile(yeastBankURL)
+            .flatMap { try? JSONDecoder().decode([YeastHarvest].self, from: $0) } ?? []
+        if loadedBank != yeastBank { yeastBank = loadedBank }
     }
 
     /// Moves the store to another folder (e.g. the iCloud container).
@@ -105,6 +114,11 @@ final class RecipeStore {
             if destination.readFile(destinationInventory) == nil, !inventory.isEmpty,
                let data = try? JSONEncoder().encode(inventory) {
                 try? destination.writeFile(data, to: destinationInventory)
+            }
+            let destinationBank = destination.supportDirectory.appendingPathComponent("yeast-bank.json")
+            if destination.readFile(destinationBank) == nil, !yeastBank.isEmpty,
+               let data = try? JSONEncoder().encode(yeastBank) {
+                try? destination.writeFile(data, to: destinationBank)
             }
             let destinationCustom = CustomIngredients.fileURL(in: destination.supportDirectory)
             if destination.readFile(destinationCustom) == nil, custom != CustomIngredients(),
@@ -259,6 +273,36 @@ final class RecipeStore {
     /// Starting-water choices: the brewer's own water first, then the bundled profiles.
     var sourceWaterProfiles: [WaterProfile] {
         (myWater.map { [$0] } ?? []) + WaterProfiles.sources
+    }
+
+    // MARK: Yeast bank
+
+    func saveHarvest(_ harvest: YeastHarvest) {
+        if let i = yeastBank.firstIndex(where: { $0.id == harvest.id }) {
+            yeastBank[i] = harvest
+        } else {
+            yeastBank.insert(harvest, at: 0)
+        }
+        saveYeastBank()
+    }
+
+    func deleteHarvests(ids: [UUID]) {
+        yeastBank.removeAll { ids.contains($0.id) }
+        saveYeastBank()
+    }
+
+    /// Takes slurry out of a jar after pitching it; empty jars are removed.
+    func useSlurry(_ ml: Double, from id: UUID) {
+        yeastBank = yeastBank.removingSlurry(ml, from: id)
+        saveYeastBank()
+    }
+
+    private func saveYeastBank() {
+        do {
+            try repository.writeFile(JSONEncoder().encode(yeastBank), to: yeastBankURL)
+        } catch {
+            print("Failed to save yeast bank: \(error)")
+        }
     }
 
     // MARK: Inventory

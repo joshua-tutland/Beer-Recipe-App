@@ -35,6 +35,12 @@ struct ToolsView: View {
                                   "Get the real gravity once alcohol is present, from original and current Brix.")
                     }
                     NavigationLink {
+                        GravityCorrectionView()
+                    } label: {
+                        toolLabel("Gravity Correction", "arrow.up.arrow.down",
+                                  "Off target before or after the boil? How much water, extract or extra boil time fixes it.")
+                    }
+                    NavigationLink {
                         TiltLiveView()
                     } label: {
                         toolLabel("Tilt Hydrometer", "antenna.radiowaves.left.and.right",
@@ -45,6 +51,12 @@ struct ToolsView: View {
                     } label: {
                         toolLabel("Yeast Starter", "flask",
                                   "Cells needed, yeast viability, and starter size (stir plate or not), up to 3 steps.")
+                    }
+                    NavigationLink {
+                        YeastBankView()
+                    } label: {
+                        toolLabel("Yeast Bank", "tray.full",
+                                  "Saved slurry for repitching: generation, age, viability and how much to pitch.")
                     }
                     NavigationLink {
                         KegCarbonationView()
@@ -85,7 +97,7 @@ struct ToolsView: View {
 
 // MARK: - Shared result styling
 
-private struct ResultRow: View {
+struct ResultRow: View {
     let label: String
     let value: String
     var emphasized = false

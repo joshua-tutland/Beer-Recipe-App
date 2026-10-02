@@ -94,6 +94,12 @@ public struct BrewSession: Codable, Hashable, Identifiable, Sendable {
     /// BJCP-style tasting score.
     public var scoresheet: TastingScoresheet?
 
+    /// The saved slurry this batch was pitched with, if any.
+    public var pitchedHarvestID: UUID?
+    /// Generation of the yeast pitched into this batch: nil for fresh yeast, otherwise the
+    /// generation of the slurry that was used.
+    public var yeastGeneration: Int?
+
     public init(id: UUID = UUID(), recipe: Recipe, brewDate: Date = Date(), name: String? = nil) {
         self.id = id
         self.brewDate = brewDate

@@ -126,6 +126,7 @@ struct RecipeEditorView: View {
             }
 
             generalSection
+            StyleSuggestionsSection(recipe: $recipe, units: units)
             batchSection
             fermentablesSection(stats: stats)
             hopsSection(stats: stats)

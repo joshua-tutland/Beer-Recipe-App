@@ -1,0 +1,154 @@
+[
+ {
+  "id": "irish-moss",
+  "name": "Irish Moss",
+  "type": "fining",
+  "defaultUse": "boil",
+  "defaultUnit": "g",
+  "notes": "Add 15 min before end of boil."
+ },
+ {
+  "id": "whirlfloc-tablet",
+  "name": "Whirlfloc Tablet",
+  "type": "fining",
+  "defaultUse": "boil",
+  "defaultUnit": "tablet",
+  "notes": "Add 5–15 min before end of boil."
+ },
+ {
+  "id": "gelatin",
+  "name": "Gelatin",
+  "type": "fining",
+  "defaultUse": "secondary",
+  "defaultUnit": "g"
+ },
+ {
+  "id": "yeast-nutrient",
+  "name": "Yeast Nutrient",
+  "type": "other",
+  "defaultUse": "boil",
+  "defaultUnit": "g"
+ },
+ {
+  "id": "gypsum-caso4",
+  "name": "Gypsum (CaSO4)",
+  "type": "waterAgent",
+  "defaultUse": "mash",
+  "defaultUnit": "g",
+  "notes": "Accentuates hop bitterness."
+ },
+ {
+  "id": "calcium-chloride-cacl2",
+  "name": "Calcium Chloride (CaCl2)",
+  "type": "waterAgent",
+  "defaultUse": "mash",
+  "defaultUnit": "g",
+  "notes": "Enhances malt fullness."
+ },
+ {
+  "id": "epsom-salt-mgso4",
+  "name": "Epsom Salt (MgSO4)",
+  "type": "waterAgent",
+  "defaultUse": "mash",
+  "defaultUnit": "g"
+ },
+ {
+  "id": "baking-soda-nahco3",
+  "name": "Baking Soda (NaHCO3)",
+  "type": "waterAgent",
+  "defaultUse": "mash",
+  "defaultUnit": "g",
+  "notes": "Raises mash pH for dark beers."
+ },
+ {
+  "id": "lactic-acid-88",
+  "name": "Lactic Acid (88%)",
+  "type": "waterAgent",
+  "defaultUse": "mash",
+  "defaultUnit": "ml",
+  "notes": "Lowers mash pH."
+ },
+ {
+  "id": "campden-tablet",
+  "name": "Campden Tablet",
+  "type": "waterAgent",
+  "defaultUse": "mash",
+  "defaultUnit": "tablet",
+  "notes": "Removes chlorine/chloramine."
+ },
+ {
+  "id": "coriander-seed",
+  "name": "Coriander Seed",
+  "type": "spice",
+  "defaultUse": "boil",
+  "defaultUnit": "g",
+  "notes": "Crushed, last 5 min (witbier)."
+ },
+ {
+  "id": "bitter-orange-peel",
+  "name": "Bitter Orange Peel",
+  "type": "spice",
+  "defaultUse": "boil",
+  "defaultUnit": "g",
+  "notes": "Last 5–10 min (witbier)."
+ },
+ {
+  "id": "sweet-orange-zest",
+  "name": "Sweet Orange Zest",
+  "type": "spice",
+  "defaultUse": "boil",
+  "defaultUnit": "g"
+ },
+ {
+  "id": "cinnamon-stick",
+  "name": "Cinnamon Stick",
+  "type": "spice",
+  "defaultUse": "boil",
+  "defaultUnit": "each"
+ },
+ {
+  "id": "vanilla-bean",
+  "name": "Vanilla Bean",
+  "type": "flavor",
+  "defaultUse": "secondary",
+  "defaultUnit": "each",
+  "notes": "Split and soak in vodka first."
+ },
+ {
+  "id": "cacao-nibs",
+  "name": "Cacao Nibs",
+  "type": "flavor",
+  "defaultUse": "secondary",
+  "defaultUnit": "g"
+ },
+ {
+  "id": "coffee-beans",
+  "name": "Coffee Beans",
+  "type": "flavor",
+  "defaultUse": "secondary",
+  "defaultUnit": "g",
+  "notes": "Cold steep or dry bean."
+ },
+ {
+  "id": "oak-chips",
+  "name": "Oak Chips",
+  "type": "flavor",
+  "defaultUse": "secondary",
+  "defaultUnit": "g"
+ },
+ {
+  "id": "salt-nacl",
+  "name": "Salt (NaCl)",
+  "type": "waterAgent",
+  "defaultUse": "boil",
+  "defaultUnit": "g",
+  "notes": "For gose."
+ },
+ {
+  "id": "ginger-root",
+  "name": "Ginger Root",
+  "type": "spice",
+  "defaultUse": "boil",
+  "defaultUnit": "g"
+ }
+]

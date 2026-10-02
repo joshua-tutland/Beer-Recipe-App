@@ -1,0 +1,1042 @@
+[
+ {
+  "id": "pale-malt-2-row",
+  "name": "Pale Malt (2-Row)",
+  "type": "grain",
+  "colorLovibond": 1.8,
+  "potentialPPG": 37,
+  "origin": "US",
+  "maxPercent": 100,
+  "notes": "Base malt for most American styles."
+ },
+ {
+  "id": "pilsner-malt",
+  "name": "Pilsner Malt",
+  "type": "grain",
+  "colorLovibond": 1.7,
+  "potentialPPG": 37,
+  "origin": "DE",
+  "maxPercent": 100,
+  "notes": "Very pale continental base malt; boil 90 min to limit DMS."
+ },
+ {
+  "id": "maris-otter",
+  "name": "Maris Otter",
+  "type": "grain",
+  "colorLovibond": 3.0,
+  "potentialPPG": 38,
+  "origin": "UK",
+  "maxPercent": 100,
+  "notes": "Rich, biscuity English base malt."
+ },
+ {
+  "id": "pale-ale-malt",
+  "name": "Pale Ale Malt",
+  "type": "grain",
+  "colorLovibond": 3.0,
+  "potentialPPG": 37,
+  "origin": "UK",
+  "maxPercent": 100,
+  "notes": "Slightly darker, maltier base than 2-row."
+ },
+ {
+  "id": "golden-promise",
+  "name": "Golden Promise",
+  "type": "grain",
+  "colorLovibond": 2.5,
+  "potentialPPG": 37,
+  "origin": "UK",
+  "maxPercent": 100,
+  "notes": "Scottish base malt, clean and slightly sweet."
+ },
+ {
+  "id": "vienna-malt",
+  "name": "Vienna Malt",
+  "type": "grain",
+  "colorLovibond": 3.5,
+  "potentialPPG": 36,
+  "origin": "DE",
+  "maxPercent": 100,
+  "notes": "Toasty, malty base for Vienna lager and Märzen."
+ },
+ {
+  "id": "munich-malt-light",
+  "name": "Munich Malt (Light)",
+  "type": "grain",
+  "colorLovibond": 9.0,
+  "potentialPPG": 35,
+  "origin": "DE",
+  "maxPercent": 100,
+  "notes": "Rich malty aroma, can be a base malt."
+ },
+ {
+  "id": "munich-malt-dark",
+  "name": "Munich Malt (Dark)",
+  "type": "grain",
+  "colorLovibond": 20.0,
+  "potentialPPG": 34,
+  "origin": "DE",
+  "maxPercent": 80,
+  "notes": "Deeper bready/toasty malt character."
+ },
+ {
+  "id": "wheat-malt-pale",
+  "name": "Wheat Malt (Pale)",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 38,
+  "origin": "DE",
+  "maxPercent": 70,
+  "notes": "Adds body and head retention."
+ },
+ {
+  "id": "red-wheat-malt",
+  "name": "Red Wheat Malt",
+  "type": "grain",
+  "colorLovibond": 2.3,
+  "potentialPPG": 38,
+  "origin": "US",
+  "maxPercent": 70
+ },
+ {
+  "id": "rye-malt",
+  "name": "Rye Malt",
+  "type": "grain",
+  "colorLovibond": 3.5,
+  "potentialPPG": 29,
+  "origin": "DE",
+  "maxPercent": 50,
+  "notes": "Spicy, dry character; use rice hulls above 20%."
+ },
+ {
+  "id": "oat-malt",
+  "name": "Oat Malt",
+  "type": "grain",
+  "colorLovibond": 2.5,
+  "potentialPPG": 32,
+  "maxPercent": 30,
+  "notes": "Silky mouthfeel."
+ },
+ {
+  "id": "golden-naked-oats",
+  "name": "Golden Naked Oats",
+  "type": "grain",
+  "colorLovibond": 10.0,
+  "potentialPPG": 33,
+  "origin": "UK",
+  "maxPercent": 15,
+  "notes": "Nutty, lightly sweet crystal-style oat."
+ },
+ {
+  "id": "acidulated-malt",
+  "name": "Acidulated Malt",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 27,
+  "origin": "DE",
+  "maxPercent": 10,
+  "notes": "Lowers mash pH (~0.1 pH per 1%)."
+ },
+ {
+  "id": "smoked-malt-beechwood",
+  "name": "Smoked Malt (Beechwood)",
+  "type": "grain",
+  "colorLovibond": 2.5,
+  "potentialPPG": 37,
+  "origin": "DE",
+  "maxPercent": 100,
+  "notes": "For Rauchbier."
+ },
+ {
+  "id": "peated-malt",
+  "name": "Peated Malt",
+  "type": "grain",
+  "colorLovibond": 2.5,
+  "potentialPPG": 34,
+  "origin": "UK",
+  "maxPercent": 5,
+  "notes": "Intense phenolic smoke; use sparingly."
+ },
+ {
+  "id": "carapils-carafoam",
+  "name": "Carapils / Carafoam",
+  "type": "grain",
+  "colorLovibond": 1.5,
+  "potentialPPG": 33,
+  "maxPercent": 10,
+  "notes": "Body and foam without color."
+ },
+ {
+  "id": "crystal-10l",
+  "name": "Crystal 10L",
+  "type": "grain",
+  "colorLovibond": 10,
+  "potentialPPG": 35,
+  "origin": "US",
+  "maxPercent": 20,
+  "notes": "Light caramel sweetness."
+ },
+ {
+  "id": "crystal-20l",
+  "name": "Crystal 20L",
+  "type": "grain",
+  "colorLovibond": 20,
+  "potentialPPG": 35,
+  "origin": "US",
+  "maxPercent": 20
+ },
+ {
+  "id": "crystal-40l",
+  "name": "Crystal 40L",
+  "type": "grain",
+  "colorLovibond": 40,
+  "potentialPPG": 34,
+  "origin": "US",
+  "maxPercent": 20,
+  "notes": "Medium caramel, toffee."
+ },
+ {
+  "id": "crystal-60l",
+  "name": "Crystal 60L",
+  "type": "grain",
+  "colorLovibond": 60,
+  "potentialPPG": 34,
+  "origin": "US",
+  "maxPercent": 15,
+  "notes": "Classic caramel for pale ales and ambers."
+ },
+ {
+  "id": "crystal-80l",
+  "name": "Crystal 80L",
+  "type": "grain",
+  "colorLovibond": 80,
+  "potentialPPG": 34,
+  "origin": "US",
+  "maxPercent": 15
+ },
+ {
+  "id": "crystal-120l",
+  "name": "Crystal 120L",
+  "type": "grain",
+  "colorLovibond": 120,
+  "potentialPPG": 33,
+  "origin": "US",
+  "maxPercent": 10,
+  "notes": "Burnt sugar, raisin."
+ },
+ {
+  "id": "caramunich-ii",
+  "name": "Caramunich II",
+  "type": "grain",
+  "colorLovibond": 45,
+  "potentialPPG": 34,
+  "origin": "DE",
+  "maxPercent": 10
+ },
+ {
+  "id": "caravienne",
+  "name": "Caravienne",
+  "type": "grain",
+  "colorLovibond": 22,
+  "potentialPPG": 34,
+  "origin": "BE",
+  "maxPercent": 15
+ },
+ {
+  "id": "carared",
+  "name": "CaraRed",
+  "type": "grain",
+  "colorLovibond": 20,
+  "potentialPPG": 34,
+  "origin": "DE",
+  "maxPercent": 25,
+  "notes": "Red hue with light caramel."
+ },
+ {
+  "id": "special-b",
+  "name": "Special B",
+  "type": "grain",
+  "colorLovibond": 140,
+  "potentialPPG": 30,
+  "origin": "BE",
+  "maxPercent": 10,
+  "notes": "Dark fruit and raisin for Belgian dark ales."
+ },
+ {
+  "id": "biscuit-malt",
+  "name": "Biscuit Malt",
+  "type": "grain",
+  "colorLovibond": 23,
+  "potentialPPG": 35,
+  "origin": "BE",
+  "maxPercent": 10,
+  "notes": "Toasty, biscuit/cracker."
+ },
+ {
+  "id": "victory-malt",
+  "name": "Victory Malt",
+  "type": "grain",
+  "colorLovibond": 28,
+  "potentialPPG": 34,
+  "origin": "US",
+  "maxPercent": 15,
+  "notes": "Toasted bread crust."
+ },
+ {
+  "id": "aromatic-malt",
+  "name": "Aromatic Malt",
+  "type": "grain",
+  "colorLovibond": 20,
+  "potentialPPG": 36,
+  "origin": "BE",
+  "maxPercent": 10,
+  "notes": "Intense malt aroma."
+ },
+ {
+  "id": "melanoidin-malt",
+  "name": "Melanoidin Malt",
+  "type": "grain",
+  "colorLovibond": 28,
+  "potentialPPG": 37,
+  "origin": "DE",
+  "maxPercent": 15,
+  "notes": "Honey-like malt richness."
+ },
+ {
+  "id": "honey-malt",
+  "name": "Honey Malt",
+  "type": "grain",
+  "colorLovibond": 25,
+  "potentialPPG": 34,
+  "origin": "CA",
+  "maxPercent": 10,
+  "notes": "Sweet honey character."
+ },
+ {
+  "id": "brown-malt",
+  "name": "Brown Malt",
+  "type": "grain",
+  "colorLovibond": 65,
+  "potentialPPG": 32,
+  "origin": "UK",
+  "maxPercent": 10,
+  "notes": "Dry coffee/biscuit for porters."
+ },
+ {
+  "id": "pale-chocolate-malt",
+  "name": "Pale Chocolate Malt",
+  "type": "grain",
+  "colorLovibond": 200,
+  "potentialPPG": 32,
+  "origin": "UK",
+  "maxPercent": 10
+ },
+ {
+  "id": "chocolate-malt",
+  "name": "Chocolate Malt",
+  "type": "grain",
+  "colorLovibond": 350,
+  "potentialPPG": 28,
+  "origin": "UK",
+  "maxPercent": 10,
+  "notes": "Chocolate and coffee roast."
+ },
+ {
+  "id": "carafa-special-ii",
+  "name": "Carafa Special II",
+  "type": "grain",
+  "colorLovibond": 425,
+  "potentialPPG": 32,
+  "origin": "DE",
+  "maxPercent": 5,
+  "notes": "Dehusked: color with little astringency."
+ },
+ {
+  "id": "carafa-special-iii",
+  "name": "Carafa Special III",
+  "type": "grain",
+  "colorLovibond": 525,
+  "potentialPPG": 32,
+  "origin": "DE",
+  "maxPercent": 5,
+  "notes": "Dehusked: color with little astringency."
+ },
+ {
+  "id": "roasted-barley",
+  "name": "Roasted Barley",
+  "type": "grain",
+  "colorLovibond": 300,
+  "potentialPPG": 25,
+  "origin": "UK",
+  "maxPercent": 10,
+  "notes": "Dry, coffee roast for stouts."
+ },
+ {
+  "id": "black-patent-malt",
+  "name": "Black Patent Malt",
+  "type": "grain",
+  "colorLovibond": 500,
+  "potentialPPG": 25,
+  "origin": "UK",
+  "maxPercent": 5,
+  "notes": "Sharp, acrid roast."
+ },
+ {
+  "id": "flaked-oats",
+  "name": "Flaked Oats",
+  "type": "adjunct",
+  "colorLovibond": 1.0,
+  "potentialPPG": 33,
+  "maxPercent": 30,
+  "notes": "Body and silky mouthfeel (NEIPA, oatmeal stout)."
+ },
+ {
+  "id": "flaked-barley",
+  "name": "Flaked Barley",
+  "type": "adjunct",
+  "colorLovibond": 1.5,
+  "potentialPPG": 32,
+  "maxPercent": 20,
+  "notes": "Head retention; classic in Irish stout."
+ },
+ {
+  "id": "flaked-wheat",
+  "name": "Flaked Wheat",
+  "type": "adjunct",
+  "colorLovibond": 2.0,
+  "potentialPPG": 36,
+  "maxPercent": 40
+ },
+ {
+  "id": "flaked-corn-maize",
+  "name": "Flaked Corn (Maize)",
+  "type": "adjunct",
+  "colorLovibond": 1.0,
+  "potentialPPG": 39,
+  "maxPercent": 30,
+  "notes": "Lightens body and flavor."
+ },
+ {
+  "id": "flaked-rice",
+  "name": "Flaked Rice",
+  "type": "adjunct",
+  "colorLovibond": 1.0,
+  "potentialPPG": 38,
+  "maxPercent": 30,
+  "notes": "Very light, crisp."
+ },
+ {
+  "id": "flaked-rye",
+  "name": "Flaked Rye",
+  "type": "adjunct",
+  "colorLovibond": 2.0,
+  "potentialPPG": 36,
+  "maxPercent": 20
+ },
+ {
+  "id": "rice-hulls",
+  "name": "Rice Hulls",
+  "type": "adjunct",
+  "colorLovibond": 0,
+  "potentialPPG": 0,
+  "maxPercent": 5,
+  "notes": "Filter aid; no fermentables."
+ },
+ {
+  "id": "light-liquid-malt-extract",
+  "name": "Light Liquid Malt Extract",
+  "type": "extract",
+  "colorLovibond": 4,
+  "potentialPPG": 36,
+  "maxPercent": 100
+ },
+ {
+  "id": "pilsen-liquid-malt-extract",
+  "name": "Pilsen Liquid Malt Extract",
+  "type": "extract",
+  "colorLovibond": 2.3,
+  "potentialPPG": 36,
+  "maxPercent": 100
+ },
+ {
+  "id": "amber-liquid-malt-extract",
+  "name": "Amber Liquid Malt Extract",
+  "type": "extract",
+  "colorLovibond": 10,
+  "potentialPPG": 36,
+  "maxPercent": 100
+ },
+ {
+  "id": "dark-liquid-malt-extract",
+  "name": "Dark Liquid Malt Extract",
+  "type": "extract",
+  "colorLovibond": 30,
+  "potentialPPG": 36,
+  "maxPercent": 100
+ },
+ {
+  "id": "wheat-liquid-malt-extract",
+  "name": "Wheat Liquid Malt Extract",
+  "type": "extract",
+  "colorLovibond": 3,
+  "potentialPPG": 36,
+  "maxPercent": 100
+ },
+ {
+  "id": "light-dry-malt-extract",
+  "name": "Light Dry Malt Extract",
+  "type": "dryExtract",
+  "colorLovibond": 4,
+  "potentialPPG": 44,
+  "maxPercent": 100
+ },
+ {
+  "id": "pilsen-dry-malt-extract",
+  "name": "Pilsen Dry Malt Extract",
+  "type": "dryExtract",
+  "colorLovibond": 2.3,
+  "potentialPPG": 44,
+  "maxPercent": 100
+ },
+ {
+  "id": "amber-dry-malt-extract",
+  "name": "Amber Dry Malt Extract",
+  "type": "dryExtract",
+  "colorLovibond": 12,
+  "potentialPPG": 44,
+  "maxPercent": 100
+ },
+ {
+  "id": "dark-dry-malt-extract",
+  "name": "Dark Dry Malt Extract",
+  "type": "dryExtract",
+  "colorLovibond": 30,
+  "potentialPPG": 44,
+  "maxPercent": 100
+ },
+ {
+  "id": "wheat-dry-malt-extract",
+  "name": "Wheat Dry Malt Extract",
+  "type": "dryExtract",
+  "colorLovibond": 3,
+  "potentialPPG": 44,
+  "maxPercent": 100
+ },
+ {
+  "id": "table-sugar-sucrose",
+  "name": "Table Sugar (Sucrose)",
+  "type": "sugar",
+  "colorLovibond": 0,
+  "potentialPPG": 46,
+  "maxPercent": 20,
+  "notes": "Dries out the beer.",
+  "fermentability": 100
+ },
+ {
+  "id": "corn-sugar-dextrose",
+  "name": "Corn Sugar (Dextrose)",
+  "type": "sugar",
+  "colorLovibond": 0,
+  "potentialPPG": 42,
+  "maxPercent": 20,
+  "notes": "Also used for bottle priming.",
+  "fermentability": 100
+ },
+ {
+  "id": "belgian-candi-sugar-clear",
+  "name": "Belgian Candi Sugar (Clear)",
+  "type": "sugar",
+  "colorLovibond": 1,
+  "potentialPPG": 38,
+  "origin": "BE",
+  "maxPercent": 20,
+  "fermentability": 100
+ },
+ {
+  "id": "belgian-candi-syrup-dark",
+  "name": "Belgian Candi Syrup (Dark)",
+  "type": "sugar",
+  "colorLovibond": 80,
+  "potentialPPG": 32,
+  "origin": "BE",
+  "maxPercent": 20,
+  "notes": "Dark fruit, caramel (dubbel/quad).",
+  "fermentability": 100
+ },
+ {
+  "id": "honey",
+  "name": "Honey",
+  "type": "sugar",
+  "colorLovibond": 2,
+  "potentialPPG": 35,
+  "maxPercent": 30,
+  "notes": "Add late or in fermenter to keep aroma.",
+  "fermentability": 100
+ },
+ {
+  "id": "maple-syrup",
+  "name": "Maple Syrup",
+  "type": "sugar",
+  "colorLovibond": 35,
+  "potentialPPG": 30,
+  "maxPercent": 20,
+  "fermentability": 100
+ },
+ {
+  "id": "molasses",
+  "name": "Molasses",
+  "type": "sugar",
+  "colorLovibond": 80,
+  "potentialPPG": 36,
+  "maxPercent": 5,
+  "fermentability": 90
+ },
+ {
+  "id": "brown-sugar-dark",
+  "name": "Brown Sugar (Dark)",
+  "type": "sugar",
+  "colorLovibond": 50,
+  "potentialPPG": 45,
+  "maxPercent": 10,
+  "fermentability": 100
+ },
+ {
+  "id": "lactose",
+  "name": "Lactose",
+  "type": "sugar",
+  "colorLovibond": 0,
+  "potentialPPG": 35,
+  "maxPercent": 15,
+  "notes": "Unfermentable: adds sweetness and body (milk stout).",
+  "fermentability": 0
+ },
+ {
+  "id": "maltodextrin",
+  "name": "Maltodextrin",
+  "type": "sugar",
+  "colorLovibond": 0,
+  "potentialPPG": 40,
+  "maxPercent": 10,
+  "notes": "Unfermentable: adds body.",
+  "fermentability": 0
+ },
+ {
+  "id": "amber-malt",
+  "name": "Amber Malt",
+  "type": "grain",
+  "colorLovibond": 22.0,
+  "potentialPPG": 35.0,
+  "maxPercent": 20,
+  "notes": "Roasted specialty malt used in some English browns, milds and old ales to add color and a biscuit taste. Intense flavor - so limit use. Low diastatic power so must be mashed with well modified malts.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "barley-hulls",
+  "name": "Barley Hulls",
+  "type": "adjunct",
+  "colorLovibond": 0.0,
+  "potentialPPG": 0.0,
+  "maxPercent": 5,
+  "notes": "Neutral hulls used to improve lautering.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "barley-raw",
+  "name": "Barley, Raw",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 28.0,
+  "maxPercent": 15,
+  "notes": "Raw, unmalted barley can be used to add body to your beer. Use in homebrew requires very fine milling combined with a decoction or multi-stage mash. Performs best when used in small quantities with well modified grains.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "barley-torrefied",
+  "name": "Barley, Torrefied",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 36.0,
+  "maxPercent": 40,
+  "notes": "Raw barley that has been popped to open the kernels. Used in place of raw barley for faster conversion and higher yields. High in haze producing protein.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "beet-sugar",
+  "name": "Beet Sugar",
+  "type": "sugar",
+  "colorLovibond": 0.0,
+  "potentialPPG": 46.0,
+  "fermentability": 100,
+  "maxPercent": 7,
+  "notes": "Common, household sugar used to lighten the flavor and body.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "belgian-candi-syrup-180l",
+  "name": "Belgian Candi Syrup - 180L",
+  "type": "sugar",
+  "colorLovibond": 243.0,
+  "potentialPPG": 32.0,
+  "fermentability": 100,
+  "maxPercent": 20,
+  "notes": "Crystalized candi sugar for use in Tripels, Dubbels, and holiday ales.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "belgian-candi-syrup-45l",
+  "name": "Belgian Candi Syrup - 45L",
+  "type": "sugar",
+  "colorLovibond": 60.0,
+  "potentialPPG": 32.0,
+  "fermentability": 100,
+  "maxPercent": 20,
+  "notes": "Crystalized candi sugar for use in Tripels, Dubbels, and holiday ales.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "belgian-candi-syrup-90l",
+  "name": "Belgian Candi Syrup - 90L",
+  "type": "sugar",
+  "colorLovibond": 121.0,
+  "potentialPPG": 32.0,
+  "fermentability": 100,
+  "maxPercent": 20,
+  "notes": "Crystalized candi sugar for use in Tripels, Dubbels, and holiday ales.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "black-barley-stout",
+  "name": "Black Barley (Stout)",
+  "type": "grain",
+  "colorLovibond": 500.0,
+  "potentialPPG": 25.0,
+  "maxPercent": 10,
+  "notes": "Unmalted barley roasted at high temperature to create a dry, coffee like flavor. Imparts a sharp acrid flavor characteristic of dry stouts. Gives dryness to a stout or porter.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "brumalt",
+  "name": "Brumalt",
+  "type": "grain",
+  "colorLovibond": 23.0,
+  "potentialPPG": 33.0,
+  "maxPercent": 10,
+  "notes": "Dark German malt developed to add malt flavor of Alt, Marzen and Oktoberfest beers. Helps create authentic maltiness without having to do a decoction mash.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "caraamber",
+  "name": "Caraamber",
+  "type": "grain",
+  "colorLovibond": 30.0,
+  "potentialPPG": 35.0,
+  "maxPercent": 20,
+  "notes": "Adds body, color and improves head retention.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "caramel-crystal-malt-140l",
+  "name": "Caramel/Crystal Malt - 140L",
+  "type": "grain",
+  "colorLovibond": 140.0,
+  "potentialPPG": 33.0,
+  "maxPercent": 20,
+  "notes": "Adds body, color and improves head retention.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "caramel-crystal-malt-160l",
+  "name": "Caramel/Crystal Malt - 160L",
+  "type": "grain",
+  "colorLovibond": 160.0,
+  "potentialPPG": 33.0,
+  "maxPercent": 20,
+  "notes": "Adds body, color and improves head retention.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "caramel-crystal-malt-30l",
+  "name": "Caramel/Crystal Malt - 30L",
+  "type": "grain",
+  "colorLovibond": 30.0,
+  "potentialPPG": 35.0,
+  "maxPercent": 20,
+  "notes": "Adds body, color and improves head retention.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "caramel-crystal-malt-90l",
+  "name": "Caramel/Crystal Malt - 90L",
+  "type": "grain",
+  "colorLovibond": 90.0,
+  "potentialPPG": 34.0,
+  "maxPercent": 20,
+  "notes": "Adds body, color and improves head retention.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "caramunich-malt",
+  "name": "Caramunich Malt",
+  "type": "grain",
+  "colorLovibond": 56.0,
+  "potentialPPG": 33.0,
+  "maxPercent": 10,
+  "notes": "Caramel, copper colored malt. Used in Belgian ales and German bocks.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "corn-flaked",
+  "name": "Corn (Flaked)",
+  "type": "grain",
+  "colorLovibond": 3.0,
+  "potentialPPG": 30.0,
+  "maxPercent": 100,
+  "notes": "Generally a neutral flavor, used to reduce maltiness of beer.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "corn-syrup",
+  "name": "Corn Syrup",
+  "type": "sugar",
+  "colorLovibond": 0.0,
+  "potentialPPG": 36.0,
+  "fermentability": 100,
+  "maxPercent": 10,
+  "notes": "Syrup derived from corn sugar.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "dark-wheat-malt",
+  "name": "Dark Wheat Malt",
+  "type": "grain",
+  "colorLovibond": 9.0,
+  "potentialPPG": 39.0,
+  "maxPercent": 20,
+  "notes": "Dark malted wheat base for use in dark wheat styles such as Dunkleweizen.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "demerara-sugar",
+  "name": "Demerara Sugar",
+  "type": "sugar",
+  "colorLovibond": 2.0,
+  "potentialPPG": 46.0,
+  "fermentability": 100,
+  "maxPercent": 10,
+  "notes": "A dark, unrefined sugar that contains molasses.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "grits",
+  "name": "Grits",
+  "type": "adjunct",
+  "colorLovibond": 1.0,
+  "potentialPPG": 37.0,
+  "maxPercent": 10,
+  "notes": "Imparts a corn and grain taste.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "invert-sugar",
+  "name": "Invert Sugar",
+  "type": "sugar",
+  "colorLovibond": 0.0,
+  "potentialPPG": 46.0,
+  "fermentability": 100,
+  "maxPercent": 10,
+  "notes": "A sugar used to increase starting gravity.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "light-brown-sugar",
+  "name": "Light Brown Sugar",
+  "type": "sugar",
+  "colorLovibond": 8.0,
+  "potentialPPG": 46.0,
+  "fermentability": 100,
+  "maxPercent": 10,
+  "notes": "Imparts a sweet, rich flavor.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "mild-malt",
+  "name": "Mild Malt",
+  "type": "grain",
+  "colorLovibond": 4.0,
+  "potentialPPG": 37.0,
+  "maxPercent": 100,
+  "notes": "Also called 'English Mild' - a light specialty malt used in Brown Ales.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "oats-malted",
+  "name": "Oats, Malted",
+  "type": "grain",
+  "colorLovibond": 1.0,
+  "potentialPPG": 37.0,
+  "maxPercent": 10,
+  "notes": "Malted oats. Adds body, mouth feel and head retention to the beer. Creates chill haze in lighter beers, so is primarily used in dark ones.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "pale-liquid-extract",
+  "name": "Pale Liquid Extract",
+  "type": "extract",
+  "colorLovibond": 8.0,
+  "potentialPPG": 36.0,
+  "maxPercent": 100,
+  "notes": "For general-purpose use in light and pale beers.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "pale-malt-2-row-belgium",
+  "name": "Pale Malt (2 Row) - Belgium",
+  "type": "grain",
+  "colorLovibond": 3.0,
+  "potentialPPG": 37.0,
+  "maxPercent": 100,
+  "notes": "Base malt for all beer styles.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "pale-malt-6-row-usa",
+  "name": "Pale Malt (6 Row) - USA",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 35.0,
+  "maxPercent": 100,
+  "notes": "Base malt for all beer styles.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "pilsner-2-row-belgium",
+  "name": "Pilsner (2 Row) - Belgium",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 36.0,
+  "maxPercent": 100,
+  "notes": "Belgian base malt for Continental lagers.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "pilsner-2-row-uk",
+  "name": "Pilsner (2 Row) - UK",
+  "type": "grain",
+  "colorLovibond": 1.0,
+  "potentialPPG": 36.0,
+  "maxPercent": 100,
+  "notes": "Pilsner base malt.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "pilsner-liquid-extract",
+  "name": "Pilsner Liquid Extract",
+  "type": "extract",
+  "colorLovibond": 4.0,
+  "potentialPPG": 36.0,
+  "maxPercent": 100,
+  "notes": "For general-purpose use in pale beers.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "rice-extract-syrup",
+  "name": "Rice Extract Syrup",
+  "type": "extract",
+  "colorLovibond": 7.0,
+  "potentialPPG": 32.0,
+  "maxPercent": 15,
+  "notes": "Used like other rice adjuncts in American and Japanese lagers.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "rye-liquid-extract",
+  "name": "Rye Liquid Extract",
+  "type": "extract",
+  "colorLovibond": 7.0,
+  "potentialPPG": 34.0,
+  "maxPercent": 100,
+  "notes": "Mixed rye/barley extract for general-purpose brewing.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "sorghum-syrup",
+  "name": "Sorghum Syrup",
+  "type": "extract",
+  "colorLovibond": 7.0,
+  "potentialPPG": 36.0,
+  "maxPercent": 100,
+  "notes": "A gluten-free extract based on sorghum grain. Can be used as a substitute for Light Malt Extract.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "special-roast",
+  "name": "Special Roast",
+  "type": "grain",
+  "colorLovibond": 50.0,
+  "potentialPPG": 33.0,
+  "maxPercent": 10,
+  "notes": "Use for English ales, nut brown ales and porters. Adds a toasted, biscuit like flavor and aroma.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "toasted-malt",
+  "name": "Toasted Malt",
+  "type": "grain",
+  "colorLovibond": 27.0,
+  "potentialPPG": 33.0,
+  "maxPercent": 10,
+  "notes": "Similar to Biscuit or Victory malt, this malt adds reddish/orange color and improved body without sweetness along with a toasted flavor.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "turbinado",
+  "name": "Turbinado",
+  "type": "sugar",
+  "colorLovibond": 10.0,
+  "potentialPPG": 44.0,
+  "fermentability": 100,
+  "maxPercent": 10,
+  "notes": "A light, raw brown sugar used to increase starting gravity.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "wheat-malt-belgium",
+  "name": "Wheat Malt - Belgium",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 37.0,
+  "maxPercent": 60,
+  "notes": "Malted wheat for use in Wheat beers.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "wheat-roasted",
+  "name": "Wheat, Roasted",
+  "type": "grain",
+  "colorLovibond": 425.0,
+  "potentialPPG": 25.0,
+  "maxPercent": 10,
+  "notes": "Also called Chocolate Wheat Malt. Adds a deep, dark brown color to dunkelweizens and other dark beer styles.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "wheat-torrified",
+  "name": "Wheat, Torrified",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 36.0,
+  "maxPercent": 40,
+  "notes": "Unmodified wheat that has been popped to open the kernels. Protein rest recommended when mashing.",
+  "source": "common-beer-data"
+ },
+ {
+  "id": "white-wheat-malt",
+  "name": "White Wheat Malt",
+  "type": "grain",
+  "colorLovibond": 2.0,
+  "potentialPPG": 40.0,
+  "maxPercent": 60,
+  "notes": "White wheat gives a malty flavor not available from raw wheat.",
+  "source": "common-beer-data"
+ }
+]

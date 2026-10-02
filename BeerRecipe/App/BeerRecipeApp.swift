@@ -25,7 +25,10 @@ struct BeerRecipeApp: App {
                 .task { cloud.start(store: store) }
         }
         .onChange(of: scenePhase) { _, phase in
-            if phase != .active { store.flushPendingSaves() }
+            if phase != .active {
+                store.flushPendingSaves()
+                store.updateWidgetSnapshot()
+            }
         }
     }
 }

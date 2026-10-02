@@ -3,6 +3,8 @@
 <!-- Merged with the generated Info.plist for the BrewTimerWidget extension. -->
 <plist version="1.0">
 <dict>
+	<key>BrewAppGroupIdentifier</key>
+	<string>$(APP_GROUP_ID)</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionPointIdentifier</key>

@@ -2,6 +2,7 @@ import Foundation
 import Observation
 import SwiftUI
 import BrewCore
+import WidgetKit
 
 /// Owns the brewer's recipes and custom ingredients and keeps them saved on device.
 @Observable
@@ -24,6 +25,8 @@ final class RecipeStore {
     @ObservationIgnored private var pendingSaves: [UUID: Task<Void, Never>] = [:]
     @ObservationIgnored private let defaults = UserDefaults.standard
     @ObservationIgnored private var externalChangeObserver: NSObjectProtocol?
+    /// The last snapshot handed to the widgets, to avoid reloading them when nothing changed.
+    @ObservationIgnored private var lastWidgetSnapshot: BrewingSnapshot?
 
     private var profilesURL: URL {
         repository.supportDirectory.appendingPathComponent("equipment-profiles.json")
@@ -99,6 +102,7 @@ final class RecipeStore {
         let loadedBank = repository.readFile(yeastBankURL)
             .flatMap { try? JSONDecoder().decode([YeastHarvest].self, from: $0) } ?? []
         if loadedBank != yeastBank { yeastBank = loadedBank }
+        updateWidgetSnapshot()
     }
 
     /// Moves the store to another folder (e.g. the iCloud container).
@@ -183,6 +187,7 @@ final class RecipeStore {
             try? repository.delete(id: id)
         }
         recipes.removeAll { ids.contains($0.id) }
+        updateWidgetSnapshot()
     }
 
     func restoreSamples() {
@@ -206,6 +211,27 @@ final class RecipeStore {
             try repository.save(recipe)
         } catch {
             print("Failed to save recipe \(recipe.name): \(error)")
+        }
+        updateWidgetSnapshot()
+    }
+
+    // MARK: Widgets
+
+    /// Writes what's fermenting to the App Group folder for the Home Screen and Lock Screen
+    /// widgets, and asks WidgetKit to refresh them if anything changed. Does nothing when the app
+    /// was signed without the App Groups capability.
+    func updateWidgetSnapshot() {
+        guard let group = AppGroup.identifier, let url = BrewingSnapshot.sharedFileURL(appGroup: group) else { return }
+        let units = defaults.string(forKey: "unitSystem").flatMap(UnitSystem.init(rawValue:)) ?? .imperial
+        let snapshot = BrewingSnapshot.make(recipes: recipes, units: units)
+        let previous = lastWidgetSnapshot ?? BrewingSnapshot.read(from: url)
+        lastWidgetSnapshot = snapshot
+        if let previous, previous.hasSameContent(as: snapshot) { return }
+        do {
+            try snapshot.write(to: url)
+            WidgetCenter.shared.reloadTimelines(ofKind: AppGroup.fermentationWidgetKind)
+        } catch {
+            print("Failed to update widgets: \(error)")
         }
     }
 

@@ -31,7 +31,13 @@ jobs:
       - name: Validate exported BeerJSON against the official schema
         run: |
           "$RUNNER_TEMP/venv/bin/pip" install --quiet jsonschema
-          git clone --quiet --depth 1 https://github.com/beerjson/beerjson "$RUNNER_TEMP/beerjson"
+          # Pinned: the exporter writes BeerJSON 1.0, and the schema's main branch has since moved
+          # to newer format versions (it now rejects "version": 1.0). This is the 1.0 schema the
+          # export was validated against.
+          BEERJSON_SCHEMA_COMMIT=72cc5e41e847bce685c9d2bbcff5f92e66811892
+          git init --quiet "$RUNNER_TEMP/beerjson"
+          git -C "$RUNNER_TEMP/beerjson" fetch --quiet --depth 1 https://github.com/beerjson/beerjson "$BEERJSON_SCHEMA_COMMIT"
+          git -C "$RUNNER_TEMP/beerjson" checkout --quiet FETCH_HEAD
           "$RUNNER_TEMP/venv/bin/python" tools/validate_beerjson.py "$RUNNER_TEMP/beerjson" "$RUNNER_TEMP/exports/sample.beerjson.json"
       - uses: actions/upload-artifact@v4
         with:

@@ -98,7 +98,8 @@ public struct BrewingSnapshot: Codable, Hashable, Sendable {
 
     /// Builds the snapshot from the recipe library.
     ///
-    /// A batch counts as fermenting once its OG is logged and until it's packaged. Milestones come
+    /// A batch counts as fermenting once its OG is logged and until it's packaged (a packaging date
+    /// is logged, or the checklist's Package step is ticked). Milestones come
     /// from the recipe's fermentation schedule: dry hops on the days the brew-day checklist lists,
     /// the final gravity check at the end of primary, and packaging after any secondary. Steps
     /// ticked off in the checklist are left out.
@@ -112,7 +113,7 @@ public struct BrewingSnapshot: Codable, Hashable, Sendable {
             let stats = recipe.stats
             for session in recipe.sessions {
                 if calendar.component(.year, from: session.brewDate) == year { brewsThisYear += 1 }
-                guard let og = session.og, session.packagedDate == nil else { continue }
+                guard let og = session.og, session.packagedDate == nil, !session.isStepDone("package") else { continue }
                 let age = calendar.dateComponents([.day], from: session.brewDate, to: now).day ?? 0
                 guard age <= staleAfterDays else { continue }
 

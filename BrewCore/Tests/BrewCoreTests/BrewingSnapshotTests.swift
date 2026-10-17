@@ -83,7 +83,10 @@ final class BrewingSnapshotTests: XCTestCase {
         let planned = BrewSession(recipe: recipe, brewDate: brewDay)  // no OG yet
         var forgotten = BrewSession(recipe: recipe, brewDate: days(-200))
         forgotten.og = 1.050
-        recipe.sessions = [packaged, planned, forgotten]
+        var tickedPackage = BrewSession(recipe: recipe, brewDate: brewDay)  // Package ticked, no date logged
+        tickedPackage.og = 1.050
+        tickedPackage.setStep("package", done: true)
+        recipe.sessions = [packaged, planned, forgotten, tickedPackage]
         let snapshot = BrewingSnapshot.make(recipes: [recipe], units: .metric, now: days(21), calendar: calendar)
         XCTAssertTrue(snapshot.batches.isEmpty)
     }

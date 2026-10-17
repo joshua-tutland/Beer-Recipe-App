@@ -29,7 +29,14 @@ struct ContentView: View {
             }
         }
         // Recipes shared from Files, Mail, Messages or AirDrop ("Open in Brew Recipes").
-        .onOpenURL { url in openSharedFile(url) }
+        .onOpenURL { url in
+            // brewrecipes://recipe/<id> from a widget; anything else is a shared recipe file.
+            if let id = AppGroup.recipeID(from: url) {
+                selection = id
+            } else {
+                openSharedFile(url)
+            }
+        }
         // "Open Recipe" from Siri or Shortcuts.
         .onChange(of: AppRouter.shared.recipeToOpen) { _, id in
             guard let id else { return }

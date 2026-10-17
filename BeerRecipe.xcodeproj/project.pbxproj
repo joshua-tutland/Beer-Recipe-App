@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B0000000000000000000A001 /* BrewCore in Frameworks */ = {isa = PBXBuildFile; productRef = B0000000000000000000C002 /* BrewCore */; };
+		B0000000000000000000A003 /* BrewCore in Frameworks */ = {isa = PBXBuildFile; productRef = B0000000000000000000C003 /* BrewCore */; };
 		B0000000000000000000A002 /* BrewTimerWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B0000000000000000000F003 /* BrewTimerWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0000000000000000000A003 /* BrewCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +146,9 @@
 				B0000000000000000000E003 /* Shared */,
 			);
 			name = BrewTimerWidget;
+			packageProductDependencies = (
+				B0000000000000000000C003 /* BrewCore */,
+			);
 			productName = BrewTimerWidget;
 			productReference = B0000000000000000000F003 /* BrewTimerWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -236,6 +241,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APP_GROUP_ID = group.com.example.BrewRecipes;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -267,6 +273,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APP_GROUP_ID = group.com.example.BrewRecipes;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -296,6 +303,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				CODE_SIGN_ENTITLEMENTS = BeerRecipe.entitlements;
 				INFOPLIST_FILE = "BeerRecipe-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Brew Recipes";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
@@ -334,6 +342,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				CODE_SIGN_ENTITLEMENTS = BeerRecipe.entitlements;
 				INFOPLIST_FILE = "BeerRecipe-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Brew Recipes";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
@@ -369,6 +378,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				CODE_SIGN_ENTITLEMENTS = BrewTimerWidget.entitlements;
 				INFOPLIST_FILE = "BrewTimerWidget-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Brew Timer";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -395,6 +405,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				CODE_SIGN_ENTITLEMENTS = BrewTimerWidget.entitlements;
 				INFOPLIST_FILE = "BrewTimerWidget-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Brew Timer";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -456,6 +467,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		B0000000000000000000C002 /* BrewCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0000000000000000000C001 /* XCLocalSwiftPackageReference "BrewCore" */;
+			productName = BrewCore;
+		};
+		B0000000000000000000C003 /* BrewCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B0000000000000000000C001 /* XCLocalSwiftPackageReference "BrewCore" */;
 			productName = BrewCore;

@@ -5,6 +5,7 @@ import WidgetKit
 @main
 struct BrewTimerWidgets: WidgetBundle {
     var body: some Widget {
+        FermentationWidget()
         BrewTimerLiveActivity()
     }
 }

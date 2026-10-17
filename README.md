@@ -116,6 +116,13 @@ A SwiftUI app for iPhone and iPad to design beer recipes, see live brewing numbe
 - **Compare brews** side by side (OG, FG, ABV, attenuation, efficiency, volumes, mash pH, score),
   measured against the plan. Each brew also has a BJCP-style 50-point **scoresheet** (aroma,
   appearance, flavor, mouthfeel, overall).
+- **Home Screen & Lock Screen widgets** ("Fermenting"). Small, medium and large Home Screen widgets
+  show each batch that's fermenting (OG logged, not yet packaged): days since brew day, latest
+  gravity, ABV so far, progress toward the predicted FG, and what's due next (dry hops, final
+  gravity check, packaging) with "Today", "Tomorrow" or "Overdue". Lock Screen versions come in
+  rectangular, circular (a progress gauge with the day number) and inline styles. Tapping a batch
+  opens its recipe. The app writes a small snapshot to a shared App Group folder whenever recipes
+  or brew logs are saved, and the widgets update at midnight so day counts stay current.
 - **Lock Screen & Dynamic Island timers** (Live Activities). Starting a mash, boil or hop-stand timer
   puts a live countdown on the Lock Screen and in the Dynamic Island, with the next hop additions and
   their clock times. iOS draws the countdown itself, so it keeps running while the app is closed.
@@ -182,7 +189,11 @@ BrewCore/                 Swift package with no UI dependencies (unit-tested)
 2. Select the *BeerRecipe* target, then under **Signing & Capabilities** choose your team and
    change the bundle identifier (`com.example.BrewRecipes`) to one you own. Do the same for the
    *BrewTimerWidget* target, keeping it as your app's ID plus `.BrewTimerWidget`.
-3. Pick an iPhone or iPad simulator (or a device) and press **Run**.
+3. Change the `APP_GROUP_ID` build setting (on the project, so both targets use it) from
+   `group.com.example.BrewRecipes` to `group.` plus your app's ID. The app and the widget
+   extension share a snapshot of what's fermenting through this App Group, and App Group IDs
+   are unique per team. Free Apple accounts can use App Groups.
+4. Pick an iPhone or iPad simulator (or a device) and press **Run**.
 
 Run the calculation and export tests with:
 
